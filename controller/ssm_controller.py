@@ -35,6 +35,13 @@ class SsmExperimentConfig:
     solver_type: str = "ipopt"
     qp_backend: str = "qpoases"
     use_fast_single_step: bool = True
+    nmpc_solver: object = nmpc_multi_shooting_zoh
+    pos_end: np.ndarray | None = None
+    pos_obstacle: np.ndarray | None = None
+    d_safe: float | None = None
+    avoid_beta: float = 1e5
+    avoid_weight: float = 0.5
+    motor_safety_limit: float = 100.0
 
 
 @dataclass
@@ -103,6 +110,11 @@ class SsmMpcController:
             solver_type=config.solver_type,
             qp_backend=config.qp_backend,
             use_fast_single_step=config.use_fast_single_step,
+            pos_end=config.pos_end,
+            pos_obstacle=config.pos_obstacle,
+            d_safe=config.d_safe,
+            avoid_beta=config.avoid_beta,
+            avoid_weight=config.avoid_weight,
         )
 
     @property
@@ -195,7 +207,7 @@ class SsmMpcController:
         hp = hz @ wp_cables
         btilde = -hp @ pk + d0 - cont.dist0
 
-        pt_opt, s0_opt, ut_opt, _ = nmpc_multi_shooting_zoh(
+        pt_opt, s0_opt, ut_opt, _ = cont.nmpc_solver(
             pk,
             p_guess,
             s0_guess,
@@ -216,7 +228,7 @@ class SsmMpcController:
         next_pk = pt_opt[:, 0]
         next_u = ut_opt[:, 0]
         self.posi = next_u * 1000.0
-        if np.any(np.abs(self.posi * self.factor) > 100):
+        if np.any(np.abs(self.posi * self.factor) > cont.motor_safety_limit):
             self.posi = np.zeros_like(self.posi)
 
         self.yk_ssm = zk_outdof[:6, 0] * 1000.0

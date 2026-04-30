@@ -7,7 +7,7 @@ import scipy.io as sciIO
 
 PLOT_DIR = Path(__file__).resolve().parent
 BASE_DIR = PLOT_DIR.parent
-SSM_ROM_DIR = BASE_DIR / "dynamics" / "SSM" / "ROM8_Expe"
+EIGHT_TRAJ_DIR = BASE_DIR / "dynamics" / "trajinfom" / "eight"
 
 
 def load_ssm_results(plot_dir: str | Path = PLOT_DIR):
@@ -16,7 +16,7 @@ def load_ssm_results(plot_dir: str | Path = PLOT_DIR):
         "t": np.load(plot_dir / "t_ssm.npy"),
         "y_exprm": np.load(plot_dir / "y_exprm_ssm.npy"),
         "ut_save": np.load(plot_dir / "ut_save_ssm.npy"),
-        "zd": sciIO.loadmat(str(SSM_ROM_DIR / "zd_proj.mat"))["zd_proj"],
+        "zd": sciIO.loadmat(str(EIGHT_TRAJ_DIR / "zd_proj.mat"))["zd_proj"],
     }
 
 

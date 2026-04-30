@@ -1,0 +1,252 @@
+function traj = NMPC_for_TrajectoryTracking(DS,z0,proj,autData,Wmap,masterModes,linModes,cont,t0,tf,u0,x0_guess,Node_list)
+% NMPC_for_TrajectoryTracking
+constr_num     = cont.constr_num;
+nonlinearmodes = length(masterModes);
+linearmodes    = length(linModes);
+n_state        = nonlinearmodes + linearmodes;
+% outdof = DS.Options.outDOF;
+outdof = cont.outdof;
+zd      = cont.zd;
+Np      = cont.Np;
+% S       = cont.S;
+% tf  = cont.tf;        % total time
+dt  = cont.dt;        % step in each sub_interval
+NMPC_horizon_num  =  round((tf-t0)/(dt));
+state_num         =  NMPC_horizon_num;
+ep      = DS.epsilon;
+n       = size(DS.M,1);
+if isempty(DS.E)
+    Fext = @(t) zeros(2*n,1);
+else
+    Fext = @(t) [DS.E(t); zeros(n,1)];
+end
+% Initial condition
+V = DS.spectrum.V(:,masterModes);
+U = DS.spectrum.W(:,masterModes);
+Vhat = DS.spectrum.V(:,linModes);
+Uhat = DS.spectrum.W(:,linModes);
+alpha  = cont.alpha;
+
+p0   = alpha*get_initial_p0(DS,masterModes,z0,proj,autData,Wmap);
+X0   = z0 - reduced_to_full(p0,Wmap,[],ep);
+q0   = Uhat'*DS.B*X0;
+
+zt_linear0     = ep*real(Vhat*q0);               zt_linear0 = zt_linear0(outdof);
+zt_nonlinear0  = reduced_to_full(p0,Wmap,[],ep); zt_nonlinear0 = zt_nonlinear0(outdof);
+try  
+    load('T_trans_nonl.mat','T_trans_nonl')
+    load('T_trans_nonl_inv.mat','T_trans_nonl_inv')
+    load('G_ext.mat', 'G_ext')
+
+    load('T_trans_lin.mat','T_trans_lin')
+    load('T_trans_lin_inv.mat','T_trans_lin_inv')
+    load('Lamhat_ext.mat', 'Lamhat_ext')
+    load('H_ext.mat', 'H_ext')
+    load('Vhat_trans.mat', 'Vhat_trans')
+catch
+
+% Nonlinear part
+    % SSM Reduced system
+    G          = ep*alpha*U'*DS.A*Vhat;
+
+    T_trans_unit     = 0.5*[1 , 1;...
+                       -1i,1i];
+    T_trans_unit_inv = [1 , 1i;...
+                        1 , -1i];
+    T_trans_nonl = [];      % extract real and imag part
+    T_trans_nonl_inv = [];  % assemble real and imag part
+    for i = 1:round(nonlinearmodes/2)
+        T_trans_nonl     = blkdiag(T_trans_nonl, T_trans_unit);
+        T_trans_nonl_inv = blkdiag(T_trans_nonl_inv, T_trans_unit_inv);
+    end
+
+    % extend complex space to real space - Opti-Variable
+
+    save("T_trans_nonl.mat","T_trans_nonl")
+    save("T_trans_nonl_inv.mat","T_trans_nonl_inv")
+
+% Linear Part
+    T_trans_lin = [];      % extract real and imag part
+    T_trans_lin_inv = [];  % assemble real and imag part
+    for j = 1:round(linearmodes/2)
+        T_trans_lin     = blkdiag(T_trans_lin, T_trans_unit);
+        T_trans_lin_inv = blkdiag(T_trans_lin_inv, T_trans_unit_inv);
+    end
+
+    H      = Uhat';
+    Lamhat = (1-alpha)*diag(DS.spectrum.Lambda(linModes));
+
+    Lamhat_ext = real(T_trans_lin * Lamhat * T_trans_lin_inv);
+    H_ext      = real(T_trans_lin * H);
+    Vhat_trans = Vhat * T_trans_lin_inv;
+
+    save("T_trans_lin.mat","T_trans_lin")
+    save("T_trans_lin_inv.mat","T_trans_lin_inv")
+    save("Lamhat_ext.mat","Lamhat_ext")
+    save("H_ext.mat","H_ext")
+    save("Vhat_trans.mat","Vhat_trans")
+% Nonlin & Lin communication part
+    G_ext      = real(T_trans_nonl * G * T_trans_lin_inv);
+    save("G_ext.mat","G_ext")
+end
+% trans from complex to real space
+p0_realSpace = T_trans_nonl * p0;
+q0_realSpace = T_trans_lin  * q0;
+controlnum     = size(Node_list,1);
+X0         = [p0_realSpace;...
+              q0_realSpace];
+Xt         = X0;                        % initial value
+
+Xt         =  Xt + 1e-8*ones(size(Xt));  % initial guess
+
+
+if isempty(u0)
+    % Xt         =  Xt + 1e-8*ones(size(Xt));  % initial guess
+    % Xt         =  Xt ;  % initial guess
+    u0         =   1e-6*ones(controlnum,1);   % guess of initial control
+else
+    X0_guess(:,1) = [p0_realSpace;...
+                     q0_realSpace];
+    Xt            =  X0_guess;  % initial guess
+    u0            =  repmat(u0, 1, Np);   % guess of initial control
+end
+
+% Data saving
+pt_save       = zeros(nonlinearmodes, state_num);
+qt_save       = zeros(linearmodes, state_num);
+zt_save       = zeros(2*n, state_num);
+% zt            = zeros(length(outdof), state_num);
+zt_linear     = zeros(length(outdof), state_num);
+zt_nonlinear  = zeros(length(outdof), state_num);
+% Wp_save    = zeros(2*n, state_num);
+% J_save     = zeros(1,NMPC_horizon_num);
+
+ut_save       = zeros(controlnum, state_num);
+lamt_save     = zeros(constr_num, state_num);
+t    =  dt;
+
+
+% ---------- main NMPC loop -------------
+pk    = p0_realSpace;
+qk    = q0_realSpace;
+zk    = z0;
+xk    = [pk; qk];
+
+u_guess = u0;
+x_guess = Xt;
+
+Hz    = Constraint_Hz(z0(1:n),Node_list);
+Bhat_ext   = H_ext*-Hz;
+
+for k = 1:NMPC_horizon_num
+    tic
+    tlist = t+dt : dt : (t+Np*dt);
+    yref  =  zd(tlist);
+
+    fprintf("iteration %d\n, t=%f1 \n", k, k*dt)
+% Linearization parameters
+    R_pk     = Rp_Jacobian_ROM4(pk, autData); % R'(p_0)
+    % R_pk     = Rp_Jacob_V2(autData,pk);
+    R0       = auto_red_dyn(pk,autData);      % R(p_0)
+    W_pk     = Wp_Jacobian_ROM4(Wmap,pk);     % W'(p_0)
+    % W_pk     = Wp_Jacob_V2(Wmap,pk,2*n);
+    W0       = reduced_to_full(pk,Wmap,[],0); % W(p_0)
+
+
+    % z_pq    = [W_pk, ep*Vhat_trans];
+    % H_pq    = Hz' * z_pq;
+    % d0      = CableLength(zk(1:n),Node_list);
+    
+    [R_p_error, W_p_error] = Verify_Jacob(R_pk,W_pk,pk,autData,Wmap,2*n);
+    fprintf("Jacobian matrix error  ε_R=%d,  ε_W=%d",R_p_error, W_p_error)
+    [~, ~, ut_opt, J] = NMPCbyCasADi_MultiShooting_NR4(X0,x_guess,u_guess,yref,R_pk,R0,W_pk,W0,Wmap,pk,cont,nonlinearmodes,linearmodes,constr_num,...
+                                                       Bhat_ext,G_ext,Lamhat_ext,Vhat_trans,DS.C_op,t0,ep);
+
+    toc
+
+    dptqt  = @(xk,uk) [auto_red_dyn(xk(1:nonlinearmodes),autData)    + G_ext*xk(1+nonlinearmodes:end);...
+                         Lamhat_ext*xk(1+nonlinearmodes:end)         + Bhat_ext*uk];
+
+    uk    = ut_opt(:,1);     % only take the first Nc control input
+    uk(find(uk<0)) = 0;
+    k1_x = dptqt(xk            , uk);
+    k2_x = dptqt(xk + dt/2*k1_x, uk);
+    k3_x = dptqt(xk + dt/2*k2_x, uk);
+    k4_x = dptqt(xk + dt  *k3_x, uk);
+    xk   = xk + dt*(k1_x + 2*k2_x + 2*k3_x + k4_x)/6;
+    
+    pk1   = xk(1:nonlinearmodes);
+    qk1   = xk(1+nonlinearmodes:end);
+
+% Update full states
+    z_linear = ep*real(Vhat_trans*qk1);
+    Wpk      = reduced_to_full(pk1,Wmap,[],0);
+    zk1      = Wpk + z_linear;
+    % save data
+    pt_save(:,k) = pk1;
+    qt_save(:,k) = qk1;
+    zt_save(:,k) = zk1;
+    
+    zt_linear(:,k) = z_linear(outdof);
+    zt_nonlinear(:,k) = Wpk(outdof);
+
+    ut_save(:,k) = uk;
+% next horizon
+    t       = t + dt;
+
+    % iter 2
+    Hz      = Constraint_Hz(zk1(1:n),Node_list);
+    Bhat_ext   = H_ext*-Hz;
+
+    dptqt  = @(xk,uk) [auto_red_dyn(xk(1:nonlinearmodes),autData)    + G_ext*xk(1+nonlinearmodes:end);...
+                         Lamhat_ext*xk(1+nonlinearmodes:end)         + Bhat_ext*uk];
+    
+    uk2    = ut_opt(:,2);     % only take the first Nc control input
+    % uk2(find(uk2<0)) = 0;
+
+    k1_x = dptqt(xk            , uk2);
+    k2_x = dptqt(xk + dt/2*k1_x, uk2);
+    k3_x = dptqt(xk + dt/2*k2_x, uk2);
+    k4_x = dptqt(xk + dt  *k3_x, uk2);
+    xk   = xk + dt*(k1_x + 2*k2_x + 2*k3_x + k4_x)/6;
+    pk2   = xk(1:nonlinearmodes);
+    qk2   = xk(1+nonlinearmodes:end);
+
+
+    X0      = [pk1; qk1];
+
+    x_guess = [pk1, pk2, pk2;...
+               qk1, qk2, qk2];
+    u_guess = [uk2, uk2];
+
+    pk    = pk1;
+    qk    = qk1;
+    zk    = zk1;
+    xk    = [pk; qk];
+    Hz      = Constraint_Hz(zk(1:n),Node_list);
+    Bhat_ext   = H_ext*-Hz;
+end
+fprintf("Final deformation \n")
+
+
+% X0_guess = [pt_opt, pt_opt(:,end);
+%             qt_opt, qt_opt(:,end)];
+zt_save = [z0, zt_save];
+zt_linear = [zt_linear0, zt_linear];
+zt_nonlinear = [zt_nonlinear0, zt_nonlinear];
+
+traj      = struct();
+traj.time = t0 : dt : tf;
+traj.ut   = ut_save; 
+traj.pt   = pt_save;
+traj.qt   = qt_save;
+traj.ztfull   = zt_save; 
+traj.zt   = zt_save(outdof,:);
+traj.vt   = zt_save(outdof+n,:);
+traj.p0      = pk1;
+traj.u_warmstart = ut_opt(:,end);
+% traj.X_warmstart = X0_guess;
+traj.zt_linear = zt_linear;
+traj.zt_nonlinear = zt_nonlinear;
+traj.lamt_save   = lamt_save;
+end

@@ -10,7 +10,7 @@ import scipy.io as sciIO
 
 from controller.cable_constraints import cable_length_double_part
 from controller.ssm_controller import SsmExperimentConfig, SsmFeedbackState, SsmMpcController
-from dynamics.SSM.matlab_data import ROM_DIR, clone_struct_array, get_field, load_rom_data, subset_mapping_rows
+from dynamics.SSM.matlab_data import EIGHT_TRAJ_DIR, ROM_DIR, clone_struct_array, get_field, load_rom_data, subset_mapping_rows
 from measure.motion_capture import capture_motion, initialize_motion_reference
 from utils.sdk_utils import load_lumo_sdk
 from utils.timing_utils import fixed_cpu_time
@@ -32,7 +32,7 @@ MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
 USE_FAST_SINGLE_STEP_QP = True
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 100009
+END_MARKER_ID = 100028
 
 
 class BufferedTeeLogger:
@@ -203,7 +203,7 @@ def main(end_marker_id=END_MARKER_ID):
     timing_records = []
     max_mpc_time = 0.0
     try:
-        rom_data = load_rom_data(ROM_DIR)
+        rom_data = load_rom_data(ROM_DIR, traj_dir=EIGHT_TRAJ_DIR)
         config = build_default_config(rom_data)
         x_num = np.asarray(get_field(rom_data["auData"], "lamd")).reshape(-1).size
         w0_for_out, w0_for_cables, w0_for_feedback = build_ssm_maps(rom_data)

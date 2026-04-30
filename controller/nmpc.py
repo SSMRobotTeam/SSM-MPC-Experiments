@@ -16,6 +16,11 @@ class NmpcConfig:
     solver_type: str = "qp"
     qp_backend: str = "qpoases"
     use_fast_single_step: bool = True
+    pos_end: np.ndarray | None = None
+    pos_obstacle: np.ndarray | None = None
+    d_safe: float | None = None
+    avoid_beta: float = 1e5
+    avoid_weight: float = 0.5
 
 
 @contextmanager
@@ -142,6 +147,106 @@ def nmpc_multi_shooting_zoh(
         sol = solve_mpc_with_qp(ca, obj, opt_variables, g_vec, x0_guess, lbx, ubx, cont.qp_backend)
     else:
         raise ValueError(f"Unknown MPC solver_type '{cont.solver_type}'. Use 'ipopt' or 'qp'.")
+
+    x_opt = np.asarray(sol["x"]).reshape(-1)
+    cost = float(sol["f"])
+    xt = x_opt[: x_num * (Np + 1)].reshape((x_num, Np + 1), order="F")
+    st_start = x_num * (Np + 1)
+    st_end = st_start + x_num * Np
+    st = x_opt[st_start:st_end].reshape((x_num, Np), order="F")
+    ut = x_opt[st_end:].reshape((controlnum, Np), order="F")
+    return xt[:, 1:], st, ut, cost
+
+
+def nmpc_multi_shooting_zoh_avoid_soft(
+    x0,
+    x_guess,
+    s0_guess,
+    u_guess,
+    ref_uv,
+    cont: NmpcConfig,
+    x_num,
+    controlnum,
+    Ad,
+    Bd,
+    dd,
+    Mhat,
+    bhat,
+    Hp,
+    btilde,
+):
+    """CasADi Python port of NMPC_MultiShooting_CasADi_ZOH_avoid_soft.m."""
+    if cont.pos_end is None or cont.pos_obstacle is None or cont.d_safe is None:
+        raise ValueError("Obstacle avoidance NMPC requires pos_end, pos_obstacle, and d_safe.")
+
+    try:
+        import casadi as ca
+    except ImportError as exc:
+        raise ImportError("The obstacle-avoidance SSM NMPC controller requires `casadi`.") from exc
+
+    Q = np.asarray(cont.Q, dtype=float)
+    R = float(cont.R)
+    Np = int(cont.Np)
+    pos_end = np.asarray(cont.pos_end, dtype=float).reshape(3)
+    pos_obstacle = np.asarray(cont.pos_obstacle, dtype=float).reshape(3)
+
+    U = ca.SX.sym("U", controlnum, Np)
+    S0 = ca.SX.sym("S0", x_num, Np)
+    X = ca.SX.sym("X", x_num, Np + 1)
+
+    g = [X[:, 0] - ca.DM(x0)]
+    obj = 0
+    delta_u = [U[:, 0] - ca.DM(u_guess[:, 0])]
+    delta_s0 = [S0[:, 0] - ca.DM(s0_guess[:, 0])]
+
+    for i in range(Np - 1):
+        delta_u.append(U[:, i + 1] - U[:, i])
+        delta_s0.append(S0[:, i + 1] - S0[:, i])
+
+    for i in range(Np):
+        xk = X[:, i]
+        xk1 = X[:, i + 1]
+        s0k = S0[:, i]
+        uk = U[:, i]
+
+        xk1_calc = ca.DM(Ad) @ xk + ca.DM(Bd) @ s0k + ca.DM(dd)
+        g.append(xk1 - xk1_calc)
+        g.append(ca.DM(Hp) @ xk1 + ca.DM(btilde) + uk)
+
+        yk = ca.DM(Mhat) @ xk1 + ca.DM(bhat)
+        end_position = yk[0:3] + ca.DM(pos_end)
+        obstacle_delta = end_position - ca.DM(pos_obstacle)
+        dist_avoid = ca.dot(obstacle_delta, obstacle_delta)
+        g_avoid = dist_avoid - float(cont.d_safe)
+
+        ref = ca.DM(ref_uv[:, i])
+        obj += (ref - yk).T @ ca.DM(Q) @ (ref - yk)
+        obj += 1e-1 * R * (s0k.T @ s0k)
+        obj += 1e1 * R * (uk.T @ uk)
+        obj += float(cont.avoid_weight) * ca.exp(-float(cont.avoid_beta) * g_avoid)
+        obj += 1e0 * R * (delta_s0[i].T @ delta_s0[i])
+        obj += 1e2 * R * (delta_u[i].T @ delta_u[i])
+
+    opt_variables = ca.vertcat(
+        ca.reshape(X, x_num * (Np + 1), 1),
+        ca.reshape(S0, x_num * Np, 1),
+        ca.reshape(U, controlnum * Np, 1),
+    )
+    g_vec = ca.vertcat(*g)
+    n_state = x_num * (2 * Np + 1)
+    lbx = np.full((n_state + controlnum * Np,), -np.inf)
+    ubx = np.full((n_state + controlnum * Np,), np.inf)
+    lbx[n_state:] = np.asarray(cont.u_lb, dtype=float).reshape(-1)
+    ubx[n_state:] = np.asarray(cont.u_ub, dtype=float).reshape(-1)
+
+    x0_guess = np.concatenate(
+        [
+            np.asarray(x_guess).reshape(-1, order="F"),
+            np.asarray(s0_guess).reshape(-1, order="F"),
+            np.asarray(u_guess).reshape(-1, order="F"),
+        ]
+    )
+    sol = solve_mpc_with_ipopt(ca, obj, opt_variables, g_vec, x0_guess, lbx, ubx)
 
     x_opt = np.asarray(sol["x"]).reshape(-1)
     cost = float(sol["f"])
