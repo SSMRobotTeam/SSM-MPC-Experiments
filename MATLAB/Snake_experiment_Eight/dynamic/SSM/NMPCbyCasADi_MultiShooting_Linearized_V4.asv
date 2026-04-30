@@ -1,0 +1,139 @@
+function [pt_opt, qt_opt, lamt_opt, ut_opt, J] = NMPCbyCasADi_MultiShooting_Linearized_V4(X0,X0_ext,x0_guess,lam0,yref,R_pk,R0,W_pk,W0,pk,cont,nonlinearmodes,linearmodes,constr_num,controlnum,...
+                                       G_ext,Lamhat_ext,H_ext,Vhat_trans,d0,H_pq,Hz0,Hz_pq,Fext,C,t0,ep)
+%NMPCBYCASADI 此处显示有关此函数的摘要
+% Xt : current state (reduced) Xt = [pk; qk]
+% yref : reference trajectory
+% Np : predictive horizon
+% T : single step
+% Dynamics : Dynamics equations
+% cont : contains weights and other message
+% linearmodes : linear modes number
+% nonlinearmodes : nonlinear modes number
+% controlnum : control inputs number
+
+import casadi.*
+% ------------------  Parameter introduction ---------------
+dist0  = cont.dist0;
+Q  = cont.Q;
+R  = cont.R;
+P  = cont.P;
+W  = cont.W;
+S  = cont.S;
+Np    = cont.Np;  % number of control intervals
+
+n_states = nonlinearmodes+linearmodes;
+xt       = SX.sym('xt', n_states, 1);
+lamt     = SX.sym('lamt', constr_num, 1);
+% xt    = [pt;...
+%          qt];
+% Dynamics
+xk_ext = [xt; lamt]; % augmented optimal variables
+dptqt  = [R_pk*(xt(1:nonlinearmodes)-pk) + R0      + G_ext*(Hz_pq*(xk_ext-X0_ext)+Hz0);...
+          Lamhat_ext*xt(1+nonlinearmodes:n_states) + H_ext*(Hz_pq*(xk_ext-X0_ext)+Hz0)];
+
+% output_eeff  = C  * (W_pk*(xt(1:nonlinearmodes)-pk)  + W0  +  ep*Vhat_trans*xt(1+nonlinearmodes:n_states));
+f      = Function('f', {xt, lamt}, {dptqt});
+% measurement_eeff      = Function('h', {xt}, {output_eeff});
+
+% Total control and States in Horizon
+Lam      = SX.sym('Lam', constr_num, Np+1);
+X        = SX.sym('X', n_states  , Np+1);
+% Para     = SX.sym('Para',n_states);   % Initial state  
+
+obj      = 0;   % Objective function
+g        = [];  % equality and inequality equation
+
+xk       = X(:,1); % initial state
+g        = [g; xk-X0]; 
+dt       = cont.dt;
+beta     = 1e8;
+for k = 1:Np
+    xk   = X(:,k);  
+    lamk = Lam(:,k+1);
+    % % % lamk = (uk>0).*lamk;
+    k1_x = f(xk            , lamk);
+    k2_x = f(xk + dt/2*k1_x, lamk);
+    k3_x = f(xk + dt/2*k2_x, lamk);
+    k4_x = f(xk + dt  *k3_x, lamk);
+    xk  = xk + dt*(k1_x + 2*k2_x + 2*k3_x + k4_x)/6;
+
+    xk1_calcu = xk;
+    xk1  = X(:,k+1);
+    % g   =  [g; xk1-xk1_calcu];  % Continuation condition
+    % g   =  [g; lamk];  % Continuation condition
+    zk1  = W_pk*(xk1(1:nonlinearmodes)-pk)  + W0 + ep*Vhat_trans*xk1(1+nonlinearmodes:end);
+    yt   = C * zk1;
+    uk = dist0 - (H_pq*(xk1-X0) + d0);
+    g  = (H_pq*(xk1-X0) + d0) - (dist0)
+    % obj     = obj + (yref(:,k) - yt)' * Q * (yref(:,k) - yt) + uk' * R * uk + (xk1 - xk1_calcu)'*P*(xk1 - xk1_calcu) + lamk'*W*lamk;
+    % obj     = obj + (yref(:,k) - yt)' * Q * (yref(:,k) - yt) + uk' * R * uk + delta_constr'*S*delta_constr + lamk'*W*lamk;
+    % g        = [g; lamk - Kk*uk]; 
+    obj     = obj + (yref(:,k) - yt)' * Q * (yref(:,k) - yt) + uk' * R * uk + (xk1 - xk1_calcu)'*P*(xk1 - xk1_calcu) + beta*(min([sum(uk(1:2)),0]))^2;
+    % obj     = obj + (yref(:,k) - yt)' * Q * (yref(:,k) - yt) + uk' * R * uk + exp(5*lamk)'*W*exp(5*lamk) + (xk1 - xk1_calcu)'*P*(xk1 - xk1_calcu) + 1e7*(min(uk))^2;
+    % obj     = obj + (yref(:,k) - yt)' * Q * (yref(:,k) - yt) + uk' * R * uk + (xk1 - xk1_calcu)'*P*(xk1 - xk1_calcu);
+    % obj     = obj + (yref(:,k) - yt)' * Q * (yref(:,k) - yt) + max(uk,zeros(3,1))' * R * max(uk,zeros(3,1)) + delta_constr'*S*delta_constr + lamk'*W*lamk + (xk1 - xk1_calcu)'*P*(xk1 - xk1_calcu);
+end
+
+% ----------------------------------------------------------------
+% -------------------- Struct NLP problem ------------------------
+OPT_variables = [reshape(X,   n_states*(Np+1),1);...
+                 reshape(Lam, constr_num*(Np+1),1)];    % [X0,X1,...,XNp, λ0,λ1,...,λNp-1, U0,U1,...,UNp-1]
+nlp_prob = struct('f', obj, 'x', OPT_variables, 'g', g);
+opts = struct;
+opts.ipopt.print_level =0;%0,3
+opts.print_time = 0;
+solver = nlpsol('solver', 'ipopt', nlp_prob, opts);
+
+args   = struct;
+% args.lbg   =  zeros(n_states*(Np+1),1);  % Equality constraints, g, state_guess - state_calculated = 0
+% args.ubg   =  zeros(n_states*(Np+1),1); 
+args.lbg   =  zeros(size(g));  % Equality constraints, g, state_guess - state_calculated = 0
+args.ubg   =  zeros(size(g)); 
+% args.lbg(1+n_states:end) = -inf; % args.lbg(1+n_states:end) = -1e-2;
+% args.ubg(1+n_states:end) = +0.01; % args.ubg(1+n_states:end) = +inf;
+
+
+
+% % % args.lbx(1:n_states*(Np+1),1)   =  ones(n_states*(Np+1),1)*-inf; % lower and upper bound of states pt qt
+% % % args.ubx(1:n_states*(Np+1),1)   =  ones(n_states*(Np+1),1)*+inf; 
+% % % 
+% % % args.lbx(1+n_states*(Np+1):n_states*(Np+1)+controlnum*Np, 1) = repmat(u_lb,Np,1);
+% % % args.ubx(1+n_states*(Np+1):n_states*(Np+1)+controlnum*Np, 1) = repmat(u_ub,Np,1);
+args.lbx(1:n_states*(Np+1),1)   =  ones(n_states*(Np+1),1)*-inf; % lower and upper bound of states pt qt
+args.ubx(1:n_states*(Np+1),1)   =  ones(n_states*(Np+1),1)*+inf; 
+
+args.lbx(1+n_states*(Np+1):n_states*(Np+1)+constr_num*(Np+1), 1) = ones(constr_num*(Np+1),1)*-0.1; % lower and upper bound of dulity λ
+args.ubx(1+n_states*(Np+1):n_states*(Np+1)+constr_num*(Np+1), 1) = ones(constr_num*(Np+1),1)*+inf;
+
+% ----------------------- Solver -------------------
+if size(x0_guess,2) > 1
+    X0_guess   = x0_guess;
+    Lam0_guess = lam0;
+else
+    X0_guess   = repmat(x0_guess,1,Np+1); % Guess of states : [x0; x0; x0; ...]
+    Lam0_guess = repmat(lam0,1,Np+1);
+end
+
+% args.x0 = [reshape(X0,n_states*(Np+1),1);...
+%            reshape(U0,controlnum*Np  ,1)];
+args.x0 = [reshape(X0_guess  , n_states*(Np+1),1);...
+           reshape(Lam0_guess, constr_num*(Np+1),1)];
+% % args.p  = x0;
+% args.p  = [];
+% Initial values and Constraints
+solution = solver('x0', args.x0,...
+                  'lbx',args.lbx, 'ubx',args.ubx,...
+                  'lbg',args.lbg, 'ubg',args.ubg);
+J           = full(solution.f);
+States_full = reshape(full(solution.x(1:n_states*(Np+1))), n_states, []);
+pt_opt      = States_full(1:nonlinearmodes,         2:end);
+qt_opt      = States_full(1+nonlinearmodes:end,     2:end);
+lamt_opt    = reshape(full(solution.x(1+n_states*(Np+1):n_states*(Np+1)+constr_num*(Np+1))), constr_num, []);
+lamt_opt    = lamt_opt(:,2:end);
+
+pk1  = pt_opt(:,1);
+qk1  = qt_opt(:,1);
+xk1  = [pk1; qk1];
+ut_opt = dist0 - (H_pq*(xk1-X0) + d0);
+end
+
