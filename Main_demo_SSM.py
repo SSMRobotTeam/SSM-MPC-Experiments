@@ -32,7 +32,9 @@ MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
 USE_FAST_SINGLE_STEP_QP = True
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 100028
+END_MARKER_ID = 100023
+CHECKPOINT_RIGID_ID = 2
+POS_END = np.array([0.0, 0.0, 0.4400])
 
 
 class BufferedTeeLogger:
@@ -119,7 +121,46 @@ def cable_dofs_for_wp(node_list) -> np.ndarray:
     return np.asarray(dofs, dtype=int)
 
 
-def build_ssm_maps(rom_data):
+def feedback_point_node_info(rom_data, reference) -> dict[str, np.ndarray | int | float]:
+    feedback_position_m = ((reference.checkpoint - reference.end_effector) / 1000.0) + POS_END
+    nodes_coord = np.asarray(rom_data["nodes_coord"], dtype=float)
+    distances = np.linalg.norm(nodes_coord - feedback_position_m.reshape(3, 1), axis=0)
+    node_index_1based = int(np.argmin(distances)) + 1
+    return {
+        "position_m": feedback_position_m,
+        "node_index_1based": node_index_1based,
+        "distance_m": float(distances[node_index_1based - 1]),
+        "dofs": np.array([3 * node_index_1based - 2, 3 * node_index_1based - 1, 3 * node_index_1based]),
+    }
+
+
+def feedback_point_dofs(rom_data, reference) -> np.ndarray:
+    return np.asarray(feedback_point_node_info(rom_data, reference)["dofs"], dtype=int)
+
+
+def _format_array(values) -> str:
+    return "[" + ", ".join(f"{value:.6g}" for value in np.asarray(values).reshape(-1)) + "]"
+
+
+def print_measurement_node_info(rom_data, reference) -> None:
+    outdof_endeff = np.asarray(rom_data["outdof_endeff"], dtype=int).reshape(-1)
+    outdof_half = np.asarray(rom_data["outdof_half"], dtype=int).reshape(-1)
+    feedback_info = feedback_point_node_info(rom_data, reference)
+    outdof_feedback_pt = np.asarray(feedback_info["dofs"], dtype=int).reshape(-1)
+
+    print("\nMotion-capture measurement node info")
+    print(f"  endeff      initial Ref position (mm): {_format_array(reference.end_effector)}")
+    print(f"  endeff      3-axis dofs              : {_format_array(outdof_endeff)}")
+    print(f"  half        initial Ref position (mm): {_format_array(reference.mid_effector)}")
+    print(f"  half        3-axis dofs              : {_format_array(outdof_half)}")
+    print(f"  feedback_pt initial Ref position (mm): {_format_array(reference.checkpoint)}")
+    print(f"  feedback_pt model position (m)       : {_format_array(feedback_info['position_m'])}")
+    print(f"  feedback_pt nearest node             : {feedback_info['node_index_1based']}")
+    print(f"  feedback_pt node distance (m)        : {feedback_info['distance_m']:.6g}")
+    print(f"  feedback_pt 3-axis dofs              : {_format_array(outdof_feedback_pt)}")
+
+
+def build_ssm_maps(rom_data, reference):
     w0 = clone_struct_array(rom_data["W_0"])
     if len(w0) > 1:
         w0[1].coeffs = np.asarray(get_field(w0[1], "coeffs")) * SSM_FACTOR
@@ -127,11 +168,11 @@ def build_ssm_maps(rom_data):
     n = 5574
     outdof_endeff = np.asarray(rom_data["outdof_endeff"], dtype=int).reshape(-1)
     outdof_half = np.asarray(rom_data["outdof_half"], dtype=int).reshape(-1)
+    outdof_feedback_pt = feedback_point_dofs(rom_data, reference)
     outdofs_for_wp = np.concatenate([outdof_endeff, outdof_half, outdof_endeff + n, outdof_half + n])
     cables_dofs = cable_dofs_for_wp(rom_data["Node_List"])
 
-    # Feedback is disabled by default, so the feedback map is kept at end/mid rows.
-    outdofs_for_fb = np.concatenate([outdof_endeff, outdof_half, outdof_half])
+    outdofs_for_fb = np.concatenate([outdof_endeff, outdof_half, outdof_feedback_pt])
     return (
         subset_mapping_rows(w0, outdofs_for_wp),
         subset_mapping_rows(w0, cables_dofs),
@@ -150,12 +191,17 @@ def build_initial_feedback_state(x_num: int, control_num: int, horizon: int) -> 
 
 
 @fixed_cpu_time(CONTROL_PERIOD_SECONDS)
-def run_step(sdk, socket, controller, reference, step_index, y_expm, u_save, end_marker_id, feedback=False):
+def run_step(sdk, socket, controller, reference, step_index, y_expm, u_save, end_marker_id, checkpoint_rigid_id, feedback=False):
     measure_start = time.perf_counter()
-    disp_end, disp_mid = capture_motion(sdk, reference, end_marker_id=end_marker_id)
+    disp_end, disp_mid, disp_checkpoint = capture_motion(
+        sdk,
+        reference,
+        checkpoint_rigid_id=checkpoint_rigid_id,
+        end_marker_id=end_marker_id,
+    )
     measure_time = time.perf_counter() - measure_start
 
-    measurement = np.concatenate([disp_end, disp_mid, np.zeros(3)])
+    measurement = np.concatenate([disp_end, disp_mid, disp_checkpoint]) # 测量
     mpc_start = time.perf_counter()
     motor_positions = controller.compute_next_command(measurement_mm=measurement, feedback=feedback)
     mpc_time = time.perf_counter() - mpc_start
@@ -206,7 +252,15 @@ def main(end_marker_id=END_MARKER_ID):
         rom_data = load_rom_data(ROM_DIR, traj_dir=EIGHT_TRAJ_DIR)
         config = build_default_config(rom_data)
         x_num = np.asarray(get_field(rom_data["auData"], "lamd")).reshape(-1).size
-        w0_for_out, w0_for_cables, w0_for_feedback = build_ssm_maps(rom_data)
+
+        sdk = connect_sdk()
+        reference = initialize_motion_reference(
+            sdk,
+            checkpoint_rigid_id=CHECKPOINT_RIGID_ID,
+            end_marker_id=end_marker_id,
+        )
+        w0_for_out, w0_for_cables, w0_for_feedback = build_ssm_maps(rom_data, reference)
+        print_measurement_node_info(rom_data, reference)
 
         controller = SsmMpcController(
             config=config,
@@ -220,8 +274,6 @@ def main(end_marker_id=END_MARKER_ID):
             save_feedback_each_step=SAVE_FEEDBACK_EACH_STEP,
         )
 
-        sdk = connect_sdk()
-        reference = initialize_motion_reference(sdk, end_marker_id=end_marker_id)
         context, socket = create_publisher(MOTOR_ENDPOINT)
         step_count = config.zd.shape[1] if np.isinf(RUN_STEPS) else min(int(RUN_STEPS), config.zd.shape[1])
         y_expm = np.zeros((step_count, 9))
@@ -238,6 +290,7 @@ def main(end_marker_id=END_MARKER_ID):
                 y_expm,
                 u_save,
                 end_marker_id,
+                CHECKPOINT_RIGID_ID,
                 feedback=FEEDBACK_ENABLED,
             )
             total_time = time.perf_counter() - start

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 
@@ -11,6 +11,7 @@ class MotionReference:
     mid_effector: np.ndarray
     base_xyz: np.ndarray
     base_to_global: np.ndarray
+    checkpoint: np.ndarray = field(default_factory=lambda: np.zeros(3))
 
 
 def _xyz(obj) -> np.ndarray:
@@ -25,7 +26,8 @@ def initialize_motion_reference(
     sdk,
     base_rigid_id: int = 0,
     mid_rigid_id: int = 1,
-    end_marker_id: int = 100028,
+    checkpoint_rigid_id: int = 2,
+    end_marker_id: int = 100023,
     base_y_offset: float = -12,
 ) -> MotionReference:
     sdk.ReceiveData(0)
@@ -44,6 +46,7 @@ def initialize_motion_reference(
         base_to_global=base_to_global,
     )
     reference.mid_effector = _local_position(_xyz(rigid_info[mid_rigid_id]), reference)
+    reference.checkpoint = _local_position(_xyz(rigid_info[checkpoint_rigid_id]), reference)
     reference.end_effector = _local_position(_xyz(marker_info[end_marker_id]), reference)
     return reference
 
@@ -52,16 +55,19 @@ def capture_motion(
     sdk,
     reference: MotionReference,
     mid_rigid_id: int = 1,
-    end_marker_id: int = 100028,
-) -> tuple[np.ndarray, np.ndarray]:
+    checkpoint_rigid_id: int = 2,
+    end_marker_id: int = 100023,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     sdk.ReceiveData(0)
     rigid_info = sdk.GetRigid()
     marker_info = sdk.GetMarker()
 
     mid_position = _local_position(_xyz(rigid_info[mid_rigid_id]), reference)
+    checkpoint_position = _local_position(_xyz(rigid_info[checkpoint_rigid_id]), reference)
     end_position = _local_position(_xyz(marker_info[end_marker_id]), reference)
 
     return (
         end_position - reference.end_effector,
         mid_position - reference.mid_effector,
+        checkpoint_position - reference.checkpoint,
     )

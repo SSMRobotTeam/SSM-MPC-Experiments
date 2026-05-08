@@ -115,6 +115,7 @@ def initialize_avoidance_reference(sdk) -> AvoidanceReference:
     motion.end_effector = _local_position(_xyz(_item_by_id(marker_info, END_MARKER_ID)), motion)
     motion.mid_effector = _local_position(_xyz(rigid_info[MID_RIGID_ID]), motion)
     feedback_point = _local_position(_xyz(rigid_info[FEEDBACK_RIGID_ID]), motion)
+    motion.checkpoint = feedback_point
     obstacle_point = _local_position(_xyz(rigid_info[OBSTACLE_RIGID_ID]), motion)
 
     return AvoidanceReference(
@@ -222,10 +223,16 @@ def build_initial_feedback_state(x_num: int, control_num: int, horizon: int) -> 
 @fixed_cpu_time(CONTROL_PERIOD_SECONDS)
 def run_step(sdk, socket, controller, reference, step_index, y_expm, y_ssm, u_save, feedback=False):
     measure_start = time.perf_counter()
-    disp_end, disp_mid = capture_motion(sdk, reference.motion, mid_rigid_id=MID_RIGID_ID, end_marker_id=END_MARKER_ID)
+    disp_end, disp_mid, disp_feedback = capture_motion(
+        sdk,
+        reference.motion,
+        mid_rigid_id=MID_RIGID_ID,
+        checkpoint_rigid_id=FEEDBACK_RIGID_ID,
+        end_marker_id=END_MARKER_ID,
+    )
     measure_time = time.perf_counter() - measure_start
 
-    measurement = np.concatenate([disp_end, disp_mid, np.zeros(3)])
+    measurement = np.concatenate([disp_end, disp_mid, disp_feedback])
     mpc_start = time.perf_counter()
     motor_positions = controller.compute_next_command(measurement_mm=measurement, feedback=feedback)
     mpc_time = time.perf_counter() - mpc_start

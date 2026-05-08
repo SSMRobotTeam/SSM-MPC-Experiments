@@ -67,6 +67,7 @@ def load_rom_data(rom_dir: str | Path = ROM_DIR, traj_dir: str | Path | None = N
         "auData": loadmat(rom_dir / "auData.mat")["auData"],
         "W_0": loadmat(rom_dir / "W_0.mat")["W_0"],
         "Node_List": loadmat(rom_dir / "Node_List.mat")["Node_List"],
+        "nodes_coord": np.asarray(loadmat(rom_dir / "nodes_coord.mat")["nodes_coord"], dtype=float),
         "zd_proj": np.asarray(loadmat(traj_dir / "zd_proj.mat")["zd_proj"], dtype=float),
         "t_list": np.asarray(loadmat(traj_dir / "t_list.mat")["t_list"], dtype=float).reshape(-1),
         "outdof_endeff": np.asarray(loadmat(rom_dir / "outdof_endeff.mat")["outdof_endeff"]),

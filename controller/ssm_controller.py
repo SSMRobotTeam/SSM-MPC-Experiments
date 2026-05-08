@@ -227,9 +227,11 @@ class SsmMpcController:
 
         next_pk = pt_opt[:, 0]
         next_u = ut_opt[:, 0]
-        self.posi = next_u * 1000.0
-        if np.any(np.abs(self.posi * self.factor) > cont.motor_safety_limit):
-            self.posi = np.zeros_like(self.posi)
+        commanded_posi = next_u * 1000.0 * self.factor
+        if np.any(np.abs(commanded_posi) > cont.motor_safety_limit):
+            self.posi = np.zeros_like(commanded_posi)
+        else:
+            self.posi = commanded_posi
 
         self.yk_ssm = zk_outdof[:6, 0] * 1000.0
         self.feedback_state = SsmFeedbackState(

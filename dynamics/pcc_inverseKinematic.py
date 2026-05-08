@@ -65,7 +65,7 @@ def config_to_tendon(q, d1, d2):
     short_angles = np.array([np.pi, np.pi / 3.0, 5.0 * np.pi / 3.0])
 
     long_tendons = (
-        -d1 * theta1 * np.cos(long_angles - phi1)
+        - d1 * theta1 * np.cos(long_angles - phi1)
         - d2 * theta2 * np.cos(long_angles - section_2_phi)
     )
     short_tendons = -d1 * theta1 * np.cos(short_angles - phi1)

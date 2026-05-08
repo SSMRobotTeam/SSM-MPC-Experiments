@@ -1,0 +1,24 @@
+StaticVerification Back_verify summary
+Raw input control command: [6.308100, 2.025300, 6.426000, -0.219700, 0.069800, 8.427500]
+Motor factor: 1.225000
+Target control command after MOTOR_FACTOR: [7.727423, 2.480993, 7.871850, -0.269133, 0.085505, 10.323688]
+Swap motor pairs 2/3 and 5/6: False
+Motor command sent: [7.727423, 2.480993, 7.871850, -0.269133, 0.085505, 10.323688]
+Sine ramp duration s: 5.000000
+Sine ramp period s: 0.075000
+
+endeff:
+  position_ref_mm_mean: [151.826607, 157.273442, 432.911089]
+  position_ref_mm_std : [0.042061, 0.095567, 0.033405]
+  displacement_ref_mm_mean: [43.836372, 68.452092, -14.497759]
+  displacement_ref_mm_std : [0.042061, 0.095567, 0.033405]
+mideff:
+  position_ref_mm_mean: [126.861199, 109.084869, 211.368444]
+  position_ref_mm_std : [0.006658, 0.014019, 0.005549]
+  displacement_ref_mm_mean: [16.571178, 23.032566, -5.363524]
+  displacement_ref_mm_std : [0.006658, 0.014019, 0.005549]
+checkpoint:
+  position_ref_mm_mean: [136.811940, 124.781605, 280.947482]
+  position_ref_mm_std : [0.005752, 0.016005, 0.004427]
+  displacement_ref_mm_mean: [28.006370, 38.713285, -8.456119]
+  displacement_ref_mm_std : [0.005752, 0.016005, 0.004427]
