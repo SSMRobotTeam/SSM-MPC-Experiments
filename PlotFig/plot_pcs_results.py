@@ -14,7 +14,7 @@ TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/spiral"
 L1, L2 = 0.2225, 0.2175
 SECTION_1_OFFSET = np.array([0.0, 0.0, L1])
 SECTION_2_OFFSET = np.array([0.0, 0.0, L1 + L2])
-PCS_UNIT_COUNT = 6
+PCS_UNIT_COUNT = 4
 
 
 def load_experiment_results():
@@ -71,12 +71,13 @@ def plot_motor_commands(t_expm, u_save):
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
     styles = ["r-", "g-", "b-", "r--", "g--", "b--"]
+    labels = ["long 1", "long 2", "long 3", "short 1", "short 2", "short 3"]
 
-    for motor_idx, style in enumerate(styles):
-        ax.plot(t_expm, u_save[:, motor_idx], style, label=f"u{motor_idx + 1}")
+    for motor_idx, (style, label) in enumerate(zip(styles, labels)):
+        ax.plot(t_expm, u_save[:, motor_idx], style, label=label)
 
     ax.set_xlabel("Time (s)")
-    ax.set_ylabel("Tendon command (mm)")
+    ax.set_ylabel("Tendon command in solver order (mm)")
     ax.legend()
     plt.show()
 

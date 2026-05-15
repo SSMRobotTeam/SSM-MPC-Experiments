@@ -193,7 +193,7 @@ def estimate_pk_for_samples(
     cable_targets: dict[str, dict[str, np.ndarray]],
     *,
     sequential: bool = False,
-    cable_weight: float = 0.5,
+    cable_weight: float = 0,
     max_nfev: int = 50,
 ) -> list[dict]:
     rom_data = load_rom_data(ROM_DIR, traj_dir=EIGHT_TRAJ_DIR)
@@ -311,7 +311,7 @@ def parse_args() -> argparse.Namespace:
         "--cable-weight",
         "--cw",
         type=float,
-        default=0.2,
+        default=0,
         help="Least-squares weight applied to cable-length residuals. Default: %(default)s.",
     )
     parser.add_argument(

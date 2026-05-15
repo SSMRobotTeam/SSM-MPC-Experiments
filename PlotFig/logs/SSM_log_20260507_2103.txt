@@ -1,3 +1,0 @@
-LuMo SDK connected successfully
-
-Timing summary: no completed steps.

@@ -6,15 +6,15 @@ Measurement mm: [112.33887, -2.0838872, -31.146192, -21.879953, -1.6065314, -7.4
 Cable target angle raw: [40, 20, 0, 30, 0, 0]
 Cable target angle: [40, 0, 20, 30, 0, 0]
 Cable target length mm: [17.453293, 0, 8.7266463, 13.089969, 0, 0]
-Cable estimated delta mm: [-6.9422612, 10.661004, 10.981911, 4.6981477, 4.8467867, 4.2422474]
-Cable estimated length m: [0.43313046, 0.45073373, 0.45105463, 0.2272341, 0.22738274, 0.2267782]
+Cable estimated delta mm: [-8.4397936, 9.1104408, 9.3929454, 3.9694615, 4.0959788, 3.504049]
+Cable estimated length m: [0.43163293, 0.44918316, 0.44946567, 0.22650541, 0.22663193, 0.22604]
 Feedback accepted: False
-Measurement residual norm: 0.03288448063648642
-Cable residual norm: 0.012851435379093534
-Cable weight: 0.2
-Feedback time s: 0.5388875
+Measurement residual norm: 0.033171207230143905
+Cable residual norm: 0.0
+Cable weight: 0
+Feedback time s: 0.4344848
 pk initial: [0, 0, 0, 0, 0, 0, 0, 0]
-pk estimated: [0.00094653198, -0.00035779305, -0.0039650653, 0.00082664979, -0.0050222088, 0.0077244101, -0.0055272543, 0.0097607843]
+pk estimated: [0.00095813665, -0.00033319929, -0.0039711976, 0.00077141036, -0.0049702756, 0.0073070894, -0.0054957359, 0.009207066]
 
 Source: Static_data2
 Measurement order: endeff, mideff, checkpoint
@@ -22,15 +22,15 @@ Measurement mm: [-45.621721, -68.845453, -19.700452, 9.366962, -30.070876, -9.16
 Cable target angle raw: [0, 30, 20, 0, 30, 0]
 Cable target angle: [0, 20, 30, 0, 0, 30]
 Cable target length mm: [0, 8.7266463, 13.089969, 0, 0, 13.089969]
-Cable estimated delta mm: [0.16379565, -5.3195951, -9.2122403, -1.4423196, 2.1784919, -4.814111]
-Cable estimated length m: [0.44023652, 0.43475313, 0.43086048, 0.22109363, 0.22471444, 0.21772184]
+Cable estimated delta mm: [-2.4623067, -7.9981264, -11.897291, -2.4478207, 1.1814776, -5.806821]
+Cable estimated length m: [0.43761041, 0.43207459, 0.42817543, 0.22008813, 0.22371743, 0.21672913]
 Feedback accepted: True
-Measurement residual norm: 0.00918757343774554
-Cable residual norm: 0.01429751369362397
-Cable weight: 0.2
-Feedback time s: 0.6508116
+Measurement residual norm: 0.009041995350388979
+Cable residual norm: 0.0
+Cable weight: 0
+Feedback time s: 0.2549021
 pk initial: [0, 0, 0, 0, 0, 0, 0, 0]
-pk estimated: [-0.010733003, 0.00017455975, -0.0033593219, -0.0001418204, 0.00033876746, -0.0033293482, 0.004119379, -0.0030580772]
+pk estimated: [-0.010712874, 4.2778983e-05, -0.0033562736, -4.5922073e-05, 0.00033247984, -0.00069101757, 0.0041130745, -0.00030597281]
 
 Source: Static_data3
 Measurement order: endeff, mideff, checkpoint
@@ -38,15 +38,15 @@ Measurement mm: [24.131914, 133.51494, -40.477193, 14.334962, 32.32794, -7.66265
 Cable target angle raw: [20, 0, 40, 0, 0, 30]
 Cable target angle: [20, 40, 0, 0, 30, 0]
 Cable target length mm: [8.7266463, 17.453293, 0, 0, 13.089969, 0]
-Cable estimated delta mm: [-7.5335364, -14.230109, -0.048064052, 0.59022342, -6.6267425, 2.6239396]
-Cable estimated length m: [0.43253918, 0.42584261, 0.44002466, 0.22312618, 0.21590921, 0.22515989]
+Cable estimated delta mm: [-10.816478, -17.557701, -3.3479601, -0.37991333, -7.6038677, 1.6713529]
+Cable estimated length m: [0.42925624, 0.42251502, 0.43672476, 0.22215604, 0.21493208, 0.22420731]
 Feedback accepted: True
-Measurement residual norm: 0.00519170316443462
-Cable residual norm: 0.01824399041475261
-Cable weight: 0.2
-Feedback time s: 0.5727856
+Measurement residual norm: 0.003805386127407502
+Cable residual norm: 0.0
+Cable weight: 0
+Feedback time s: 0.2157119
 pk initial: [0, 0, 0, 0, 0, 0, 0, 0]
-pk estimated: [0.016504849, -0.0002538339, 0.0030534758, -0.00011621559, 0.00044632388, 0.0036628086, 0.0014252482, -0.0036277019]
+pk estimated: [0.016485428, -5.9530978e-06, 0.0030489647, -6.3559384e-06, 0.00050292354, 0.00021420519, 0.0013874925, -0.00011170445]
 
 Source: Static_data4
 Measurement order: endeff, mideff, checkpoint
@@ -54,15 +54,15 @@ Measurement mm: [18.964498, -107.33473, -33.372807, 0.35236159, -16.078683, -4.1
 Cable target angle raw: [30, 40, 0, 0, 0, 0]
 Cable target angle: [30, 0, 40, 0, 0, 0]
 Cable target length mm: [13.089969, 0, 17.453293, 0, 0, 0]
-Cable estimated delta mm: [-7.8434211, 1.3437011, -12.116301, 0.2788892, 2.5628571, -3.2096031]
-Cable estimated length m: [0.4322293, 0.44141642, 0.42795642, 0.22281484, 0.22509881, 0.21932635]
+Cable estimated delta mm: [-10.360227, -1.096064, -14.650808, -0.41029689, 1.8730716, -3.8997079]
+Cable estimated length m: [0.42971249, 0.43897666, 0.42542191, 0.22212566, 0.22440902, 0.21863624]
 Feedback accepted: True
-Measurement residual norm: 0.004901107778154401
-Cable residual norm: 0.016317602816724695
-Cable weight: 0.2
-Feedback time s: 0.4762778
+Measurement residual norm: 0.0034665321778373005
+Cable residual norm: 0.0
+Cable weight: 0
+Feedback time s: 0.2172407
 pk initial: [0, 0, 0, 0, 0, 0, 0, 0]
-pk estimated: [-0.0093379562, 0.0001818795, -0.0063061799, 0.0001439032, 0.0011514302, -0.002437711, -0.0019022371, 0.003104256]
+pk estimated: [-0.0093283995, -6.2838439e-06, -0.0062971609, -3.3326533e-06, 0.0011402164, -2.3107491e-05, -0.0018934932, 1.1077351e-06]
 
 Source: Static_data5
 Measurement order: endeff, mideff, checkpoint
@@ -70,15 +70,15 @@ Measurement mm: [-107.64941, 50.523443, -42.910009, -14.165363, 6.5437575, -2.63
 Cable target angle raw: [-10, 20, 40, 0, 0, 0]
 Cable target angle: [-10, 40, 20, 0, 0, 0]
 Cable target length mm: [-4.3633231, 17.453293, 8.7266463, 0, 0, 0]
-Cable estimated delta mm: [0.72079538, -15.193741, -8.2960757, -3.4322225, 0.061897212, 2.5104674]
-Cable estimated length m: [0.44079352, 0.42487898, 0.43177665, 0.21910373, 0.22259785, 0.22504642]
+Cable estimated delta mm: [-1.7725841, -17.730409, -10.8128, -4.1169226, -0.61456035, 1.840372]
+Cable estimated length m: [0.43830014, 0.42234231, 0.42925992, 0.21841903, 0.22192139, 0.22437632]
 Feedback accepted: True
-Measurement residual norm: 0.00474172273971218
-Cable residual norm: 0.016730430769362644
-Cable weight: 0.2
-Feedback time s: 0.4668915
+Measurement residual norm: 0.003468721692088476
+Cable residual norm: 0.0
+Cable weight: 0
+Feedback time s: 0.2117324
 pk initial: [0, 0, 0, 0, 0, 0, 0, 0]
-pk estimated: [-0.00026340253, 4.5028164e-06, 0.011868036, -0.00020820561, 0.00061765266, -0.00085617406, 0.0027709907, -0.0037010769]
+pk estimated: [-0.0002630315, -3.3637789e-07, 0.011860586, 1.4831788e-05, 0.00060593875, 3.4945412e-05, 0.0027234361, 0.0001519935]
 
 Source: Static_data6
 Measurement order: endeff, mideff, checkpoint
@@ -86,15 +86,15 @@ Measurement mm: [39.279537, -84.504606, -14.571598, 18.481365, -34.540068, -9.33
 Cable target angle raw: [0, 0, 0, 30, 0, 0]
 Cable target angle: [0, 0, 0, 30, 0, 0]
 Cable target length mm: [0, 0, 0, 13.089969, 0, 0]
-Cable estimated delta mm: [-6.4450659, -1.8081893, -7.4007957, -0.13419419, 0.32267425, -7.6688472]
-Cable estimated length m: [0.43362766, 0.43826453, 0.43267193, 0.22240176, 0.22285863, 0.2148671]
+Cable estimated delta mm: [-6.5261683, -1.8952791, -7.4901571, -0.15914031, 0.30915212, -7.7212554]
+Cable estimated length m: [0.43354655, 0.43817744, 0.43258256, 0.22237681, 0.2228451, 0.2148147]
 Feedback accepted: True
-Measurement residual norm: 0.005966610899664773
-Cable residual norm: 0.008165464328158723
-Cable weight: 0.2
-Feedback time s: 0.9144038
+Measurement residual norm: 0.005798115868259248
+Cable residual norm: 0.0
+Cable weight: 0
+Feedback time s: 0.2450606
 pk initial: [0, 0, 0, 0, 0, 0, 0, 0]
-pk estimated: [-0.0086519599, 8.4720207e-05, -0.011418805, 8.4216907e-05, -0.00078993689, -0.00069235446, 0.0024056287, 0.00017579809]
+pk estimated: [-0.0086937367, 2.446954e-05, -0.011452971, 2.7228322e-05, -0.00080201382, -0.00016278528, 0.0024240357, 0.00022592771]
 
 Source: Static_data7
 Measurement order: endeff, mideff, checkpoint
@@ -102,12 +102,12 @@ Measurement mm: [39.289261, 65.933253, -9.5242607, 19.527134, 31.311914, -6.9629
 Cable target angle raw: [0, 0, 0, 0, 30, 0]
 Cable target angle: [0, 0, 0, 0, 0, 30]
 Cable target length mm: [0, 0, 0, 0, 0, 13.089969]
-Cable estimated delta mm: [-5.0227299, -5.1082984, -1.5137684, 0.33559146, -6.6984616, 0.11045854]
-Cable estimated length m: [0.43504999, 0.43496442, 0.43855895, 0.22287154, 0.21583749, 0.22264641]
+Cable estimated delta mm: [-5.1499525, -5.2456615, -1.6533023, 0.17947816, -6.8796844, -0.056799622]
+Cable estimated length m: [0.43492277, 0.43482706, 0.43841942, 0.22271543, 0.21565627, 0.22247915]
 Feedback accepted: True
-Measurement residual norm: 0.005854882539648864
-Cable residual norm: 0.007308402484282219
-Cable weight: 0.2
-Feedback time s: 0.948815
+Measurement residual norm: 0.005794785205326142
+Cable residual norm: 0.0
+Cable weight: 0
+Feedback time s: 0.2668035
 pk initial: [0, 0, 0, 0, 0, 0, 0, 0]
-pk estimated: [0.012542977, -5.9767055e-05, -0.0011445518, 2.6935761e-06, 0.0027732895, -0.001203509, -0.0002237481, -3.1053895e-05]
+pk estimated: [0.012573517, -3.7995006e-05, -0.0011623826, 3.1246936e-06, 0.0027897342, -1.0437042e-05, -0.00021505995, -1.8865423e-05]
