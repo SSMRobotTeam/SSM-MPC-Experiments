@@ -1,0 +1,6 @@
+Using SSM point-to-point planning with complex obstacle avoidance.
+Target end-effector displacement (mm): [20.  0. 30.]
+Planner: quintic minimum-jerk straight-line trajectory, duration=8.000s, hold=2.000s, samples=135.
+LuMo SDK connected successfully
+
+Timing summary: no completed steps.

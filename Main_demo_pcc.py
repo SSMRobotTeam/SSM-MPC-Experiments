@@ -9,7 +9,7 @@ from dynamics.pcc_inverseKinematic import _section_rotation, _section_tip, ik_po
 from measure.motion_capture import capture_motion, initialize_motion_reference
 from utils.sdk_utils import load_lumo_sdk
 from utils.timing_utils import fixed_cpu_time
-from zmq_message.zmq_control import close_publisher, create_publisher, send_motor_command
+from zmq_message.zmq_control import clamp_motor_positions, close_publisher, create_publisher, send_motor_command
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -68,14 +68,14 @@ def run_control_step(
 ) -> np.ndarray:
     u_sol, q_sol, _ = ik_position(desired_position, L1, L2, D1, D2, q0=q0)
 
-    motor_positions_mm = (u_sol * 1000.0).tolist()
+    motor_positions_mm = clamp_motor_positions(u_sol * 1000.0)
     print(f"control action = {motor_positions_mm}")
     send_motor_command(socket, motor_positions_mm, solver_order=True)
 
     disp_end, disp_mid, _ = capture_motion(sdk, reference)
     y_expm[step_index, :] = np.hstack([disp_end, disp_mid])
     q_save[step_index, :] = q_sol
-    u_save[step_index, :] = u_sol * 1000.0
+    u_save[step_index, :] = np.asarray(motor_positions_mm, dtype=float)
     pcc_position_save[step_index, :] = pcc_section_end_positions(q_sol)
     return q_sol
 

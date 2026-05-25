@@ -8,9 +8,11 @@ import scipy.io as sciIO
 PLOT_DIR = Path(__file__).resolve().parent
 BASE_DIR = PLOT_DIR.parent
 SPIRAL_TRAJ_DIR = BASE_DIR / "dynamics" / "trajinfom" / "spiral"
+# SPIRAL_TRAJ_DIR = BASE_DIR / "dynamics" / "trajinfom" / "eight"
+
 AVOID_RESULTS_MAT = PLOT_DIR / "ssm_avoid_python_results.mat"
 END_INITIAL_POSITION_M = np.array([0.0, 0.0, 0.4400])
-DEFAULT_OBSTACLE_RADIUS_M = 0.03
+DEFAULT_OBSTACLE_RADIUS_M = 0.02
 
 
 def load_ssm_avoid_results(plot_dir: str | Path = PLOT_DIR):

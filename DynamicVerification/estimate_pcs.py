@@ -14,7 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from Main_demo_pcs import END_OFFSET, make_robot, zero_pcs_strains
+from Main_demo_pcs_IK import END_OFFSET, make_robot, zero_pcs_strains
 from zmq_message.zmq_control import reorder_motor_positions
 
 
@@ -28,9 +28,13 @@ MOTOR_COUNT = 6
 # DEFAULT_ENDEFF_WEIGHT = 0.1
 # DEFAULT_REGULARIZATION_WEIGHT = 0.001
 
+# DEFAULT_CABLE_WEIGHT = 2.5
+# DEFAULT_ENDEFF_WEIGHT = 0.1
+# DEFAULT_REGULARIZATION_WEIGHT = 0.001
+
 DEFAULT_CABLE_WEIGHT = 2.5
-DEFAULT_ENDEFF_WEIGHT = 0
-DEFAULT_REGULARIZATION_WEIGHT = 0.001
+DEFAULT_ENDEFF_WEIGHT = 0.1
+DEFAULT_REGULARIZATION_WEIGHT = 1e-3
 
 
 def swap_cable_pairs(values: np.ndarray) -> np.ndarray:

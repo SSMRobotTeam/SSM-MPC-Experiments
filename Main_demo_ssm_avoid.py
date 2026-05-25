@@ -11,7 +11,7 @@ import scipy.io as sciIO
 from controller.cable_constraints import cable_length_double_part
 from controller.nmpc import nmpc_multi_shooting_zoh_avoid_soft
 from controller.ssm_controller import SsmExperimentConfig, SsmFeedbackState, SsmMpcController
-from dynamics.SSM.matlab_data import SPIRAL_TRAJ_DIR, clone_struct_array, get_field, load_rom_data, loadmat, subset_mapping_rows
+from dynamics.SSM.matlab_data import SPIRAL_TRAJ_DIR, clone_struct_array, get_field, load_rom_data, subset_mapping_rows
 from measure.motion_capture import MotionReference, capture_motion
 from utils.quat_rotR import quat2dcm
 from utils.sdk_utils import load_lumo_sdk
@@ -31,8 +31,12 @@ MOTOR_FACTOR = 1.3
 horizon = 1
 RUN_STEPS = np.inf
 FEEDBACK_ENABLED = False
+MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
+QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
+USE_FAST_SINGLE_STEP_QP = False
+CONTROL_SMOOTH_WEIGHT = 1e2
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 100084
+END_MARKER_ID = 100027
 BASE_RIGID_ID = 0
 MID_RIGID_ID = 1
 FEEDBACK_RIGID_ID = 2
@@ -164,13 +168,15 @@ def build_avoid_config(rom_data, avoid_ref: AvoidanceReference) -> SsmExperiment
         Node_List=node_list,
         dist0=dist0,
         opt_W=36,
-        solver_type="ipopt",
-        use_fast_single_step=False,
+        solver_type=MPC_SOLVER_TYPE,
+        qp_backend=QP_BACKEND,
+        use_fast_single_step=USE_FAST_SINGLE_STEP_QP,
+        control_smooth_weight=CONTROL_SMOOTH_WEIGHT,
         nmpc_solver=nmpc_multi_shooting_zoh_avoid_soft,
         pos_end=POS_END,
         pos_obstacle=pos_obstacle,
         d_safe=(SAFE_DISTANCE_FACTOR * OBSTACLE_RADIUS) ** 2,
-        motor_safety_limit=50.0,
+        motor_safety_limit=40.0,
     )
 
 
@@ -183,8 +189,8 @@ def cable_dofs_for_wp(node_list) -> np.ndarray:
     return np.asarray(dofs, dtype=int)
 
 
-def feedback_point_dofs(rom_dir: Path, feedback_position_mm: np.ndarray) -> np.ndarray:
-    nodes_coord = np.asarray(loadmat(rom_dir / "nodes_coord.mat")["nodes_coord"], dtype=float)
+def feedback_point_dofs(rom_data, feedback_position_mm: np.ndarray) -> np.ndarray:
+    nodes_coord = np.asarray(rom_data["nodes_coord"], dtype=float)
     feedback_position_m = (np.asarray(feedback_position_mm, dtype=float).reshape(3) / 1000.0) + POS_END
     distances = np.linalg.norm(nodes_coord - feedback_position_m.reshape(3, 1), axis=0)
     node_index_1based = int(np.argmin(distances)) + 1
@@ -196,10 +202,10 @@ def build_ssm_maps(rom_data, avoid_ref: AvoidanceReference):
     if len(w0) > 1:
         w0[1].coeffs = np.asarray(get_field(w0[1], "coeffs")) * SSM_FACTOR
 
-    n = 5574
+    n = 3 * np.asarray(rom_data["nodes_coord"], dtype=float).shape[1]
     outdof_endeff = np.asarray(rom_data["outdof_endeff"], dtype=int).reshape(-1)
     outdof_half = np.asarray(rom_data["outdof_half"], dtype=int).reshape(-1)
-    outdof_feedback = feedback_point_dofs(MODEL_INFO_DIR, avoid_ref.feedback_point - avoid_ref.motion.end_effector)
+    outdof_feedback = feedback_point_dofs(rom_data, avoid_ref.feedback_point - avoid_ref.motion.end_effector)
     outdofs_for_wp = np.concatenate([outdof_endeff, outdof_half, outdof_endeff + n, outdof_half + n])
     outdofs_for_fb = np.concatenate([outdof_endeff, outdof_half, outdof_feedback])
 

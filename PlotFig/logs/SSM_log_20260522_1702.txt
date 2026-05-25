@@ -1,0 +1,1632 @@
+Using SSM trajectory: eight (E:\RobotGit\SSM-MPC-Experiments-v1\dynamics\trajinfom\eight)
+Fast trajectory enabled: sample time compressed to 0.040s/step
+LuMo SDK connected successfully
+
+Motion-capture measurement node info
+  endeff      initial Ref position (mm): [110.851, 82.9514, 447.515]
+  endeff      3-axis dofs              : [43, 44, 45]
+  half        initial Ref position (mm): [113.587, 86.2818, 215.742]
+  half        3-axis dofs              : [2251, 2252, 2253]
+  feedback_pt initial Ref position (mm): [114.251, 86.0512, 285.414]
+  feedback_pt model position (m)       : [0.0034001, 0.0030998, 0.277899]
+  feedback_pt nearest node             : 566
+  feedback_pt node distance (m)        : 0.00368519
+  feedback_pt 3-axis dofs              : [1696, 1697, 1698]
+Sent @ 2026-05-22 17:01:31.106
+Warning: run_step CPU time (0.062500s) exceeded target (0.040000s)
+Step 0001/0801 | total   0.0554s | measure   0.0002s | feedback   0.0000s | mpc   0.0547s | mpc max   0.0547s | motor [  -0.005,    0.008,   -0.003,   -0.004,   -0.002,    0.006]
+Sent @ 2026-05-22 17:01:31.145
+Step 0002/0801 | total   0.0395s | measure   0.0001s | feedback   0.0000s | mpc   0.0377s | mpc max   0.0547s | motor [   0.022,   -0.037,    0.014,   -0.043,   -0.028,    0.071]
+Sent @ 2026-05-22 17:01:31.186
+Step 0003/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0395s | mpc max   0.0547s | motor [   0.040,   -0.059,    0.026,   -0.090,   -0.059,    0.154]
+Sent @ 2026-05-22 17:01:31.226
+Step 0004/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0324s | mpc max   0.0547s | motor [   0.078,   -0.112,    0.053,   -0.121,   -0.078,    0.212]
+Sent @ 2026-05-22 17:01:31.273
+Step 0005/0801 | total   0.0472s | measure   0.0002s | feedback   0.0000s | mpc   0.0335s | mpc max   0.0547s | motor [   0.121,   -0.173,    0.083,   -0.150,   -0.096,    0.263]
+Sent @ 2026-05-22 17:01:31.332
+Step 0006/0801 | total   0.0468s | measure   0.0002s | feedback   0.0000s | mpc   0.0444s | mpc max   0.0547s | motor [   0.160,   -0.224,    0.108,   -0.182,   -0.118,    0.322]
+Sent @ 2026-05-22 17:01:31.370
+Step 0007/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0353s | mpc max   0.0547s | motor [   0.197,   -0.283,    0.142,   -0.216,   -0.133,    0.374]
+Sent @ 2026-05-22 17:01:31.411
+Step 0008/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [   0.262,   -0.339,    0.134,   -0.227,   -0.180,    0.429]
+Sent @ 2026-05-22 17:01:31.462
+Step 0009/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0335s | mpc max   0.0547s | motor [   0.129,   -0.442,    0.336,   -0.391,   -0.062,    0.451]
+Sent @ 2026-05-22 17:01:31.507
+Step 0010/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0329s | mpc max   0.0547s | motor [   0.350,   -0.500,    0.086,   -0.272,   -0.287,    0.511]
+Sent @ 2026-05-22 17:01:31.551
+Step 0011/0801 | total   0.0784s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [   0.116,   -0.603,    0.416,   -0.518,   -0.074,    0.531]
+Sent @ 2026-05-22 17:01:31.636
+Step 0012/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0359s | mpc max   0.0547s | motor [   0.395,   -0.642,    0.104,   -0.356,   -0.348,    0.605]
+Sent @ 2026-05-22 17:01:31.681
+Step 0013/0801 | total   0.0470s | measure   0.0003s | feedback   0.0000s | mpc   0.0352s | mpc max   0.0547s | motor [   0.091,   -0.757,    0.517,   -0.656,   -0.073,    0.614]
+Sent @ 2026-05-22 17:01:31.725
+Step 0014/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [   0.404,   -0.823,    0.134,   -0.464,   -0.392,    0.668]
+Sent @ 2026-05-22 17:01:31.773
+Step 0015/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0317s | mpc max   0.0547s | motor [   0.200,   -0.896,    0.473,   -0.696,   -0.188,    0.701]
+Sent @ 2026-05-22 17:01:31.819
+Step 0016/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [   0.438,   -0.956,    0.150,   -0.560,   -0.465,    0.764]
+Sent @ 2026-05-22 17:01:31.868
+Step 0017/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0337s | mpc max   0.0547s | motor [   0.311,   -1.044,    0.367,   -0.729,   -0.343,    0.789]
+Sent @ 2026-05-22 17:01:31.910
+Step 0018/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   0.473,   -1.088,    0.160,   -0.654,   -0.531,    0.852]
+Sent @ 2026-05-22 17:01:31.966
+Step 0019/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0383s | mpc max   0.0547s | motor [   0.422,   -1.170,    0.283,   -0.763,   -0.485,    0.889]
+Sent @ 2026-05-22 17:01:32.005
+Step 0020/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [   0.475,   -1.234,    0.250,   -0.789,   -0.548,    0.935]
+Sent @ 2026-05-22 17:01:32.051
+Step 0021/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   0.537,   -1.300,    0.216,   -0.804,   -0.612,    0.989]
+Sent @ 2026-05-22 17:01:32.097
+Step 0022/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [   0.513,   -1.365,    0.301,   -0.887,   -0.590,    1.034]
+Sent @ 2026-05-22 17:01:32.141
+Step 0023/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0259s | mpc max   0.0547s | motor [   0.549,   -1.412,    0.318,   -0.920,   -0.623,    1.088]
+Sent @ 2026-05-22 17:01:32.194
+Step 0024/0801 | total   0.0454s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [   0.617,   -1.461,    0.292,   -0.937,   -0.676,    1.147]
+Sent @ 2026-05-22 17:01:32.239
+Step 0025/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [   0.625,   -1.522,    0.364,   -1.001,   -0.670,    1.196]
+Sent @ 2026-05-22 17:01:32.282
+Step 0026/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [   0.706,   -1.551,    0.360,   -1.013,   -0.716,    1.260]
+Sent @ 2026-05-22 17:01:32.339
+Step 0027/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0356s | mpc max   0.0547s | motor [   0.749,   -1.593,    0.386,   -1.045,   -0.742,    1.318]
+Sent @ 2026-05-22 17:01:32.380
+Step 0028/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [   0.784,   -1.641,    0.426,   -1.088,   -0.754,    1.374]
+Sent @ 2026-05-22 17:01:32.423
+Step 0029/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   0.818,   -1.683,    0.469,   -1.132,   -0.766,    1.431]
+Sent @ 2026-05-22 17:01:32.475
+Step 0030/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [   0.890,   -1.715,    0.483,   -1.154,   -0.803,    1.495]
+Sent @ 2026-05-22 17:01:32.519
+Step 0031/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [   0.937,   -1.761,    0.516,   -1.186,   -0.823,    1.553]
+Sent @ 2026-05-22 17:01:32.564
+Step 0032/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   0.946,   -1.806,    0.570,   -1.242,   -0.823,    1.606]
+Sent @ 2026-05-22 17:01:32.613
+Step 0033/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   1.011,   -1.835,    0.584,   -1.269,   -0.849,    1.667]
+Sent @ 2026-05-22 17:01:32.661
+Step 0034/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [   1.081,   -1.867,    0.618,   -1.297,   -0.881,    1.723]
+Sent @ 2026-05-22 17:01:32.712
+Step 0035/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0352s | mpc max   0.0547s | motor [   1.113,   -1.916,    0.672,   -1.343,   -0.879,    1.784]
+Sent @ 2026-05-22 17:01:32.761
+Step 0036/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0356s | mpc max   0.0547s | motor [   1.167,   -1.949,    0.723,   -1.382,   -0.890,    1.847]
+Sent @ 2026-05-22 17:01:32.803
+Step 0037/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   1.251,   -1.967,    0.734,   -1.399,   -0.930,    1.906]
+Sent @ 2026-05-22 17:01:32.850
+Step 0038/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0331s | mpc max   0.0547s | motor [   1.319,   -1.995,    0.756,   -1.417,   -0.952,    1.972]
+Sent @ 2026-05-22 17:01:32.896
+Step 0039/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0304s | mpc max   0.0547s | motor [   1.337,   -2.026,    0.859,   -1.487,   -0.923,    2.031]
+Sent @ 2026-05-22 17:01:32.942
+Step 0040/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [   1.406,   -2.048,    0.892,   -1.508,   -0.950,    2.095]
+Sent @ 2026-05-22 17:01:32.996
+Step 0041/0801 | total   0.0459s | measure   0.0002s | feedback   0.0000s | mpc   0.0359s | mpc max   0.0547s | motor [   1.491,   -2.076,    0.904,   -1.522,   -0.981,    2.167]
+Sent @ 2026-05-22 17:01:33.041
+Step 0042/0801 | total   0.0473s | measure   0.0002s | feedback   0.0000s | mpc   0.0345s | mpc max   0.0547s | motor [   1.499,   -2.106,    1.012,   -1.592,   -0.943,    2.223]
+Sent @ 2026-05-22 17:01:33.088
+Step 0043/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0347s | mpc max   0.0547s | motor [   1.624,   -2.117,    1.024,   -1.586,   -0.984,    2.296]
+Sent @ 2026-05-22 17:01:33.131
+Step 0044/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   1.705,   -2.130,    1.064,   -1.599,   -1.009,    2.364]
+Sent @ 2026-05-22 17:01:33.179
+Step 0045/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0327s | mpc max   0.0547s | motor [   1.766,   -2.146,    1.139,   -1.648,   -0.999,    2.429]
+Sent @ 2026-05-22 17:01:33.224
+Step 0046/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [   1.822,   -2.164,    1.192,   -1.682,   -1.003,    2.495]
+Sent @ 2026-05-22 17:01:33.272
+Step 0047/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [   1.871,   -2.185,    1.269,   -1.728,   -0.990,    2.560]
+Sent @ 2026-05-22 17:01:33.316
+Step 0048/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [   1.961,   -2.195,    1.296,   -1.737,   -1.019,    2.633]
+Sent @ 2026-05-22 17:01:33.362
+Step 0049/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [   2.040,   -2.202,    1.322,   -1.754,   -1.037,    2.700]
+Sent @ 2026-05-22 17:01:33.414
+Step 0050/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0338s | mpc max   0.0547s | motor [   2.101,   -2.220,    1.404,   -1.801,   -1.018,    2.765]
+Sent @ 2026-05-22 17:01:33.463
+Step 0051/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0343s | mpc max   0.0547s | motor [   2.151,   -2.233,    1.503,   -1.860,   -0.998,    2.819]
+Sent @ 2026-05-22 17:01:33.503
+Step 0052/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0294s | mpc max   0.0547s | motor [   2.248,   -2.259,    1.504,   -1.872,   -1.039,    2.887]
+Sent @ 2026-05-22 17:01:33.554
+Step 0053/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0332s | mpc max   0.0547s | motor [   2.303,   -2.279,    1.562,   -1.896,   -1.033,    2.959]
+Sent @ 2026-05-22 17:01:33.604
+Step 0054/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0372s | mpc max   0.0547s | motor [   2.399,   -2.283,    1.609,   -1.925,   -1.048,    3.021]
+Sent @ 2026-05-22 17:01:33.642
+Step 0055/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [   2.501,   -2.281,    1.630,   -1.931,   -1.076,    3.095]
+Sent @ 2026-05-22 17:01:33.695
+Step 0056/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0341s | mpc max   0.0547s | motor [   2.572,   -2.286,    1.710,   -1.970,   -1.063,    3.161]
+Sent @ 2026-05-22 17:01:33.739
+Step 0057/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   2.642,   -2.303,    1.755,   -1.994,   -1.069,    3.232]
+Sent @ 2026-05-22 17:01:33.788
+Step 0058/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0334s | mpc max   0.0547s | motor [   2.736,   -2.310,    1.830,   -2.037,   -1.062,    3.293]
+Sent @ 2026-05-22 17:01:33.832
+Step 0059/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   2.839,   -2.311,    1.868,   -2.039,   -1.083,    3.369]
+Sent @ 2026-05-22 17:01:33.882
+Step 0060/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0324s | mpc max   0.0547s | motor [   2.915,   -2.291,    1.941,   -2.074,   -1.069,    3.436]
+Sent @ 2026-05-22 17:01:33.928
+Step 0061/0801 | total   0.0606s | measure   0.0001s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [   3.021,   -2.290,    1.988,   -2.085,   -1.077,    3.513]
+Sent @ 2026-05-22 17:01:33.989
+Step 0062/0801 | total   0.0482s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [   3.122,   -2.272,    2.087,   -2.105,   -1.057,    3.588]
+Sent @ 2026-05-22 17:01:34.041
+Step 0063/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0343s | mpc max   0.0547s | motor [   3.258,   -2.227,    2.157,   -2.103,   -1.051,    3.674]
+Sent @ 2026-05-22 17:01:34.090
+Step 0064/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0374s | mpc max   0.0547s | motor [   3.354,   -2.188,    2.315,   -2.134,   -0.985,    3.755]
+Sent @ 2026-05-22 17:01:34.132
+Step 0065/0801 | total   0.0473s | measure   0.0002s | feedback   0.0000s | mpc   0.0333s | mpc max   0.0547s | motor [   3.499,   -2.104,    2.454,   -2.120,   -0.928,    3.867]
+Sent @ 2026-05-22 17:01:34.182
+Step 0066/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0356s | mpc max   0.0547s | motor [   3.702,   -2.009,    2.555,   -2.076,   -0.908,    3.977]
+Sent @ 2026-05-22 17:01:34.226
+Step 0067/0801 | total   0.0638s | measure   0.0001s | feedback   0.0000s | mpc   0.0331s | mpc max   0.0547s | motor [   3.844,   -1.913,    2.727,   -2.072,   -0.845,    4.088]
+Sent @ 2026-05-22 17:01:34.284
+Step 0068/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0270s | mpc max   0.0547s | motor [   4.121,   -1.796,    2.853,   -2.010,   -0.817,    4.206]
+Sent @ 2026-05-22 17:01:34.331
+Step 0069/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   4.324,   -1.578,    3.129,   -1.924,   -0.695,    4.340]
+Sent @ 2026-05-22 17:01:34.381
+Step 0070/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0303s | mpc max   0.0547s | motor [   4.548,   -1.382,    3.291,   -1.873,   -0.605,    4.496]
+Sent @ 2026-05-22 17:01:34.429
+Step 0071/0801 | total   0.0471s | measure   0.0002s | feedback   0.0000s | mpc   0.0324s | mpc max   0.0547s | motor [   4.838,   -1.169,    3.500,   -1.800,   -0.508,    4.655]
+Sent @ 2026-05-22 17:01:34.469
+Step 0072/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [   5.196,   -0.968,    3.756,   -1.721,   -0.435,    4.819]
+Sent @ 2026-05-22 17:01:34.523
+Step 0073/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   5.434,   -0.751,    3.957,   -1.639,   -0.355,    4.957]
+Sent @ 2026-05-22 17:01:34.564
+Step 0074/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [   5.796,   -0.496,    3.983,   -1.456,   -0.408,    5.105]
+Sent @ 2026-05-22 17:01:34.612
+Step 0075/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [   6.234,   -0.323,    3.971,   -1.289,   -0.479,    5.276]
+Sent @ 2026-05-22 17:01:34.658
+Step 0076/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [   6.491,   -0.204,    4.021,   -1.223,   -0.509,    5.335]
+Sent @ 2026-05-22 17:01:34.710
+Step 0077/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [   6.805,   -0.093,    4.051,   -1.128,   -0.575,    5.397]
+Sent @ 2026-05-22 17:01:34.751
+Step 0078/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [   7.104,    0.007,    4.104,   -1.057,   -0.616,    5.460]
+Sent @ 2026-05-22 17:01:34.797
+Step 0079/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   7.354,    0.102,    4.142,   -0.999,   -0.666,    5.480]
+Sent @ 2026-05-22 17:01:34.843
+Step 0080/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [   7.686,    0.137,    4.219,   -0.941,   -0.711,    5.484]
+Sent @ 2026-05-22 17:01:34.890
+Step 0081/0801 | total   0.0483s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [   7.963,    0.210,    4.302,   -0.899,   -0.751,    5.489]
+Sent @ 2026-05-22 17:01:34.944
+Step 0082/0801 | total   0.0452s | measure   0.0001s | feedback   0.0000s | mpc   0.0311s | mpc max   0.0547s | motor [   8.296,    0.262,    4.381,   -0.853,   -0.799,    5.482]
+Sent @ 2026-05-22 17:01:34.991
+Step 0083/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0329s | mpc max   0.0547s | motor [   8.580,    0.336,    4.500,   -0.821,   -0.827,    5.467]
+Sent @ 2026-05-22 17:01:35.037
+Step 0084/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0315s | mpc max   0.0547s | motor [   8.816,    0.375,    4.608,   -0.793,   -0.869,    5.429]
+Sent @ 2026-05-22 17:01:35.089
+Step 0085/0801 | total   0.0466s | measure   0.0002s | feedback   0.0000s | mpc   0.0348s | mpc max   0.0547s | motor [   9.073,    0.396,    4.709,   -0.784,   -0.894,    5.393]
+Sent @ 2026-05-22 17:01:35.131
+Step 0086/0801 | total   0.0454s | measure   0.0002s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [   9.309,    0.428,    4.811,   -0.773,   -0.911,    5.356]
+Sent @ 2026-05-22 17:01:35.175
+Step 0087/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0290s | mpc max   0.0547s | motor [   9.588,    0.454,    4.919,   -0.754,   -0.941,    5.311]
+Sent @ 2026-05-22 17:01:35.219
+Step 0088/0801 | total   0.0467s | measure   0.0002s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [   9.859,    0.495,    5.053,   -0.753,   -0.960,    5.267]
+Sent @ 2026-05-22 17:01:35.265
+Step 0089/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [  10.122,    0.532,    5.185,   -0.743,   -0.979,    5.231]
+Sent @ 2026-05-22 17:01:35.313
+Step 0090/0801 | total   0.0484s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [  10.387,    0.550,    5.318,   -0.752,   -0.991,    5.173]
+Sent @ 2026-05-22 17:01:35.368
+Step 0091/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0338s | mpc max   0.0547s | motor [  10.645,    0.574,    5.467,   -0.749,   -1.001,    5.138]
+Sent @ 2026-05-22 17:01:35.405
+Step 0092/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0251s | mpc max   0.0547s | motor [  10.900,    0.613,    5.619,   -0.761,   -1.004,    5.094]
+Sent @ 2026-05-22 17:01:35.457
+Step 0093/0801 | total   0.0464s | measure   0.0002s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  11.150,    0.637,    5.758,   -0.771,   -1.007,    5.045]
+Sent @ 2026-05-22 17:01:35.507
+Step 0094/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [  11.388,    0.673,    5.911,   -0.777,   -1.007,    5.021]
+Sent @ 2026-05-22 17:01:35.550
+Step 0095/0801 | total   0.0451s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [  11.632,    0.705,    6.065,   -0.797,   -1.002,    4.977]
+Sent @ 2026-05-22 17:01:35.594
+Step 0096/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [  11.875,    0.743,    6.207,   -0.807,   -0.994,    4.941]
+Sent @ 2026-05-22 17:01:35.639
+Step 0097/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0249s | mpc max   0.0547s | motor [  12.107,    0.781,    6.343,   -0.829,   -0.985,    4.905]
+Sent @ 2026-05-22 17:01:35.694
+Step 0098/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0319s | mpc max   0.0547s | motor [  12.323,    0.801,    6.503,   -0.852,   -0.972,    4.859]
+Sent @ 2026-05-22 17:01:35.735
+Step 0099/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [  12.560,    0.839,    6.638,   -0.874,   -0.960,    4.818]
+Sent @ 2026-05-22 17:01:35.781
+Step 0100/0801 | total   0.0469s | measure   0.0002s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [  12.762,    0.874,    6.800,   -0.891,   -0.945,    4.781]
+Sent @ 2026-05-22 17:01:35.833
+Step 0101/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [  12.992,    0.892,    6.964,   -0.926,   -0.925,    4.738]
+Sent @ 2026-05-22 17:01:35.879
+Step 0102/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [  13.209,    0.910,    7.135,   -0.951,   -0.905,    4.705]
+Sent @ 2026-05-22 17:01:35.924
+Step 0103/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  13.399,    0.935,    7.254,   -0.981,   -0.881,    4.666]
+Sent @ 2026-05-22 17:01:35.972
+Step 0104/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [  13.619,    0.973,    7.406,   -1.000,   -0.856,    4.639]
+Sent @ 2026-05-22 17:01:36.020
+Step 0105/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [  13.847,    0.994,    7.566,   -1.037,   -0.830,    4.603]
+Sent @ 2026-05-22 17:01:36.071
+Step 0106/0801 | total   0.0477s | measure   0.0002s | feedback   0.0000s | mpc   0.0339s | mpc max   0.0547s | motor [  14.038,    1.006,    7.709,   -1.071,   -0.802,    4.560]
+Sent @ 2026-05-22 17:01:36.126
+Step 0107/0801 | total   0.0458s | measure   0.0002s | feedback   0.0000s | mpc   0.0410s | mpc max   0.0547s | motor [  14.231,    1.076,    7.822,   -1.080,   -0.781,    4.552]
+Sent @ 2026-05-22 17:01:36.164
+Step 0108/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0333s | mpc max   0.0547s | motor [  14.413,    1.072,    7.985,   -1.130,   -0.747,    4.517]
+Sent @ 2026-05-22 17:01:36.205
+Step 0109/0801 | total   0.0464s | measure   0.0002s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  14.613,    1.105,    8.122,   -1.171,   -0.713,    4.493]
+Sent @ 2026-05-22 17:01:36.256
+Step 0110/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0317s | mpc max   0.0547s | motor [  14.786,    1.125,    8.268,   -1.205,   -0.681,    4.474]
+Sent @ 2026-05-22 17:01:36.299
+Step 0111/0801 | total   0.0458s | measure   0.0002s | feedback   0.0000s | mpc   0.0270s | mpc max   0.0547s | motor [  14.964,    1.140,    8.382,   -1.254,   -0.638,    4.437]
+Sent @ 2026-05-22 17:01:36.343
+Step 0112/0801 | total   0.0636s | measure   0.0001s | feedback   0.0000s | mpc   0.0259s | mpc max   0.0547s | motor [  15.147,    1.135,    8.536,   -1.284,   -0.599,    4.414]
+Sent @ 2026-05-22 17:01:36.415
+Step 0113/0801 | total   0.0454s | measure   0.0001s | feedback   0.0000s | mpc   0.0338s | mpc max   0.0547s | motor [  15.348,    1.180,    8.690,   -1.321,   -0.559,    4.394]
+Sent @ 2026-05-22 17:01:36.456
+Step 0114/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [  15.493,    1.212,    8.819,   -1.360,   -0.520,    4.374]
+Sent @ 2026-05-22 17:01:36.507
+Step 0115/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0327s | mpc max   0.0547s | motor [  15.674,    1.257,    8.962,   -1.397,   -0.479,    4.360]
+Sent @ 2026-05-22 17:01:36.551
+Step 0116/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [  15.854,    1.261,    9.076,   -1.439,   -0.433,    4.341]
+Sent @ 2026-05-22 17:01:36.598
+Step 0117/0801 | total   0.0628s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  15.991,    1.278,    9.221,   -1.479,   -0.386,    4.318]
+Sent @ 2026-05-22 17:01:36.661
+Step 0118/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0304s | mpc max   0.0547s | motor [  16.206,    1.323,    9.323,   -1.513,   -0.342,    4.305]
+Sent @ 2026-05-22 17:01:36.707
+Step 0119/0801 | total   0.0472s | measure   0.0002s | feedback   0.0000s | mpc   0.0294s | mpc max   0.0547s | motor [  16.372,    1.317,    9.462,   -1.539,   -0.299,    4.297]
+Sent @ 2026-05-22 17:01:36.758
+Step 0120/0801 | total   0.0465s | measure   0.0002s | feedback   0.0000s | mpc   0.0325s | mpc max   0.0547s | motor [  16.513,    1.367,    9.564,   -1.575,   -0.249,    4.281]
+Sent @ 2026-05-22 17:01:36.802
+Step 0121/0801 | total   0.0459s | measure   0.0002s | feedback   0.0000s | mpc   0.0303s | mpc max   0.0547s | motor [  16.657,    1.395,    9.665,   -1.620,   -0.198,    4.264]
+Sent @ 2026-05-22 17:01:36.848
+Step 0122/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [  16.802,    1.433,    9.770,   -1.645,   -0.150,    4.250]
+Sent @ 2026-05-22 17:01:36.894
+Step 0123/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [  17.004,    1.428,    9.881,   -1.683,   -0.096,    4.239]
+Sent @ 2026-05-22 17:01:36.941
+Step 0124/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [  17.131,    1.462,    9.968,   -1.717,   -0.045,    4.232]
+Sent @ 2026-05-22 17:01:36.986
+Step 0125/0801 | total   0.0780s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [  17.285,    1.479,   10.081,   -1.748,   -0.003,    4.239]
+Sent @ 2026-05-22 17:01:37.065
+Step 0126/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  17.455,    1.569,   10.134,   -1.784,    0.049,    4.239]
+Sent @ 2026-05-22 17:01:37.116
+Step 0127/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0324s | mpc max   0.0547s | motor [  17.625,    1.572,   10.241,   -1.824,    0.105,    4.233]
+Sent @ 2026-05-22 17:01:37.163
+Step 0128/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0326s | mpc max   0.0547s | motor [  17.776,    1.620,   10.354,   -1.844,    0.144,    4.246]
+Sent @ 2026-05-22 17:01:37.210
+Step 0129/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0325s | mpc max   0.0547s | motor [  17.924,    1.634,   10.432,   -1.882,    0.198,    4.243]
+Sent @ 2026-05-22 17:01:37.260
+Step 0130/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0363s | mpc max   0.0547s | motor [  18.065,    1.667,   10.518,   -1.936,    0.273,    4.221]
+Sent @ 2026-05-22 17:01:37.308
+Step 0131/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0366s | mpc max   0.0547s | motor [  18.196,    1.704,   10.584,   -1.952,    0.318,    4.226]
+Sent @ 2026-05-22 17:01:37.348
+Step 0132/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0304s | mpc max   0.0547s | motor [  18.400,    1.728,   10.668,   -1.998,    0.384,    4.230]
+Sent @ 2026-05-22 17:01:37.398
+Step 0133/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0335s | mpc max   0.0547s | motor [  18.550,    1.760,   10.781,   -2.027,    0.438,    4.234]
+Sent @ 2026-05-22 17:01:37.444
+Step 0134/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0316s | mpc max   0.0547s | motor [  18.704,    1.832,   10.858,   -2.054,    0.481,    4.251]
+Sent @ 2026-05-22 17:01:37.487
+Step 0135/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0295s | mpc max   0.0547s | motor [  18.767,    1.855,   10.885,   -2.086,    0.534,    4.253]
+Sent @ 2026-05-22 17:01:37.535
+Step 0136/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [  18.945,    1.870,   10.913,   -2.121,    0.593,    4.248]
+Sent @ 2026-05-22 17:01:37.579
+Step 0137/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [  19.106,    1.858,   10.971,   -2.158,    0.651,    4.260]
+Sent @ 2026-05-22 17:01:37.630
+Step 0138/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [  19.225,    1.967,   10.993,   -2.191,    0.707,    4.263]
+Sent @ 2026-05-22 17:01:37.675
+Step 0139/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [  19.347,    1.991,   11.049,   -2.212,    0.750,    4.271]
+Sent @ 2026-05-22 17:01:37.723
+Step 0140/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0292s | mpc max   0.0547s | motor [  19.492,    2.005,   11.056,   -2.249,    0.807,    4.275]
+Sent @ 2026-05-22 17:01:37.771
+Step 0141/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0316s | mpc max   0.0547s | motor [  19.607,    2.065,   11.080,   -2.275,    0.860,    4.275]
+Sent @ 2026-05-22 17:01:37.815
+Step 0142/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [  19.747,    2.070,   11.099,   -2.300,    0.910,    4.283]
+Sent @ 2026-05-22 17:01:37.862
+Step 0143/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [  19.881,    2.151,   11.132,   -2.321,    0.954,    4.285]
+Sent @ 2026-05-22 17:01:37.909
+Step 0144/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [  19.979,    2.211,   11.139,   -2.357,    1.007,    4.293]
+Sent @ 2026-05-22 17:01:37.956
+Step 0145/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [  20.138,    2.238,   11.132,   -2.379,    1.056,    4.293]
+Sent @ 2026-05-22 17:01:38.004
+Step 0146/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0290s | mpc max   0.0547s | motor [  20.279,    2.285,   11.134,   -2.405,    1.103,    4.300]
+Sent @ 2026-05-22 17:01:38.050
+Step 0147/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [  20.379,    2.341,   11.142,   -2.431,    1.155,    4.298]
+Sent @ 2026-05-22 17:01:38.099
+Step 0148/0801 | total   0.0458s | measure   0.0002s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [  20.498,    2.359,   11.154,   -2.455,    1.212,    4.298]
+Sent @ 2026-05-22 17:01:38.142
+Step 0149/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [  20.686,    2.421,   11.183,   -2.483,    1.276,    4.295]
+Sent @ 2026-05-22 17:01:38.189
+Step 0150/0801 | total   0.0312s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  20.804,    2.434,   11.188,   -2.510,    1.333,    4.295]
+Sent @ 2026-05-22 17:01:38.220
+Step 0151/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [  20.929,    2.503,   11.178,   -2.540,    1.394,    4.289]
+Sent @ 2026-05-22 17:01:38.267
+Step 0152/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [  21.004,    2.540,   11.169,   -2.563,    1.443,    4.286]
+Sent @ 2026-05-22 17:01:38.314
+Step 0153/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [  21.145,    2.587,   11.135,   -2.581,    1.494,    4.278]
+Sent @ 2026-05-22 17:01:38.363
+Step 0154/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  21.237,    2.647,   11.122,   -2.611,    1.546,    4.281]
+Sent @ 2026-05-22 17:01:38.413
+Step 0155/0801 | total   0.0637s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [  21.350,    2.679,   11.112,   -2.633,    1.600,    4.276]
+Sent @ 2026-05-22 17:01:38.472
+Step 0156/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [  21.454,    2.746,   11.076,   -2.656,    1.652,    4.267]
+Sent @ 2026-05-22 17:01:38.519
+Step 0157/0801 | total   0.0617s | measure   0.0001s | feedback   0.0000s | mpc   0.0294s | mpc max   0.0547s | motor [  21.566,    2.798,   11.028,   -2.678,    1.706,    4.259]
+Sent @ 2026-05-22 17:01:38.579
+Step 0158/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0262s | mpc max   0.0547s | motor [  21.610,    2.866,   10.982,   -2.708,    1.767,    4.252]
+Sent @ 2026-05-22 17:01:38.626
+Step 0159/0801 | total   0.0632s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [  21.763,    2.882,   10.979,   -2.718,    1.812,    4.240]
+Sent @ 2026-05-22 17:01:38.688
+Step 0160/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0256s | mpc max   0.0547s | motor [  21.886,    2.960,   10.948,   -2.742,    1.869,    4.233]
+Sent @ 2026-05-22 17:01:38.745
+Step 0161/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0360s | mpc max   0.0547s | motor [  21.952,    2.989,   10.899,   -2.768,    1.924,    4.225]
+Sent @ 2026-05-22 17:01:38.787
+Step 0162/0801 | total   0.0466s | measure   0.0002s | feedback   0.0000s | mpc   0.0318s | mpc max   0.0547s | motor [  22.075,    3.044,   10.839,   -2.787,    1.973,    4.217]
+Sent @ 2026-05-22 17:01:38.832
+Step 0163/0801 | total   0.0467s | measure   0.0002s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [  22.182,    3.140,   10.768,   -2.802,    2.017,    4.205]
+Sent @ 2026-05-22 17:01:38.879
+Step 0164/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [  22.254,    3.161,   10.704,   -2.821,    2.061,    4.198]
+Sent @ 2026-05-22 17:01:38.925
+Step 0165/0801 | total   0.0634s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  22.372,    3.240,   10.669,   -2.837,    2.111,    4.184]
+Sent @ 2026-05-22 17:01:38.992
+Step 0166/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0317s | mpc max   0.0547s | motor [  22.461,    3.306,   10.597,   -2.858,    2.162,    4.171]
+Sent @ 2026-05-22 17:01:39.031
+Step 0167/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [  22.545,    3.389,   10.516,   -2.875,    2.210,    4.154]
+Sent @ 2026-05-22 17:01:39.079
+Step 0168/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  22.652,    3.435,   10.431,   -2.892,    2.267,    4.139]
+Sent @ 2026-05-22 17:01:39.124
+Step 0169/0801 | total   0.0469s | measure   0.0002s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [  22.741,    3.500,   10.391,   -2.906,    2.310,    4.126]
+Sent @ 2026-05-22 17:01:39.171
+Step 0170/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [  22.822,    3.547,   10.301,   -2.923,    2.355,    4.111]
+Sent @ 2026-05-22 17:01:39.222
+Step 0171/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [  22.888,    3.642,   10.251,   -2.937,    2.417,    4.084]
+Sent @ 2026-05-22 17:01:39.264
+Step 0172/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0248s | mpc max   0.0547s | motor [  22.990,    3.686,   10.198,   -2.954,    2.474,    4.065]
+Sent @ 2026-05-22 17:01:39.318
+Step 0173/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0311s | mpc max   0.0547s | motor [  23.077,    3.757,   10.127,   -2.971,    2.531,    4.044]
+Sent @ 2026-05-22 17:01:39.363
+Step 0174/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  23.127,    3.836,   10.073,   -2.984,    2.589,    4.016]
+Sent @ 2026-05-22 17:01:39.409
+Step 0175/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  23.222,    3.908,    9.987,   -2.996,    2.649,    3.990]
+Sent @ 2026-05-22 17:01:39.458
+Step 0176/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [  23.283,    3.979,    9.919,   -3.013,    2.705,    3.966]
+Sent @ 2026-05-22 17:01:39.504
+Step 0177/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  23.359,    4.044,    9.852,   -3.024,    2.765,    3.937]
+Sent @ 2026-05-22 17:01:39.554
+Step 0178/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0318s | mpc max   0.0547s | motor [  23.465,    4.129,    9.806,   -3.032,    2.825,    3.909]
+Sent @ 2026-05-22 17:01:39.598
+Step 0179/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [  23.543,    4.205,    9.695,   -3.039,    2.861,    3.885]
+Sent @ 2026-05-22 17:01:39.643
+Step 0180/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [  23.603,    4.285,    9.579,   -3.050,    2.910,    3.858]
+Sent @ 2026-05-22 17:01:39.687
+Step 0181/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0247s | mpc max   0.0547s | motor [  23.661,    4.367,    9.490,   -3.060,    2.959,    3.833]
+Sent @ 2026-05-22 17:01:39.736
+Step 0182/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [  23.718,    4.443,    9.408,   -3.068,    3.002,    3.803]
+Sent @ 2026-05-22 17:01:39.782
+Step 0183/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0270s | mpc max   0.0547s | motor [  23.772,    4.532,    9.317,   -3.079,    3.067,    3.770]
+Sent @ 2026-05-22 17:01:39.829
+Step 0184/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0269s | mpc max   0.0547s | motor [  23.838,    4.593,    9.227,   -3.086,    3.117,    3.738]
+Sent @ 2026-05-22 17:01:39.878
+Step 0185/0801 | total   0.0478s | measure   0.0001s | feedback   0.0000s | mpc   0.0295s | mpc max   0.0547s | motor [  23.875,    4.671,    9.127,   -3.090,    3.161,    3.705]
+Sent @ 2026-05-22 17:01:39.924
+Step 0186/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  23.940,    4.765,    9.017,   -3.096,    3.211,    3.670]
+Sent @ 2026-05-22 17:01:39.975
+Step 0187/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0326s | mpc max   0.0547s | motor [  23.992,    4.870,    8.928,   -3.103,    3.251,    3.644]
+Sent @ 2026-05-22 17:01:40.015
+Step 0188/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0249s | mpc max   0.0547s | motor [  24.022,    4.946,    8.812,   -3.109,    3.301,    3.608]
+Sent @ 2026-05-22 17:01:40.065
+Step 0189/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  24.041,    5.041,    8.714,   -3.112,    3.359,    3.565]
+Sent @ 2026-05-22 17:01:40.110
+Step 0190/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  24.112,    5.140,    8.622,   -3.117,    3.400,    3.535]
+Sent @ 2026-05-22 17:01:40.155
+Step 0191/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0247s | mpc max   0.0547s | motor [  24.121,    5.232,    8.519,   -3.118,    3.440,    3.498]
+Sent @ 2026-05-22 17:01:40.207
+Step 0192/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [  24.171,    5.295,    8.418,   -3.123,    3.497,    3.458]
+Sent @ 2026-05-22 17:01:40.249
+Step 0193/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0235s | mpc max   0.0547s | motor [  24.201,    5.402,    8.314,   -3.125,    3.544,    3.421]
+Sent @ 2026-05-22 17:01:40.297
+Step 0194/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [  24.249,    5.524,    8.203,   -3.121,    3.579,    3.380]
+Sent @ 2026-05-22 17:01:40.346
+Step 0195/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [  24.254,    5.614,    8.094,   -3.123,    3.621,    3.342]
+Sent @ 2026-05-22 17:01:40.396
+Step 0196/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [  24.267,    5.666,    8.010,   -3.125,    3.675,    3.302]
+Sent @ 2026-05-22 17:01:40.445
+Step 0197/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [  24.296,    5.786,    7.919,   -3.124,    3.722,    3.256]
+Sent @ 2026-05-22 17:01:40.486
+Step 0198/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0259s | mpc max   0.0547s | motor [  24.315,    5.890,    7.811,   -3.118,    3.786,    3.204]
+Sent @ 2026-05-22 17:01:40.533
+Step 0199/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0258s | mpc max   0.0547s | motor [  24.321,    5.949,    7.720,   -3.118,    3.820,    3.170]
+Sent @ 2026-05-22 17:01:40.579
+Step 0200/0801 | total   0.0454s | measure   0.0002s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [  24.332,    6.025,    7.605,   -3.109,    3.867,    3.118]
+Sent @ 2026-05-22 17:01:40.627
+Step 0201/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0286s | mpc max   0.0547s | motor [  24.342,    6.159,    7.532,   -3.108,    3.923,    3.072]
+Sent @ 2026-05-22 17:01:40.675
+Step 0202/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [  24.360,    6.244,    7.418,   -3.100,    3.957,    3.032]
+Sent @ 2026-05-22 17:01:40.719
+Step 0203/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [  24.353,    6.338,    7.321,   -3.096,    3.995,    2.984]
+Sent @ 2026-05-22 17:01:40.774
+Step 0204/0801 | total   0.0477s | measure   0.0002s | feedback   0.0000s | mpc   0.0342s | mpc max   0.0547s | motor [  24.345,    6.447,    7.201,   -3.086,    4.046,    2.934]
+Sent @ 2026-05-22 17:01:40.815
+Step 0205/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [  24.362,    6.535,    7.095,   -3.080,    4.075,    2.894]
+Sent @ 2026-05-22 17:01:40.859
+Step 0206/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0245s | mpc max   0.0547s | motor [  24.353,    6.650,    6.991,   -3.071,    4.109,    2.845]
+Sent @ 2026-05-22 17:01:40.905
+Step 0207/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0234s | mpc max   0.0547s | motor [  24.347,    6.736,    6.881,   -3.060,    4.153,    2.796]
+Sent @ 2026-05-22 17:01:40.959
+Step 0208/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0303s | mpc max   0.0547s | motor [  24.353,    6.811,    6.799,   -3.052,    4.181,    2.753]
+Sent @ 2026-05-22 17:01:41.003
+Step 0209/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  24.334,    6.898,    6.703,   -3.039,    4.227,    2.695]
+Sent @ 2026-05-22 17:01:41.051
+Step 0210/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [  24.325,    6.996,    6.618,   -3.030,    4.256,    2.656]
+Sent @ 2026-05-22 17:01:41.095
+Step 0211/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0259s | mpc max   0.0547s | motor [  24.293,    7.119,    6.473,   -3.019,    4.289,    2.607]
+Sent @ 2026-05-22 17:01:41.139
+Step 0212/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0245s | mpc max   0.0547s | motor [  24.262,    7.221,    6.356,   -3.008,    4.309,    2.563]
+Sent @ 2026-05-22 17:01:41.187
+Step 0213/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0237s | mpc max   0.0547s | motor [  24.267,    7.332,    6.268,   -2.993,    4.344,    2.515]
+Sent @ 2026-05-22 17:01:41.235
+Step 0214/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [  24.232,    7.418,    6.165,   -2.981,    4.365,    2.469]
+Sent @ 2026-05-22 17:01:41.285
+Step 0215/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [  24.194,    7.540,    6.075,   -2.967,    4.404,    2.416]
+Sent @ 2026-05-22 17:01:41.329
+Step 0216/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0271s | mpc max   0.0547s | motor [  24.177,    7.632,    5.960,   -2.956,    4.419,    2.377]
+Sent @ 2026-05-22 17:01:41.374
+Step 0217/0801 | total   0.0627s | measure   0.0001s | feedback   0.0000s | mpc   0.0249s | mpc max   0.0547s | motor [  24.118,    7.724,    5.847,   -2.942,    4.437,    2.331]
+Sent @ 2026-05-22 17:01:41.448
+Step 0218/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0360s | mpc max   0.0547s | motor [  24.075,    7.830,    5.739,   -2.925,    4.472,    2.276]
+Sent @ 2026-05-22 17:01:41.490
+Step 0219/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [  24.049,    7.928,    5.666,   -2.909,    4.500,    2.231]
+Sent @ 2026-05-22 17:01:41.530
+Step 0220/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0245s | mpc max   0.0547s | motor [  24.000,    8.019,    5.577,   -2.891,    4.523,    2.181]
+Sent @ 2026-05-22 17:01:41.577
+Step 0221/0801 | total   0.0470s | measure   0.0002s | feedback   0.0000s | mpc   0.0236s | mpc max   0.0547s | motor [  23.963,    8.108,    5.480,   -2.870,    4.554,    2.124]
+Sent @ 2026-05-22 17:01:41.625
+Step 0222/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0242s | mpc max   0.0547s | motor [  23.924,    8.185,    5.392,   -2.852,    4.579,    2.078]
+Sent @ 2026-05-22 17:01:41.670
+Step 0223/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0236s | mpc max   0.0547s | motor [  23.863,    8.276,    5.301,   -2.836,    4.603,    2.030]
+Sent @ 2026-05-22 17:01:41.717
+Step 0224/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0237s | mpc max   0.0547s | motor [  23.795,    8.375,    5.226,   -2.820,    4.621,    1.980]
+Sent @ 2026-05-22 17:01:41.773
+Step 0225/0801 | total   0.0624s | measure   0.0001s | feedback   0.0000s | mpc   0.0334s | mpc max   0.0547s | motor [  23.749,    8.464,    5.131,   -2.798,    4.646,    1.927]
+Sent @ 2026-05-22 17:01:41.829
+Step 0226/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [  23.656,    8.516,    5.036,   -2.785,    4.664,    1.882]
+Sent @ 2026-05-22 17:01:41.877
+Step 0227/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [  23.594,    8.626,    4.937,   -2.764,    4.672,    1.833]
+Sent @ 2026-05-22 17:01:41.920
+Step 0228/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0248s | mpc max   0.0547s | motor [  23.537,    8.732,    4.832,   -2.739,    4.691,    1.782]
+Sent @ 2026-05-22 17:01:41.971
+Step 0229/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  23.443,    8.784,    4.758,   -2.728,    4.691,    1.746]
+Sent @ 2026-05-22 17:01:42.018
+Step 0230/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  23.378,    8.882,    4.658,   -2.709,    4.700,    1.703]
+Sent @ 2026-05-22 17:01:42.064
+Step 0231/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [  23.295,    8.974,    4.575,   -2.684,    4.722,    1.648]
+Sent @ 2026-05-22 17:01:42.110
+Step 0232/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [  23.229,    9.044,    4.499,   -2.665,    4.729,    1.607]
+Sent @ 2026-05-22 17:01:42.159
+Step 0233/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [  23.136,    9.136,    4.408,   -2.650,    4.731,    1.564]
+Sent @ 2026-05-22 17:01:42.202
+Step 0234/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [  23.064,    9.208,    4.314,   -2.624,    4.739,    1.518]
+Sent @ 2026-05-22 17:01:42.250
+Step 0235/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [  22.973,    9.292,    4.233,   -2.607,    4.746,    1.478]
+Sent @ 2026-05-22 17:01:42.296
+Step 0236/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0237s | mpc max   0.0547s | motor [  22.872,    9.354,    4.149,   -2.590,    4.741,    1.439]
+Sent @ 2026-05-22 17:01:42.344
+Step 0237/0801 | total   0.0308s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [  22.790,    9.432,    4.060,   -2.565,    4.748,    1.392]
+Sent @ 2026-05-22 17:01:42.375
+Step 0238/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [  22.704,    9.524,    3.973,   -2.548,    4.743,    1.356]
+Sent @ 2026-05-22 17:01:42.422
+Step 0239/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [  22.601,    9.624,    3.903,   -2.519,    4.750,    1.308]
+Sent @ 2026-05-22 17:01:42.467
+Step 0240/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [  22.514,    9.642,    3.831,   -2.511,    4.736,    1.282]
+Sent @ 2026-05-22 17:01:42.518
+Step 0241/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0279s | mpc max   0.0547s | motor [  22.398,    9.730,    3.739,   -2.491,    4.734,    1.241]
+Sent @ 2026-05-22 17:01:42.566
+Step 0242/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [  22.296,    9.800,    3.661,   -2.464,    4.735,    1.195]
+Sent @ 2026-05-22 17:01:42.615
+Step 0243/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [  22.218,    9.872,    3.589,   -2.442,    4.725,    1.160]
+Sent @ 2026-05-22 17:01:42.660
+Step 0244/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [  22.091,    9.926,    3.524,   -2.418,    4.733,    1.113]
+Sent @ 2026-05-22 17:01:42.705
+Step 0245/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [  21.995,    9.982,    3.452,   -2.398,    4.732,    1.075]
+Sent @ 2026-05-22 17:01:42.753
+Step 0246/0801 | total   0.0474s | measure   0.0002s | feedback   0.0000s | mpc   0.0299s | mpc max   0.0547s | motor [  21.880,   10.033,    3.374,   -2.380,    4.716,    1.042]
+Sent @ 2026-05-22 17:01:42.801
+Step 0247/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [  21.771,   10.098,    3.306,   -2.352,    4.715,    0.997]
+Sent @ 2026-05-22 17:01:42.842
+Step 0248/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0242s | mpc max   0.0547s | motor [  21.663,   10.136,    3.233,   -2.337,    4.708,    0.966]
+Sent @ 2026-05-22 17:01:42.897
+Step 0249/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0315s | mpc max   0.0547s | motor [  21.550,   10.194,    3.170,   -2.318,    4.698,    0.932]
+Sent @ 2026-05-22 17:01:42.937
+Step 0250/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0254s | mpc max   0.0547s | motor [  21.431,   10.236,    3.106,   -2.290,    4.699,    0.886]
+Sent @ 2026-05-22 17:01:42.986
+Step 0251/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [  21.313,   10.260,    3.040,   -2.263,    4.689,    0.847]
+Sent @ 2026-05-22 17:01:43.031
+Step 0252/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [  21.176,   10.312,    2.966,   -2.246,    4.679,    0.810]
+Sent @ 2026-05-22 17:01:43.082
+Step 0253/0801 | total   0.0450s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [  21.037,   10.340,    2.899,   -2.225,    4.672,    0.772]
+Sent @ 2026-05-22 17:01:43.126
+Step 0254/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0269s | mpc max   0.0547s | motor [  20.917,   10.354,    2.853,   -2.206,    4.657,    0.742]
+Sent @ 2026-05-22 17:01:43.177
+Step 0255/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [  20.762,   10.408,    2.777,   -2.185,    4.648,    0.703]
+Sent @ 2026-05-22 17:01:43.223
+Step 0256/0801 | total   0.0448s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  20.604,   10.408,    2.706,   -2.164,    4.637,    0.666]
+Sent @ 2026-05-22 17:01:43.265
+Step 0257/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [  20.475,   10.430,    2.655,   -2.146,    4.614,    0.640]
+Sent @ 2026-05-22 17:01:43.315
+Step 0258/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [  20.336,   10.451,    2.589,   -2.124,    4.600,    0.606]
+Sent @ 2026-05-22 17:01:43.358
+Step 0259/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [  20.185,   10.481,    2.520,   -2.106,    4.585,    0.575]
+Sent @ 2026-05-22 17:01:43.408
+Step 0260/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0279s | mpc max   0.0547s | motor [  20.048,   10.487,    2.466,   -2.083,    4.575,    0.539]
+Sent @ 2026-05-22 17:01:43.455
+Step 0261/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0277s | mpc max   0.0547s | motor [  19.895,   10.501,    2.404,   -2.069,    4.556,    0.513]
+Sent @ 2026-05-22 17:01:43.505
+Step 0262/0801 | total   0.0465s | measure   0.0002s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [  19.756,   10.515,    2.343,   -2.046,    4.538,    0.481]
+Sent @ 2026-05-22 17:01:43.550
+Step 0263/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [  19.601,   10.518,    2.287,   -2.028,    4.522,    0.451]
+Sent @ 2026-05-22 17:01:43.595
+Step 0264/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  19.458,   10.515,    2.238,   -2.010,    4.499,    0.425]
+Sent @ 2026-05-22 17:01:43.639
+Step 0265/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [  19.312,   10.522,    2.182,   -1.990,    4.483,    0.395]
+Sent @ 2026-05-22 17:01:43.689
+Step 0266/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  19.168,   10.525,    2.118,   -1.972,    4.459,    0.372]
+Sent @ 2026-05-22 17:01:43.743
+Step 0267/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0348s | mpc max   0.0547s | motor [  19.017,   10.533,    2.060,   -1.951,    4.436,    0.343]
+Sent @ 2026-05-22 17:01:43.789
+Step 0268/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0335s | mpc max   0.0547s | motor [  18.861,   10.528,    2.007,   -1.933,    4.419,    0.314]
+Sent @ 2026-05-22 17:01:43.835
+Warning: run_step CPU time (0.046875s) exceeded target (0.040000s)
+Step 0269/0801 | total   0.0339s | measure   0.0002s | feedback   0.0000s | mpc   0.0333s | mpc max   0.0547s | motor [  18.685,   10.513,    1.942,   -1.917,    4.402,    0.285]
+Sent @ 2026-05-22 17:01:43.866
+Step 0270/0801 | total   0.0445s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [  18.500,   10.501,    1.884,   -1.905,    4.374,    0.265]
+Sent @ 2026-05-22 17:01:43.906
+Step 0271/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0248s | mpc max   0.0547s | motor [  18.332,   10.462,    1.833,   -1.876,    4.352,    0.228]
+Sent @ 2026-05-22 17:01:43.953
+Step 0272/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0256s | mpc max   0.0547s | motor [  18.137,   10.421,    1.777,   -1.868,    4.336,    0.204]
+Sent @ 2026-05-22 17:01:44.003
+Step 0273/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  17.959,   10.386,    1.722,   -1.861,    4.316,    0.184]
+Sent @ 2026-05-22 17:01:44.051
+Step 0274/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  17.765,   10.373,    1.650,   -1.846,    4.301,    0.155]
+Sent @ 2026-05-22 17:01:44.096
+Step 0275/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [  17.604,   10.332,    1.614,   -1.830,    4.281,    0.130]
+Sent @ 2026-05-22 17:01:44.147
+Step 0276/0801 | total   0.0461s | measure   0.0002s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [  17.416,   10.300,    1.551,   -1.824,    4.257,    0.114]
+Sent @ 2026-05-22 17:01:44.193
+Step 0277/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0313s | mpc max   0.0547s | motor [  17.224,   10.243,    1.491,   -1.808,    4.226,    0.092]
+Sent @ 2026-05-22 17:01:44.242
+Step 0278/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0329s | mpc max   0.0547s | motor [  17.034,   10.205,    1.433,   -1.793,    4.206,    0.066]
+Sent @ 2026-05-22 17:01:44.286
+Step 0279/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [  16.865,   10.165,    1.383,   -1.782,    4.190,    0.044]
+Sent @ 2026-05-22 17:01:44.328
+Step 0280/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [  16.684,   10.113,    1.331,   -1.780,    4.172,    0.030]
+Sent @ 2026-05-22 17:01:44.386
+Step 0281/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0362s | mpc max   0.0547s | motor [  16.504,   10.074,    1.276,   -1.768,    4.156,    0.006]
+Sent @ 2026-05-22 17:01:44.432
+Step 0282/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0365s | mpc max   0.0547s | motor [  16.317,   10.011,    1.227,   -1.759,    4.144,   -0.016]
+Sent @ 2026-05-22 17:01:44.478
+Step 0283/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0362s | mpc max   0.0547s | motor [  16.138,    9.963,    1.172,   -1.754,    4.126,   -0.032]
+Sent @ 2026-05-22 17:01:44.524
+Step 0284/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0351s | mpc max   0.0547s | motor [  15.942,    9.914,    1.117,   -1.744,    4.108,   -0.055]
+Sent @ 2026-05-22 17:01:44.561
+Step 0285/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0255s | mpc max   0.0547s | motor [  15.738,    9.843,    1.063,   -1.736,    4.097,   -0.077]
+Sent @ 2026-05-22 17:01:44.621
+Step 0286/0801 | total   0.0466s | measure   0.0002s | feedback   0.0000s | mpc   0.0367s | mpc max   0.0547s | motor [  15.529,    9.763,    1.004,   -1.742,    4.082,   -0.088]
+Sent @ 2026-05-22 17:01:44.658
+Step 0287/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [  15.320,    9.703,    0.945,   -1.734,    4.064,   -0.107]
+Sent @ 2026-05-22 17:01:44.707
+Step 0288/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [  15.118,    9.626,    0.893,   -1.724,    4.047,   -0.129]
+Sent @ 2026-05-22 17:01:44.749
+Step 0289/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0247s | mpc max   0.0547s | motor [  14.940,    9.541,    0.848,   -1.712,    4.029,   -0.148]
+Sent @ 2026-05-22 17:01:44.807
+Step 0290/0801 | total   0.0469s | measure   0.0002s | feedback   0.0000s | mpc   0.0362s | mpc max   0.0547s | motor [  14.727,    9.470,    0.788,   -1.712,    4.013,   -0.162]
+Sent @ 2026-05-22 17:01:44.849
+Step 0291/0801 | total   0.0472s | measure   0.0002s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [  14.527,    9.385,    0.734,   -1.702,    4.001,   -0.184]
+Sent @ 2026-05-22 17:01:44.907
+Step 0292/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0417s | mpc max   0.0547s | motor [  14.325,    9.305,    0.680,   -1.703,    3.986,   -0.195]
+Sent @ 2026-05-22 17:01:44.944
+Step 0293/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [  14.127,    9.206,    0.630,   -1.690,    3.971,   -0.218]
+Sent @ 2026-05-22 17:01:44.984
+Step 0294/0801 | total   0.0456s | measure   0.0002s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [  13.918,    9.111,    0.576,   -1.694,    3.954,   -0.225]
+Sent @ 2026-05-22 17:01:45.033
+Step 0295/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [  13.698,    9.013,    0.521,   -1.680,    3.939,   -0.250]
+Sent @ 2026-05-22 17:01:45.080
+Step 0296/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [  13.488,    8.920,    0.472,   -1.675,    3.935,   -0.270]
+Sent @ 2026-05-22 17:01:45.127
+Step 0297/0801 | total   0.0620s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [  13.277,    8.808,    0.420,   -1.677,    3.929,   -0.283]
+Sent @ 2026-05-22 17:01:45.187
+Step 0298/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0254s | mpc max   0.0547s | motor [  13.067,    8.705,    0.367,   -1.673,    3.920,   -0.298]
+Sent @ 2026-05-22 17:01:45.240
+Step 0299/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0313s | mpc max   0.0547s | motor [  12.842,    8.594,    0.309,   -1.673,    3.916,   -0.314]
+Sent @ 2026-05-22 17:01:45.293
+Step 0300/0801 | total   0.0610s | measure   0.0002s | feedback   0.0000s | mpc   0.0365s | mpc max   0.0547s | motor [  12.621,    8.484,    0.264,   -1.671,    3.914,   -0.329]
+Sent @ 2026-05-22 17:01:45.347
+Step 0301/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [  12.405,    8.366,    0.215,   -1.670,    3.911,   -0.343]
+Sent @ 2026-05-22 17:01:45.400
+Step 0302/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0344s | mpc max   0.0547s | motor [  12.194,    8.240,    0.162,   -1.666,    3.906,   -0.358]
+Sent @ 2026-05-22 17:01:45.446
+Step 0303/0801 | total   0.0475s | measure   0.0002s | feedback   0.0000s | mpc   0.0339s | mpc max   0.0547s | motor [  11.965,    8.122,    0.115,   -1.662,    3.907,   -0.375]
+Sent @ 2026-05-22 17:01:45.490
+Step 0304/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [  11.728,    8.003,    0.060,   -1.665,    3.913,   -0.387]
+Sent @ 2026-05-22 17:01:45.538
+Step 0305/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0304s | mpc max   0.0547s | motor [  11.507,    7.861,    0.013,   -1.664,    3.914,   -0.399]
+Sent @ 2026-05-22 17:01:45.589
+Step 0306/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0367s | mpc max   0.0547s | motor [  11.276,    7.737,   -0.035,   -1.669,    3.917,   -0.404]
+Sent @ 2026-05-22 17:01:45.626
+Step 0307/0801 | total   0.0485s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [  11.053,    7.599,   -0.079,   -1.664,    3.921,   -0.419]
+Sent @ 2026-05-22 17:01:45.675
+Step 0308/0801 | total   0.0452s | measure   0.0001s | feedback   0.0000s | mpc   0.0277s | mpc max   0.0547s | motor [  10.821,    7.462,   -0.127,   -1.664,    3.930,   -0.429]
+Sent @ 2026-05-22 17:01:45.722
+Step 0309/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [  10.585,    7.331,   -0.174,   -1.662,    3.937,   -0.439]
+Sent @ 2026-05-22 17:01:45.765
+Step 0310/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0258s | mpc max   0.0547s | motor [  10.360,    7.171,   -0.216,   -1.649,    3.946,   -0.458]
+Sent @ 2026-05-22 17:01:45.817
+Step 0311/0801 | total   0.0632s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [  10.122,    7.025,   -0.252,   -1.652,    3.967,   -0.466]
+Sent @ 2026-05-22 17:01:45.875
+Step 0312/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [   9.889,    6.882,   -0.291,   -1.653,    3.990,   -0.471]
+Sent @ 2026-05-22 17:01:45.921
+Step 0313/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [   9.653,    6.736,   -0.332,   -1.653,    4.012,   -0.476]
+Sent @ 2026-05-22 17:01:45.972
+Step 0314/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [   9.413,    6.574,   -0.360,   -1.645,    4.043,   -0.488]
+Sent @ 2026-05-22 17:01:46.018
+Step 0315/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   9.175,    6.414,   -0.394,   -1.643,    4.080,   -0.491]
+Sent @ 2026-05-22 17:01:46.068
+Step 0316/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [   8.930,    6.251,   -0.421,   -1.641,    4.119,   -0.493]
+Sent @ 2026-05-22 17:01:46.114
+Step 0317/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [   8.704,    6.102,   -0.433,   -1.632,    4.163,   -0.499]
+Sent @ 2026-05-22 17:01:46.167
+Step 0318/0801 | total   0.0620s | measure   0.0001s | feedback   0.0000s | mpc   0.0362s | mpc max   0.0547s | motor [   8.480,    5.936,   -0.443,   -1.615,    4.224,   -0.509]
+Sent @ 2026-05-22 17:01:46.226
+Step 0319/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0329s | mpc max   0.0547s | motor [   8.254,    5.795,   -0.461,   -1.619,    4.289,   -0.497]
+Sent @ 2026-05-22 17:01:46.274
+Step 0320/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0332s | mpc max   0.0547s | motor [   8.001,    5.621,   -0.463,   -1.601,    4.363,   -0.497]
+Sent @ 2026-05-22 17:01:46.316
+Step 0321/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [   7.761,    5.448,   -0.450,   -1.593,    4.440,   -0.484]
+Sent @ 2026-05-22 17:01:46.365
+Step 0322/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [   7.497,    5.260,   -0.437,   -1.568,    4.533,   -0.477]
+Sent @ 2026-05-22 17:01:46.413
+Step 0323/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0315s | mpc max   0.0547s | motor [   7.240,    5.091,   -0.401,   -1.550,    4.649,   -0.451]
+Sent @ 2026-05-22 17:01:46.455
+Step 0324/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0279s | mpc max   0.0547s | motor [   6.948,    4.898,   -0.342,   -1.531,    4.796,   -0.412]
+Sent @ 2026-05-22 17:01:46.503
+Step 0325/0801 | total   0.0461s | measure   0.0002s | feedback   0.0000s | mpc   0.0286s | mpc max   0.0547s | motor [   6.699,    4.774,   -0.293,   -1.506,    4.948,   -0.361]
+Sent @ 2026-05-22 17:01:46.555
+Step 0326/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0336s | mpc max   0.0547s | motor [   6.406,    4.624,   -0.169,   -1.487,    5.163,   -0.276]
+Sent @ 2026-05-22 17:01:46.597
+Step 0327/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [   6.013,    4.538,   -0.030,   -1.476,    5.458,   -0.109]
+Sent @ 2026-05-22 17:01:46.646
+Step 0328/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0311s | mpc max   0.0547s | motor [   5.159,    4.855,    0.319,   -1.625,    6.184,    0.525]
+Sent @ 2026-05-22 17:01:46.689
+Step 0329/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0275s | mpc max   0.0547s | motor [   5.446,    4.526,   -0.330,   -1.664,    5.217,   -0.004]
+Sent @ 2026-05-22 17:01:46.739
+Warning: run_step CPU time (0.046875s) exceeded target (0.040000s)
+Step 0330/0801 | total   0.0308s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [   6.307,    3.680,   -0.978,   -1.414,    4.187,   -1.058]
+Sent @ 2026-05-22 17:01:46.768
+Step 0331/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [   5.230,    3.900,   -1.038,   -1.796,    4.515,   -0.490]
+Sent @ 2026-05-22 17:01:46.818
+Step 0332/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [   4.337,    3.952,   -0.507,   -1.843,    5.347,    0.042]
+Sent @ 2026-05-22 17:01:46.865
+Step 0333/0801 | total   0.0611s | measure   0.0003s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [   4.788,    3.484,   -1.248,   -1.819,    4.356,   -0.622]
+Sent @ 2026-05-22 17:01:46.924
+Step 0334/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [   3.755,    3.711,   -0.813,   -2.029,    5.216,    0.074]
+Sent @ 2026-05-22 17:01:46.973
+Step 0335/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [   4.220,    3.178,   -1.537,   -1.975,    4.218,   -0.647]
+Sent @ 2026-05-22 17:01:47.023
+Step 0336/0801 | total   0.0470s | measure   0.0002s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [   3.228,    3.405,   -1.149,   -2.167,    4.832,   -0.065]
+Sent @ 2026-05-22 17:01:47.070
+Step 0337/0801 | total   0.0464s | measure   0.0002s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   3.554,    2.849,   -1.795,   -2.139,    4.066,   -0.673]
+Sent @ 2026-05-22 17:01:47.116
+Step 0338/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [   4.003,    2.214,   -2.195,   -1.918,    3.480,   -1.314]
+Sent @ 2026-05-22 17:01:47.161
+Step 0339/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [   3.367,    2.348,   -2.052,   -2.090,    3.727,   -0.976]
+Sent @ 2026-05-22 17:01:47.206
+Step 0340/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [   2.903,    2.534,   -1.987,   -2.266,    3.834,   -0.714]
+Sent @ 2026-05-22 17:01:47.252
+Step 0341/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   2.941,    2.184,   -2.241,   -2.170,    3.542,   -0.967]
+Sent @ 2026-05-22 17:01:47.296
+Step 0342/0801 | total   0.0478s | measure   0.0001s | feedback   0.0000s | mpc   0.0254s | mpc max   0.0547s | motor [   2.912,    2.017,   -2.280,   -2.128,    3.419,   -1.051]
+Sent @ 2026-05-22 17:01:47.347
+Step 0343/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   2.751,    1.945,   -2.315,   -2.133,    3.351,   -1.041]
+Sent @ 2026-05-22 17:01:47.391
+Step 0344/0801 | total   0.0452s | measure   0.0001s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [   2.695,    1.932,   -2.248,   -2.089,    3.313,   -1.016]
+Sent @ 2026-05-22 17:01:47.439
+Step 0345/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [   2.601,    1.838,   -2.293,   -2.063,    3.230,   -1.025]
+Sent @ 2026-05-22 17:01:47.487
+Step 0346/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [   2.515,    1.756,   -2.299,   -2.030,    3.151,   -1.041]
+Sent @ 2026-05-22 17:01:47.531
+Step 0347/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0258s | mpc max   0.0547s | motor [   2.442,    1.690,   -2.291,   -1.983,    3.073,   -1.062]
+Sent @ 2026-05-22 17:01:47.584
+Step 0348/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [   2.343,    1.644,   -2.289,   -1.968,    3.022,   -1.024]
+Sent @ 2026-05-22 17:01:47.627
+Step 0349/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0277s | mpc max   0.0547s | motor [   2.291,    1.618,   -2.268,   -1.938,    2.958,   -1.015]
+Sent @ 2026-05-22 17:01:47.674
+Step 0350/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   2.215,    1.547,   -2.252,   -1.893,    2.883,   -1.027]
+Sent @ 2026-05-22 17:01:47.720
+Step 0351/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [   2.157,    1.492,   -2.230,   -1.864,    2.829,   -1.013]
+Sent @ 2026-05-22 17:01:47.767
+Step 0352/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0275s | mpc max   0.0547s | motor [   2.085,    1.421,   -2.217,   -1.829,    2.758,   -1.015]
+Sent @ 2026-05-22 17:01:47.815
+Step 0353/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0279s | mpc max   0.0547s | motor [   2.008,    1.364,   -2.226,   -1.798,    2.690,   -1.012]
+Sent @ 2026-05-22 17:01:47.867
+Step 0354/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0329s | mpc max   0.0547s | motor [   1.944,    1.319,   -2.208,   -1.771,    2.619,   -1.011]
+Sent @ 2026-05-22 17:01:47.909
+Step 0355/0801 | total   0.0478s | measure   0.0001s | feedback   0.0000s | mpc   0.0275s | mpc max   0.0547s | motor [   1.878,    1.233,   -2.191,   -1.734,    2.542,   -1.025]
+Sent @ 2026-05-22 17:01:47.956
+Step 0356/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0270s | mpc max   0.0547s | motor [   1.810,    1.175,   -2.176,   -1.703,    2.476,   -1.016]
+Sent @ 2026-05-22 17:01:48.001
+Step 0357/0801 | total   0.0449s | measure   0.0001s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [   1.721,    1.151,   -2.159,   -1.681,    2.416,   -0.985]
+Sent @ 2026-05-22 17:01:48.054
+Step 0358/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0334s | mpc max   0.0547s | motor [   1.657,    1.113,   -2.127,   -1.651,    2.355,   -0.978]
+Sent @ 2026-05-22 17:01:48.101
+Step 0359/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0333s | mpc max   0.0547s | motor [   1.620,    1.029,   -2.119,   -1.605,    2.288,   -0.989]
+Sent @ 2026-05-22 17:01:48.151
+Warning: run_step CPU time (0.046875s) exceeded target (0.040000s)
+Step 0360/0801 | total   0.0371s | measure   0.0001s | feedback   0.0000s | mpc   0.0364s | mpc max   0.0547s | motor [   1.540,    0.965,   -2.114,   -1.576,    2.218,   -0.983]
+Sent @ 2026-05-22 17:01:48.183
+Step 0361/0801 | total   0.0416s | measure   0.0001s | feedback   0.0000s | mpc   0.0313s | mpc max   0.0547s | motor [   1.444,    0.938,   -2.095,   -1.563,    2.150,   -0.956]
+Sent @ 2026-05-22 17:01:48.225
+Step 0362/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0319s | mpc max   0.0547s | motor [   1.389,    0.867,   -2.075,   -1.526,    2.083,   -0.960]
+Sent @ 2026-05-22 17:01:48.272
+Step 0363/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0318s | mpc max   0.0547s | motor [   1.351,    0.824,   -2.049,   -1.487,    2.019,   -0.956]
+Sent @ 2026-05-22 17:01:48.316
+Step 0364/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0295s | mpc max   0.0547s | motor [   1.264,    0.781,   -2.027,   -1.464,    1.952,   -0.939]
+Sent @ 2026-05-22 17:01:48.369
+Step 0365/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0347s | mpc max   0.0547s | motor [   1.216,    0.761,   -1.999,   -1.430,    1.892,   -0.917]
+Sent @ 2026-05-22 17:01:48.408
+Step 0366/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   1.154,    0.716,   -1.948,   -1.397,    1.834,   -0.898]
+Sent @ 2026-05-22 17:01:48.457
+Step 0367/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [   1.100,    0.679,   -1.930,   -1.361,    1.776,   -0.879]
+Sent @ 2026-05-22 17:01:48.513
+Step 0368/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0387s | mpc max   0.0547s | motor [   1.057,    0.622,   -1.901,   -1.322,    1.707,   -0.881]
+Sent @ 2026-05-22 17:01:48.556
+Step 0369/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0343s | mpc max   0.0547s | motor [   0.986,    0.574,   -1.872,   -1.297,    1.645,   -0.857]
+Sent @ 2026-05-22 17:01:48.597
+Step 0370/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   0.932,    0.561,   -1.829,   -1.264,    1.590,   -0.830]
+Sent @ 2026-05-22 17:01:48.642
+Step 0371/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [   0.884,    0.538,   -1.782,   -1.226,    1.537,   -0.800]
+Sent @ 2026-05-22 17:01:48.690
+Step 0372/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [   0.850,    0.492,   -1.743,   -1.178,    1.480,   -0.792]
+Sent @ 2026-05-22 17:01:48.736
+Step 0373/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0277s | mpc max   0.0547s | motor [   0.812,    0.462,   -1.704,   -1.145,    1.418,   -0.775]
+Sent @ 2026-05-22 17:01:48.783
+Step 0374/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [   0.754,    0.428,   -1.672,   -1.116,    1.356,   -0.753]
+Sent @ 2026-05-22 17:01:48.833
+Step 0375/0801 | total   0.0639s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [   0.705,    0.397,   -1.621,   -1.082,    1.294,   -0.737]
+Sent @ 2026-05-22 17:01:48.897
+Step 0376/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [   0.663,    0.352,   -1.594,   -1.046,    1.235,   -0.721]
+Sent @ 2026-05-22 17:01:48.951
+Step 0377/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0375s | mpc max   0.0547s | motor [   0.621,    0.326,   -1.536,   -1.003,    1.182,   -0.697]
+Sent @ 2026-05-22 17:01:48.991
+Step 0378/0801 | total   0.0468s | measure   0.0002s | feedback   0.0000s | mpc   0.0326s | mpc max   0.0547s | motor [   0.588,    0.327,   -1.478,   -0.967,    1.134,   -0.655]
+Sent @ 2026-05-22 17:01:49.037
+Step 0379/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0319s | mpc max   0.0547s | motor [   0.555,    0.302,   -1.422,   -0.926,    1.078,   -0.634]
+Sent @ 2026-05-22 17:01:49.083
+Step 0380/0801 | total   0.0452s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [   0.525,    0.260,   -1.377,   -0.879,    1.024,   -0.621]
+Sent @ 2026-05-22 17:01:49.126
+Step 0381/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [   0.479,    0.244,   -1.331,   -0.841,    0.971,   -0.589]
+Sent @ 2026-05-22 17:01:49.177
+Step 0382/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0304s | mpc max   0.0547s | motor [   0.444,    0.229,   -1.274,   -0.812,    0.914,   -0.560]
+Sent @ 2026-05-22 17:01:49.223
+Step 0383/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0299s | mpc max   0.0547s | motor [   0.405,    0.180,   -1.231,   -0.770,    0.852,   -0.552]
+Sent @ 2026-05-22 17:01:49.269
+Step 0384/0801 | total   0.0613s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [   0.368,    0.142,   -1.188,   -0.732,    0.793,   -0.538]
+Sent @ 2026-05-22 17:01:49.331
+Step 0385/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   0.321,    0.113,   -1.147,   -0.701,    0.731,   -0.515]
+Sent @ 2026-05-22 17:01:49.379
+Step 0386/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [   0.278,    0.097,   -1.102,   -0.670,    0.671,   -0.487]
+Sent @ 2026-05-22 17:01:49.421
+Step 0387/0801 | total   0.0472s | measure   0.0002s | feedback   0.0000s | mpc   0.0255s | mpc max   0.0547s | motor [   0.235,    0.085,   -1.044,   -0.635,    0.620,   -0.458]
+Sent @ 2026-05-22 17:01:49.475
+Step 0388/0801 | total   0.0623s | measure   0.0001s | feedback   0.0000s | mpc   0.0316s | mpc max   0.0547s | motor [   0.221,    0.077,   -0.989,   -0.588,    0.563,   -0.426]
+Sent @ 2026-05-22 17:01:49.538
+Step 0389/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [   0.211,    0.069,   -0.910,   -0.537,    0.524,   -0.388]
+Sent @ 2026-05-22 17:01:49.581
+Step 0390/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   0.214,    0.081,   -0.819,   -0.478,    0.488,   -0.349]
+Sent @ 2026-05-22 17:01:49.628
+Step 0391/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0277s | mpc max   0.0547s | motor [   0.203,    0.078,   -0.737,   -0.427,    0.450,   -0.312]
+Sent @ 2026-05-22 17:01:49.679
+Step 0392/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0326s | mpc max   0.0547s | motor [   0.196,    0.083,   -0.649,   -0.375,    0.410,   -0.274]
+Sent @ 2026-05-22 17:01:49.742
+Warning: run_step CPU time (0.046875s) exceeded target (0.040000s)
+Step 0393/0801 | total   0.0487s | measure   0.0001s | feedback   0.0000s | mpc   0.0479s | mpc max   0.0547s | motor [   0.189,    0.081,   -0.568,   -0.325,    0.371,   -0.238]
+Sent @ 2026-05-22 17:01:49.775
+Step 0394/0801 | total   0.0440s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [   0.176,    0.078,   -0.494,   -0.277,    0.329,   -0.205]
+Sent @ 2026-05-22 17:01:49.818
+Step 0395/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0322s | mpc max   0.0547s | motor [   0.166,    0.071,   -0.415,   -0.225,    0.286,   -0.176]
+Sent @ 2026-05-22 17:01:49.865
+Step 0396/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [   0.159,    0.053,   -0.341,   -0.174,    0.241,   -0.152]
+Sent @ 2026-05-22 17:01:49.908
+Step 0397/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [   0.156,    0.019,   -0.271,   -0.116,    0.195,   -0.139]
+Sent @ 2026-05-22 17:01:49.954
+Step 0398/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   0.165,   -0.029,   -0.201,   -0.051,    0.147,   -0.138]
+Sent @ 2026-05-22 17:01:50.001
+Step 0399/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [   0.163,   -0.069,   -0.136,    0.007,    0.095,   -0.132]
+Sent @ 2026-05-22 17:01:50.054
+Step 0400/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0325s | mpc max   0.0547s | motor [   0.143,   -0.093,   -0.079,    0.051,    0.040,   -0.112]
+Sent @ 2026-05-22 17:01:50.104
+Step 0401/0801 | total   0.0455s | measure   0.0002s | feedback   0.0000s | mpc   0.0353s | mpc max   0.0547s | motor [   0.109,   -0.106,   -0.023,    0.085,   -0.018,   -0.083]
+Sent @ 2026-05-22 17:01:50.144
+Step 0402/0801 | total   0.0478s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   0.062,   -0.109,    0.032,    0.109,   -0.075,   -0.045]
+Sent @ 2026-05-22 17:01:50.195
+Step 0403/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0325s | mpc max   0.0547s | motor [  -0.005,   -0.098,    0.092,    0.117,   -0.129,    0.002]
+Sent @ 2026-05-22 17:01:50.236
+Step 0404/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [  -0.105,   -0.063,    0.162,    0.098,   -0.176,    0.068]
+Sent @ 2026-05-22 17:01:50.289
+Step 0405/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0338s | mpc max   0.0547s | motor [  -0.143,   -0.075,    0.236,    0.125,   -0.222,    0.094]
+Sent @ 2026-05-22 17:01:50.331
+Step 0406/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [  -0.080,   -0.167,    0.276,    0.233,   -0.293,    0.061]
+Sent @ 2026-05-22 17:01:50.375
+Step 0407/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [  -0.278,   -0.043,    0.346,    0.137,   -0.342,    0.194]
+Sent @ 2026-05-22 17:01:50.422
+Step 0408/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [  -0.098,   -0.227,    0.360,    0.339,   -0.429,    0.090]
+Sent @ 2026-05-22 17:01:50.476
+Step 0409/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0319s | mpc max   0.0547s | motor [  -0.391,   -0.032,    0.465,    0.164,   -0.456,    0.274]
+Sent @ 2026-05-22 17:01:50.519
+Step 0410/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [  -0.098,   -0.300,    0.436,    0.461,   -0.570,    0.113]
+Sent @ 2026-05-22 17:01:50.566
+Step 0411/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [  -0.532,   -0.020,    0.588,    0.171,   -0.567,    0.356]
+Sent @ 2026-05-22 17:01:50.618
+Step 0412/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0339s | mpc max   0.0547s | motor [  -0.111,   -0.361,    0.500,    0.577,   -0.715,    0.149]
+Sent @ 2026-05-22 17:01:50.661
+Step 0413/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0294s | mpc max   0.0547s | motor [  -0.703,   -0.015,    0.740,    0.150,   -0.659,    0.429]
+Sent @ 2026-05-22 17:01:50.716
+Step 0414/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0383s | mpc max   0.0547s | motor [  -0.167,   -0.323,    0.506,    0.671,   -0.896,    0.270]
+Sent @ 2026-05-22 17:01:50.753
+Step 0415/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [  -0.847,   -0.029,    0.953,    0.135,   -0.719,    0.470]
+Sent @ 2026-05-22 17:01:50.799
+Step 0416/0801 | total   0.0471s | measure   0.0002s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [  -0.289,   -0.281,    0.666,    0.684,   -0.984,    0.365]
+Sent @ 2026-05-22 17:01:50.847
+Step 0417/0801 | total   0.0623s | measure   0.0002s | feedback   0.0000s | mpc   0.0292s | mpc max   0.0547s | motor [  -1.110,   -0.005,    1.342,   -0.017,   -0.689,    0.496]
+Sent @ 2026-05-22 17:01:50.910
+Step 0418/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0290s | mpc max   0.0547s | motor [  -0.561,   -0.242,    0.969,    0.548,   -0.996,    0.428]
+Sent @ 2026-05-22 17:01:50.954
+Step 0419/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0269s | mpc max   0.0547s | motor [   0.611,   -0.610,    0.542,    1.622,   -1.324,    0.283]
+Sent @ 2026-05-22 17:01:51.004
+Step 0420/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [  -0.199,   -0.432,    0.938,    0.996,   -1.177,    0.396]
+Sent @ 2026-05-22 17:01:51.055
+Step 0421/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0340s | mpc max   0.0547s | motor [  -0.992,   -0.068,    1.441,    0.314,   -1.015,    0.591]
+Sent @ 2026-05-22 17:01:51.107
+Step 0422/0801 | total   0.0465s | measure   0.0002s | feedback   0.0000s | mpc   0.0399s | mpc max   0.0547s | motor [  -0.324,   -0.361,    1.119,    0.984,   -1.275,    0.488]
+Sent @ 2026-05-22 17:01:51.149
+Step 0423/0801 | total   0.0467s | measure   0.0002s | feedback   0.0000s | mpc   0.0353s | mpc max   0.0547s | motor [  -1.235,   -0.271,    2.086,    0.093,   -0.871,    0.354]
+Sent @ 2026-05-22 17:01:51.193
+Step 0424/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [  -0.602,   -0.455,    1.538,    0.792,   -1.245,    0.391]
+Sent @ 2026-05-22 17:01:51.239
+Step 0425/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [   0.006,    0.162,    0.654,    1.575,   -1.781,    1.166]
+Sent @ 2026-05-22 17:01:51.289
+Step 0426/0801 | total   0.0779s | measure   0.0002s | feedback   0.0000s | mpc   0.0322s | mpc max   0.0547s | motor [  -0.315,   -0.412,    1.413,    1.225,   -1.461,    0.585]
+Sent @ 2026-05-22 17:01:51.364
+Step 0427/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [  -1.392,   -0.328,    2.521,    0.099,   -1.051,    0.335]
+Sent @ 2026-05-22 17:01:51.412
+Step 0428/0801 | total   0.0620s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [  -0.671,   -0.482,    1.905,    0.909,   -1.429,    0.441]
+Sent @ 2026-05-22 17:01:51.467
+Step 0429/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0243s | mpc max   0.0547s | motor [   0.004,    0.079,    1.041,    1.792,   -1.900,    1.198]
+Sent @ 2026-05-22 17:01:51.518
+Step 0430/0801 | total   0.0482s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [  -0.447,   -0.443,    1.862,    1.285,   -1.591,    0.620]
+Sent @ 2026-05-22 17:01:51.569
+Step 0431/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0311s | mpc max   0.0547s | motor [  -1.209,    0.008,    2.576,    0.480,   -1.416,    0.734]
+Sent @ 2026-05-22 17:01:51.616
+Step 0432/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0325s | mpc max   0.0547s | motor [  -0.747,   -0.592,    2.042,    1.094,   -1.745,    0.486]
+Sent @ 2026-05-22 17:01:51.659
+Step 0433/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0290s | mpc max   0.0547s | motor [  -0.202,   -0.289,    1.376,    1.835,   -2.105,    0.985]
+Sent @ 2026-05-22 17:01:51.715
+Step 0434/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0368s | mpc max   0.0547s | motor [  -0.733,   -0.567,    1.941,    1.304,   -1.940,    0.636]
+Sent @ 2026-05-22 17:01:51.756
+Step 0435/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [  -0.919,   -0.535,    2.119,    1.141,   -1.997,    0.630]
+Sent @ 2026-05-22 17:01:51.801
+Step 0436/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [  -0.838,   -0.701,    1.798,    1.377,   -2.199,    0.639]
+Sent @ 2026-05-22 17:01:51.848
+Step 0437/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [  -1.103,   -0.752,    2.054,    1.158,   -2.203,    0.550]
+Sent @ 2026-05-22 17:01:51.894
+Step 0438/0801 | total   0.0475s | measure   0.0002s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [  -1.012,   -0.777,    2.010,    1.333,   -2.302,    0.611]
+Sent @ 2026-05-22 17:01:51.948
+Step 0439/0801 | total   0.0461s | measure   0.0002s | feedback   0.0000s | mpc   0.0344s | mpc max   0.0547s | motor [  -1.045,   -0.786,    2.078,    1.347,   -2.354,    0.615]
+Sent @ 2026-05-22 17:01:51.989
+Step 0440/0801 | total   0.0459s | measure   0.0002s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  -1.121,   -0.777,    2.201,    1.320,   -2.397,    0.616]
+Sent @ 2026-05-22 17:01:52.038
+Step 0441/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [  -1.130,   -0.763,    2.268,    1.374,   -2.458,    0.640]
+Sent @ 2026-05-22 17:01:52.089
+Step 0442/0801 | total   0.0472s | measure   0.0002s | feedback   0.0000s | mpc   0.0355s | mpc max   0.0547s | motor [  -1.099,   -0.781,    2.322,    1.464,   -2.504,    0.676]
+Sent @ 2026-05-22 17:01:52.134
+Step 0443/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0342s | mpc max   0.0547s | motor [  -1.135,   -0.760,    2.428,    1.499,   -2.542,    0.701]
+Sent @ 2026-05-22 17:01:52.176
+Step 0444/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [  -1.143,   -0.729,    2.528,    1.521,   -2.584,    0.725]
+Sent @ 2026-05-22 17:01:52.225
+Step 0445/0801 | total   0.0626s | measure   0.0001s | feedback   0.0000s | mpc   0.0330s | mpc max   0.0547s | motor [  -1.138,   -0.717,    2.619,    1.573,   -2.627,    0.754]
+Sent @ 2026-05-22 17:01:52.285
+Step 0446/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [  -1.144,   -0.717,    2.693,    1.630,   -2.666,    0.786]
+Sent @ 2026-05-22 17:01:52.333
+Step 0447/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0295s | mpc max   0.0547s | motor [  -1.142,   -0.684,    2.784,    1.680,   -2.708,    0.818]
+Sent @ 2026-05-22 17:01:52.381
+Warning: run_step CPU time (0.046875s) exceeded target (0.040000s)
+Step 0448/0801 | total   0.0320s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [  -1.144,   -0.671,    2.889,    1.734,   -2.747,    0.844]
+Sent @ 2026-05-22 17:01:52.416
+Step 0449/0801 | total   0.0602s | measure   0.0001s | feedback   0.0000s | mpc   0.0339s | mpc max   0.0547s | motor [  -1.133,   -0.638,    2.974,    1.790,   -2.791,    0.876]
+Sent @ 2026-05-22 17:01:52.478
+Step 0450/0801 | total   0.0470s | measure   0.0002s | feedback   0.0000s | mpc   0.0350s | mpc max   0.0547s | motor [  -1.192,   -0.609,    3.098,    1.773,   -2.835,    0.904]
+Sent @ 2026-05-22 17:01:52.523
+Step 0451/0801 | total   0.0464s | measure   0.0002s | feedback   0.0000s | mpc   0.0340s | mpc max   0.0547s | motor [  -1.180,   -0.586,    3.160,    1.834,   -2.880,    0.923]
+Sent @ 2026-05-22 17:01:52.567
+Step 0452/0801 | total   0.0474s | measure   0.0002s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [  -1.139,   -0.571,    3.239,    1.938,   -2.918,    0.961]
+Sent @ 2026-05-22 17:01:52.616
+Step 0453/0801 | total   0.0463s | measure   0.0002s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [  -1.121,   -0.534,    3.353,    2.012,   -2.942,    0.997]
+Sent @ 2026-05-22 17:01:52.662
+Step 0454/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0326s | mpc max   0.0547s | motor [  -1.149,   -0.503,    3.448,    2.016,   -2.994,    1.023]
+Sent @ 2026-05-22 17:01:52.708
+Step 0455/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [  -1.168,   -0.480,    3.541,    2.043,   -3.044,    1.046]
+Sent @ 2026-05-22 17:01:52.749
+Step 0456/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0245s | mpc max   0.0547s | motor [  -1.197,   -0.465,    3.603,    2.086,   -3.094,    1.065]
+Sent @ 2026-05-22 17:01:52.803
+Step 0457/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0328s | mpc max   0.0547s | motor [  -1.160,   -0.445,    3.713,    2.168,   -3.125,    1.099]
+Sent @ 2026-05-22 17:01:52.849
+Step 0458/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0317s | mpc max   0.0547s | motor [  -1.170,   -0.380,    3.827,    2.217,   -3.157,    1.128]
+Sent @ 2026-05-22 17:01:52.894
+Step 0459/0801 | total   0.0314s | measure   0.0002s | feedback   0.0000s | mpc   0.0292s | mpc max   0.0547s | motor [  -1.177,   -0.359,    3.924,    2.254,   -3.206,    1.156]
+Sent @ 2026-05-22 17:01:52.928
+Step 0460/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0324s | mpc max   0.0547s | motor [  -1.129,   -0.332,    4.027,    2.333,   -3.235,    1.188]
+Sent @ 2026-05-22 17:01:52.972
+Step 0461/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [  -1.128,   -0.271,    4.130,    2.385,   -3.267,    1.227]
+Sent @ 2026-05-22 17:01:53.018
+Step 0462/0801 | total   0.0468s | measure   0.0002s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [  -1.141,   -0.207,    4.242,    2.414,   -3.303,    1.263]
+Sent @ 2026-05-22 17:01:53.066
+Step 0463/0801 | total   0.0631s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  -1.083,   -0.133,    4.368,    2.497,   -3.318,    1.306]
+Sent @ 2026-05-22 17:01:53.129
+Step 0464/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0290s | mpc max   0.0547s | motor [  -1.016,   -0.017,    4.554,    2.577,   -3.318,    1.362]
+Sent @ 2026-05-22 17:01:53.177
+Step 0465/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0311s | mpc max   0.0547s | motor [  -0.922,    0.079,    4.695,    2.663,   -3.313,    1.438]
+Sent @ 2026-05-22 17:01:53.224
+Step 0466/0801 | total   0.0462s | measure   0.0002s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [  -0.842,    0.204,    4.863,    2.755,   -3.315,    1.493]
+Sent @ 2026-05-22 17:01:53.274
+Step 0467/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0337s | mpc max   0.0547s | motor [  -0.752,    0.399,    5.055,    2.844,   -3.298,    1.596]
+Sent @ 2026-05-22 17:01:53.317
+Step 0468/0801 | total   0.0626s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [  -0.606,    0.524,    5.282,    2.979,   -3.243,    1.686]
+Sent @ 2026-05-22 17:01:53.382
+Step 0469/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0325s | mpc max   0.0547s | motor [  -0.384,    0.886,    5.626,    3.044,   -3.170,    1.847]
+Sent @ 2026-05-22 17:01:53.429
+Step 0470/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0328s | mpc max   0.0547s | motor [  -0.278,    1.055,    5.774,    3.214,   -3.128,    1.946]
+Sent @ 2026-05-22 17:01:53.475
+Step 0471/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0329s | mpc max   0.0547s | motor [  -0.087,    1.257,    6.009,    3.340,   -3.095,    2.042]
+Sent @ 2026-05-22 17:01:53.529
+Step 0472/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0395s | mpc max   0.0547s | motor [   0.058,    1.487,    6.241,    3.449,   -3.036,    2.159]
+Sent @ 2026-05-22 17:01:53.569
+Step 0473/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [   0.173,    1.795,    6.443,    3.518,   -2.999,    2.314]
+Sent @ 2026-05-22 17:01:53.608
+Step 0474/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0248s | mpc max   0.0547s | motor [   0.050,    2.364,    6.669,    3.385,   -2.997,    2.637]
+Sent @ 2026-05-22 17:01:53.656
+Step 0475/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0251s | mpc max   0.0547s | motor [   0.210,    2.547,    6.909,    3.494,   -2.959,    2.725]
+Sent @ 2026-05-22 17:01:53.704
+Step 0476/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0256s | mpc max   0.0547s | motor [   0.220,    2.834,    7.068,    3.491,   -2.958,    2.870]
+Sent @ 2026-05-22 17:01:53.753
+Step 0477/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [   0.218,    3.073,    7.236,    3.482,   -2.954,    2.980]
+Sent @ 2026-05-22 17:01:53.797
+Step 0478/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0252s | mpc max   0.0547s | motor [   0.237,    3.316,    7.448,    3.472,   -2.953,    3.073]
+Sent @ 2026-05-22 17:01:53.850
+Step 0479/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0324s | mpc max   0.0547s | motor [   0.239,    3.521,    7.643,    3.448,   -2.950,    3.145]
+Sent @ 2026-05-22 17:01:53.897
+Warning: run_step CPU time (0.046875s) exceeded target (0.040000s)
+Step 0480/0801 | total   0.0320s | measure   0.0001s | feedback   0.0000s | mpc   0.0315s | mpc max   0.0547s | motor [   0.236,    3.773,    7.868,    3.408,   -2.948,    3.219]
+Sent @ 2026-05-22 17:01:53.930
+Step 0481/0801 | total   0.0444s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [   0.255,    3.991,    8.109,    3.378,   -2.944,    3.271]
+Sent @ 2026-05-22 17:01:53.975
+Step 0482/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0322s | mpc max   0.0547s | motor [   0.271,    4.194,    8.344,    3.341,   -2.937,    3.304]
+Sent @ 2026-05-22 17:01:54.017
+Step 0483/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [   0.286,    4.368,    8.581,    3.306,   -2.936,    3.323]
+Sent @ 2026-05-22 17:01:54.065
+Step 0484/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0290s | mpc max   0.0547s | motor [   0.291,    4.552,    8.808,    3.253,   -2.927,    3.331]
+Sent @ 2026-05-22 17:01:54.109
+Step 0485/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0255s | mpc max   0.0547s | motor [   0.314,    4.720,    9.045,    3.216,   -2.919,    3.342]
+Sent @ 2026-05-22 17:01:54.157
+Step 0486/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   0.332,    4.868,    9.279,    3.173,   -2.915,    3.325]
+Sent @ 2026-05-22 17:01:54.206
+Step 0487/0801 | total   0.0464s | measure   0.0002s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   0.354,    5.040,    9.537,    3.131,   -2.908,    3.314]
+Sent @ 2026-05-22 17:01:54.254
+Step 0488/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [   0.387,    5.203,    9.793,    3.097,   -2.901,    3.306]
+Sent @ 2026-05-22 17:01:54.302
+Step 0489/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0313s | mpc max   0.0547s | motor [   0.416,    5.349,   10.048,    3.060,   -2.897,    3.278]
+Sent @ 2026-05-22 17:01:54.350
+Step 0490/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0318s | mpc max   0.0547s | motor [   0.452,    5.503,   10.304,    3.025,   -2.890,    3.260]
+Sent @ 2026-05-22 17:01:54.395
+Step 0491/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0311s | mpc max   0.0547s | motor [   0.480,    5.641,   10.560,    2.991,   -2.885,    3.221]
+Sent @ 2026-05-22 17:01:54.442
+Step 0492/0801 | total   0.0630s | measure   0.0001s | feedback   0.0000s | mpc   0.0303s | mpc max   0.0547s | motor [   0.518,    5.784,   10.810,    2.962,   -2.877,    3.199]
+Sent @ 2026-05-22 17:01:54.507
+Step 0493/0801 | total   0.0631s | measure   0.0001s | feedback   0.0000s | mpc   0.0328s | mpc max   0.0547s | motor [   0.568,    5.914,   11.058,    2.939,   -2.873,    3.164]
+Sent @ 2026-05-22 17:01:54.573
+Step 0494/0801 | total   0.0464s | measure   0.0002s | feedback   0.0000s | mpc   0.0351s | mpc max   0.0547s | motor [   0.609,    6.035,   11.310,    2.923,   -2.872,    3.119]
+Sent @ 2026-05-22 17:01:54.615
+Step 0495/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   0.644,    6.171,   11.576,    2.903,   -2.865,    3.077]
+Sent @ 2026-05-22 17:01:54.660
+Step 0496/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [   0.685,    6.301,   11.818,    2.891,   -2.859,    3.041]
+Sent @ 2026-05-22 17:01:54.707
+Step 0497/0801 | total   0.0629s | measure   0.0002s | feedback   0.0000s | mpc   0.0299s | mpc max   0.0547s | motor [   0.731,    6.427,   12.047,    2.880,   -2.851,    2.995]
+Sent @ 2026-05-22 17:01:54.771
+Step 0498/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [   0.786,    6.523,   12.318,    2.865,   -2.846,    2.930]
+Sent @ 2026-05-22 17:01:54.815
+Step 0499/0801 | total   0.0463s | measure   0.0003s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   0.833,    6.636,   12.536,    2.854,   -2.834,    2.908]
+Sent @ 2026-05-22 17:01:54.863
+Step 0500/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   0.899,    6.783,   12.778,    2.854,   -2.828,    2.862]
+Sent @ 2026-05-22 17:01:54.912
+Step 0501/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [   0.937,    6.867,   13.034,    2.853,   -2.824,    2.799]
+Sent @ 2026-05-22 17:01:54.962
+Step 0502/0801 | total   0.0466s | measure   0.0002s | feedback   0.0000s | mpc   0.0345s | mpc max   0.0547s | motor [   0.977,    6.977,   13.265,    2.849,   -2.815,    2.746]
+Sent @ 2026-05-22 17:01:55.008
+Step 0503/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0336s | mpc max   0.0547s | motor [   1.036,    7.084,   13.501,    2.849,   -2.805,    2.707]
+Sent @ 2026-05-22 17:01:55.051
+Step 0504/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   1.074,    7.193,   13.725,    2.856,   -2.798,    2.656]
+Sent @ 2026-05-22 17:01:55.097
+Step 0505/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   1.136,    7.290,   13.951,    2.862,   -2.793,    2.598]
+Sent @ 2026-05-22 17:01:55.143
+Step 0506/0801 | total   0.0451s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [   1.180,    7.366,   14.159,    2.865,   -2.783,    2.526]
+Sent @ 2026-05-22 17:01:55.189
+Step 0507/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   1.229,    7.493,   14.393,    2.877,   -2.768,    2.506]
+Sent @ 2026-05-22 17:01:55.236
+Step 0508/0801 | total   0.0471s | measure   0.0002s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [   1.289,    7.596,   14.619,    2.895,   -2.765,    2.438]
+Sent @ 2026-05-22 17:01:55.285
+Step 0509/0801 | total   0.0460s | measure   0.0002s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [   1.333,    7.649,   14.835,    2.916,   -2.761,    2.389]
+Sent @ 2026-05-22 17:01:55.335
+Step 0510/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   1.403,    7.745,   15.035,    2.940,   -2.755,    2.342]
+Sent @ 2026-05-22 17:01:55.377
+Step 0511/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [   1.413,    7.830,   15.241,    2.962,   -2.747,    2.267]
+Sent @ 2026-05-22 17:01:55.427
+Step 0512/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [   1.481,    7.893,   15.463,    2.986,   -2.735,    2.217]
+Sent @ 2026-05-22 17:01:55.475
+Step 0513/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [   1.520,    8.001,   15.623,    3.007,   -2.723,    2.166]
+Sent @ 2026-05-22 17:01:55.517
+Step 0514/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   1.587,    8.090,   15.848,    3.038,   -2.721,    2.105]
+Sent @ 2026-05-22 17:01:55.563
+Step 0515/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [   1.646,    8.145,   16.043,    3.074,   -2.714,    2.065]
+Sent @ 2026-05-22 17:01:55.610
+Step 0516/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0271s | mpc max   0.0547s | motor [   1.682,    8.240,   16.232,    3.105,   -2.699,    2.009]
+Sent @ 2026-05-22 17:01:55.658
+Step 0517/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   1.718,    8.296,   16.429,    3.136,   -2.685,    1.936]
+Sent @ 2026-05-22 17:01:55.705
+Step 0518/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [   1.794,    8.435,   16.659,    3.168,   -2.669,    1.910]
+Sent @ 2026-05-22 17:01:55.759
+Step 0519/0801 | total   0.0459s | measure   0.0003s | feedback   0.0000s | mpc   0.0341s | mpc max   0.0547s | motor [   1.816,    8.496,   16.825,    3.197,   -2.654,    1.855]
+Sent @ 2026-05-22 17:01:55.802
+Step 0520/0801 | total   0.0475s | measure   0.0003s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   1.866,    8.603,   17.024,    3.238,   -2.642,    1.811]
+Sent @ 2026-05-22 17:01:55.848
+Step 0521/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [   1.900,    8.676,   17.137,    3.274,   -2.630,    1.755]
+Sent @ 2026-05-22 17:01:55.894
+Step 0522/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   1.941,    8.756,   17.309,    3.314,   -2.617,    1.709]
+Sent @ 2026-05-22 17:01:55.937
+Step 0523/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0258s | mpc max   0.0547s | motor [   1.955,    8.828,   17.475,    3.356,   -2.598,    1.637]
+Sent @ 2026-05-22 17:01:55.984
+Step 0524/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0259s | mpc max   0.0547s | motor [   2.025,    8.923,   17.654,    3.390,   -2.584,    1.610]
+Sent @ 2026-05-22 17:01:56.036
+Step 0525/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0299s | mpc max   0.0547s | motor [   2.034,    9.005,   17.817,    3.442,   -2.578,    1.566]
+Sent @ 2026-05-22 17:01:56.079
+Step 0526/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [   2.081,    9.090,   17.958,    3.497,   -2.567,    1.511]
+Sent @ 2026-05-22 17:01:56.127
+Step 0527/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   2.116,    9.171,   18.104,    3.547,   -2.548,    1.458]
+Sent @ 2026-05-22 17:01:56.176
+Step 0528/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [   2.141,    9.261,   18.354,    3.594,   -2.534,    1.423]
+Sent @ 2026-05-22 17:01:56.221
+Step 0529/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [   2.172,    9.369,   18.459,    3.638,   -2.517,    1.380]
+Sent @ 2026-05-22 17:01:56.269
+Step 0530/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [   2.250,    9.445,   18.584,    3.686,   -2.502,    1.339]
+Sent @ 2026-05-22 17:01:56.315
+Step 0531/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [   2.214,    9.553,   18.733,    3.727,   -2.488,    1.310]
+Sent @ 2026-05-22 17:01:56.365
+Step 0532/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [   2.281,    9.654,   18.849,    3.787,   -2.477,    1.267]
+Sent @ 2026-05-22 17:01:56.414
+Step 0533/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0337s | mpc max   0.0547s | motor [   2.323,    9.773,   19.063,    3.839,   -2.463,    1.232]
+Sent @ 2026-05-22 17:01:56.458
+Warning: run_step CPU time (0.046875s) exceeded target (0.040000s)
+Step 0534/0801 | total   0.0314s | measure   0.0001s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [   2.320,    9.854,   19.154,    3.892,   -2.450,    1.193]
+Sent @ 2026-05-22 17:01:56.490
+Step 0535/0801 | total   0.0475s | measure   0.0002s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [   2.342,    9.935,   19.274,    3.936,   -2.434,    1.156]
+Sent @ 2026-05-22 17:01:56.537
+Step 0536/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [   2.325,   10.050,   19.399,    3.988,   -2.421,    1.120]
+Sent @ 2026-05-22 17:01:56.586
+Step 0537/0801 | total   0.0637s | measure   0.0001s | feedback   0.0000s | mpc   0.0340s | mpc max   0.0547s | motor [   2.349,   10.128,   19.477,    4.043,   -2.412,    1.085]
+Sent @ 2026-05-22 17:01:56.650
+Step 0538/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0343s | mpc max   0.0547s | motor [   2.353,   10.224,   19.567,    4.105,   -2.398,    1.039]
+Sent @ 2026-05-22 17:01:56.691
+Step 0539/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [   2.351,   10.302,   19.695,    4.143,   -2.378,    1.006]
+Sent @ 2026-05-22 17:01:56.737
+Step 0540/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0286s | mpc max   0.0547s | motor [   2.362,   10.413,   19.793,    4.197,   -2.368,    0.972]
+Sent @ 2026-05-22 17:01:56.784
+Step 0541/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   2.354,   10.553,   19.912,    4.237,   -2.354,    0.944]
+Sent @ 2026-05-22 17:01:56.833
+Step 0542/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0304s | mpc max   0.0547s | motor [   2.343,   10.628,   19.964,    4.289,   -2.342,    0.911]
+Sent @ 2026-05-22 17:01:56.877
+Step 0543/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [   2.347,   10.731,   20.059,    4.335,   -2.326,    0.878]
+Sent @ 2026-05-22 17:01:56.923
+Step 0544/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [   2.333,   10.863,   20.135,    4.376,   -2.313,    0.848]
+Sent @ 2026-05-22 17:01:56.973
+Step 0545/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   2.316,   10.987,   20.201,    4.420,   -2.300,    0.817]
+Sent @ 2026-05-22 17:01:57.019
+Step 0546/0801 | total   0.0623s | measure   0.0001s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [   2.312,   11.101,   20.312,    4.469,   -2.286,    0.786]
+Sent @ 2026-05-22 17:01:57.079
+Step 0547/0801 | total   0.0632s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [   2.289,   11.177,   20.371,    4.510,   -2.273,    0.757]
+Sent @ 2026-05-22 17:01:57.140
+Step 0548/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [   2.302,   11.312,   20.439,    4.555,   -2.257,    0.726]
+Sent @ 2026-05-22 17:01:57.190
+Step 0549/0801 | total   0.0614s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [   2.281,   11.437,   20.546,    4.603,   -2.233,    0.688]
+Sent @ 2026-05-22 17:01:57.254
+Step 0550/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [   2.300,   11.556,   20.613,    4.646,   -2.212,    0.653]
+Sent @ 2026-05-22 17:01:57.301
+Step 0551/0801 | total   0.0452s | measure   0.0001s | feedback   0.0000s | mpc   0.0286s | mpc max   0.0547s | motor [   2.258,   11.673,   20.666,    4.689,   -2.194,    0.622]
+Sent @ 2026-05-22 17:01:57.344
+Step 0552/0801 | total   0.0478s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [   2.245,   11.779,   20.699,    4.720,   -2.173,    0.588]
+Sent @ 2026-05-22 17:01:57.391
+Step 0553/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [   2.226,   11.898,   20.749,    4.767,   -2.157,    0.553]
+Sent @ 2026-05-22 17:01:57.438
+Step 0554/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   2.212,   12.006,   20.780,    4.810,   -2.139,    0.517]
+Sent @ 2026-05-22 17:01:57.481
+Step 0555/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0236s | mpc max   0.0547s | motor [   2.195,   12.150,   20.833,    4.849,   -2.117,    0.480]
+Sent @ 2026-05-22 17:01:57.530
+Step 0556/0801 | total   0.0475s | measure   0.0002s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [   2.159,   12.252,   20.862,    4.886,   -2.098,    0.445]
+Sent @ 2026-05-22 17:01:57.583
+Step 0557/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [   2.139,   12.364,   20.885,    4.924,   -2.075,    0.407]
+Sent @ 2026-05-22 17:01:57.628
+Step 0558/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   2.150,   12.454,   20.909,    4.958,   -2.060,    0.378]
+Sent @ 2026-05-22 17:01:57.675
+Step 0559/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0293s | mpc max   0.0547s | motor [   2.083,   12.591,   20.918,    4.999,   -2.027,    0.333]
+Sent @ 2026-05-22 17:01:57.723
+Step 0560/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [   2.085,   12.695,   20.990,    5.033,   -2.012,    0.304]
+Sent @ 2026-05-22 17:01:57.768
+Step 0561/0801 | total   0.0455s | measure   0.0002s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   2.067,   12.829,   20.975,    5.075,   -1.992,    0.265]
+Sent @ 2026-05-22 17:01:57.814
+Step 0562/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   2.024,   12.946,   21.010,    5.109,   -1.964,    0.224]
+Sent @ 2026-05-22 17:01:57.859
+Step 0563/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0248s | mpc max   0.0547s | motor [   2.002,   13.058,   20.997,    5.150,   -1.930,    0.176]
+Sent @ 2026-05-22 17:01:57.910
+Step 0564/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [   1.985,   13.153,   21.021,    5.185,   -1.907,    0.142]
+Sent @ 2026-05-22 17:01:57.954
+Step 0565/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [   1.978,   13.301,   21.048,    5.221,   -1.878,    0.099]
+Sent @ 2026-05-22 17:01:58.001
+Step 0566/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   1.937,   13.423,   21.025,    5.251,   -1.851,    0.061]
+Sent @ 2026-05-22 17:01:58.053
+Step 0567/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [   1.917,   13.561,   21.027,    5.282,   -1.823,    0.022]
+Sent @ 2026-05-22 17:01:58.093
+Step 0568/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [   1.870,   13.659,   21.043,    5.311,   -1.797,   -0.013]
+Sent @ 2026-05-22 17:01:58.142
+Step 0569/0801 | total   0.0448s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   1.858,   13.790,   21.005,    5.338,   -1.765,   -0.052]
+Sent @ 2026-05-22 17:01:58.187
+Step 0570/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [   1.813,   13.898,   21.001,    5.362,   -1.743,   -0.087]
+Sent @ 2026-05-22 17:01:58.236
+Step 0571/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0271s | mpc max   0.0547s | motor [   1.776,   14.056,   20.993,    5.392,   -1.701,   -0.133]
+Sent @ 2026-05-22 17:01:58.281
+Step 0572/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [   1.754,   14.159,   21.004,    5.422,   -1.680,   -0.168]
+Sent @ 2026-05-22 17:01:58.329
+Step 0573/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [   1.715,   14.320,   20.942,    5.442,   -1.654,   -0.204]
+Sent @ 2026-05-22 17:01:58.375
+Step 0574/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [   1.684,   14.432,   20.940,    5.469,   -1.615,   -0.251]
+Sent @ 2026-05-22 17:01:58.425
+Step 0575/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0285s | mpc max   0.0547s | motor [   1.684,   14.569,   20.923,    5.494,   -1.586,   -0.285]
+Sent @ 2026-05-22 17:01:58.470
+Step 0576/0801 | total   0.0454s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [   1.646,   14.687,   20.866,    5.516,   -1.547,   -0.332]
+Sent @ 2026-05-22 17:01:58.515
+Step 0577/0801 | total   0.0310s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [   1.616,   14.821,   20.843,    5.541,   -1.513,   -0.374]
+Sent @ 2026-05-22 17:01:58.552
+Step 0578/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [   1.586,   14.919,   20.835,    5.567,   -1.471,   -0.418]
+Sent @ 2026-05-22 17:01:58.594
+Step 0579/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0255s | mpc max   0.0547s | motor [   1.571,   15.019,   20.803,    5.582,   -1.440,   -0.454]
+Sent @ 2026-05-22 17:01:58.644
+Step 0580/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [   1.569,   15.148,   20.764,    5.608,   -1.395,   -0.508]
+Sent @ 2026-05-22 17:01:58.687
+Step 0581/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0239s | mpc max   0.0547s | motor [   1.561,   15.297,   20.712,    5.632,   -1.352,   -0.551]
+Sent @ 2026-05-22 17:01:58.737
+Step 0582/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0286s | mpc max   0.0547s | motor [   1.521,   15.416,   20.660,    5.646,   -1.312,   -0.595]
+Sent @ 2026-05-22 17:01:58.786
+Step 0583/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [   1.469,   15.527,   20.622,    5.666,   -1.271,   -0.643]
+Sent @ 2026-05-22 17:01:58.829
+Step 0584/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   1.471,   15.671,   20.569,    5.689,   -1.227,   -0.691]
+Sent @ 2026-05-22 17:01:58.879
+Step 0585/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [   1.427,   15.731,   20.531,    5.700,   -1.185,   -0.734]
+Sent @ 2026-05-22 17:01:58.922
+Step 0586/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0247s | mpc max   0.0547s | motor [   1.423,   15.870,   20.474,    5.721,   -1.137,   -0.778]
+Sent @ 2026-05-22 17:01:58.974
+Step 0587/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [   1.403,   16.025,   20.408,    5.740,   -1.092,   -0.826]
+Sent @ 2026-05-22 17:01:59.019
+Step 0588/0801 | total   0.0307s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   1.381,   16.132,   20.353,    5.745,   -1.055,   -0.862]
+Sent @ 2026-05-22 17:01:59.049
+Step 0589/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0277s | mpc max   0.0547s | motor [   1.368,   16.247,   20.298,    5.749,   -1.018,   -0.899]
+Sent @ 2026-05-22 17:01:59.095
+Step 0590/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   1.349,   16.396,   20.217,    5.755,   -0.978,   -0.939]
+Sent @ 2026-05-22 17:01:59.142
+Step 0591/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0262s | mpc max   0.0547s | motor [   1.322,   16.488,   20.126,    5.766,   -0.939,   -0.979]
+Sent @ 2026-05-22 17:01:59.193
+Step 0592/0801 | total   0.0475s | measure   0.0002s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [   1.304,   16.624,   20.055,    5.765,   -0.902,   -1.013]
+Sent @ 2026-05-22 17:01:59.241
+Step 0593/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [   1.297,   16.752,   19.963,    5.774,   -0.852,   -1.060]
+Sent @ 2026-05-22 17:01:59.285
+Step 0594/0801 | total   0.0466s | measure   0.0002s | feedback   0.0000s | mpc   0.0299s | mpc max   0.0547s | motor [   1.282,   16.866,   19.890,    5.781,   -0.814,   -1.095]
+Sent @ 2026-05-22 17:01:59.330
+Step 0595/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   1.248,   16.972,   19.811,    5.779,   -0.767,   -1.139]
+Sent @ 2026-05-22 17:01:59.375
+Step 0596/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   1.261,   17.123,   19.711,    5.785,   -0.718,   -1.180]
+Sent @ 2026-05-22 17:01:59.421
+Step 0597/0801 | total   0.0479s | measure   0.0002s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [   1.237,   17.193,   19.634,    5.786,   -0.677,   -1.221]
+Sent @ 2026-05-22 17:01:59.477
+Step 0598/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0340s | mpc max   0.0547s | motor [   1.226,   17.319,   19.540,    5.784,   -0.633,   -1.258]
+Sent @ 2026-05-22 17:01:59.522
+Step 0599/0801 | total   0.0452s | measure   0.0003s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [   1.220,   17.439,   19.447,    5.782,   -0.588,   -1.296]
+Sent @ 2026-05-22 17:01:59.562
+Step 0600/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0255s | mpc max   0.0547s | motor [   1.200,   17.539,   19.374,    5.782,   -0.539,   -1.338]
+Sent @ 2026-05-22 17:01:59.611
+Step 0601/0801 | total   0.0467s | measure   0.0003s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   1.208,   17.647,   19.276,    5.776,   -0.501,   -1.372]
+Sent @ 2026-05-22 17:01:59.657
+Step 0602/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   1.182,   17.761,   19.186,    5.772,   -0.452,   -1.413]
+Sent @ 2026-05-22 17:01:59.702
+Step 0603/0801 | total   0.0482s | measure   0.0001s | feedback   0.0000s | mpc   0.0249s | mpc max   0.0547s | motor [   1.191,   17.847,   19.069,    5.765,   -0.404,   -1.449]
+Sent @ 2026-05-22 17:01:59.759
+Step 0604/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0336s | mpc max   0.0547s | motor [   1.168,   17.977,   18.991,    5.761,   -0.359,   -1.489]
+Sent @ 2026-05-22 17:01:59.803
+Step 0605/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [   1.173,   18.075,   18.844,    5.748,   -0.319,   -1.522]
+Sent @ 2026-05-22 17:01:59.850
+Step 0606/0801 | total   0.0482s | measure   0.0002s | feedback   0.0000s | mpc   0.0318s | mpc max   0.0547s | motor [   1.139,   18.175,   18.734,    5.737,   -0.276,   -1.556]
+Sent @ 2026-05-22 17:01:59.895
+Step 0607/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [   1.159,   18.287,   18.623,    5.731,   -0.227,   -1.593]
+Sent @ 2026-05-22 17:01:59.943
+Step 0608/0801 | total   0.0470s | measure   0.0002s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [   1.179,   18.350,   18.535,    5.723,   -0.189,   -1.627]
+Sent @ 2026-05-22 17:01:59.985
+Step 0609/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [   1.195,   18.457,   18.414,    5.711,   -0.134,   -1.666]
+Sent @ 2026-05-22 17:02:00.033
+Step 0610/0801 | total   0.0474s | measure   0.0003s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [   1.178,   18.548,   18.326,    5.695,   -0.079,   -1.703]
+Sent @ 2026-05-22 17:02:00.081
+Step 0611/0801 | total   0.0475s | measure   0.0002s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   1.188,   18.614,   18.222,    5.689,   -0.034,   -1.736]
+Sent @ 2026-05-22 17:02:00.127
+Step 0612/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0262s | mpc max   0.0547s | motor [   1.182,   18.725,   18.122,    5.676,    0.013,   -1.774]
+Sent @ 2026-05-22 17:02:00.175
+Step 0613/0801 | total   0.0610s | measure   0.0001s | feedback   0.0000s | mpc   0.0275s | mpc max   0.0547s | motor [   1.210,   18.798,   17.982,    5.657,    0.082,   -1.812]
+Sent @ 2026-05-22 17:02:00.233
+Step 0614/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [   1.195,   18.865,   17.872,    5.644,    0.112,   -1.842]
+Sent @ 2026-05-22 17:02:00.282
+Step 0615/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [   1.213,   18.959,   17.770,    5.621,    0.153,   -1.871]
+Sent @ 2026-05-22 17:02:00.331
+Step 0616/0801 | total   0.0465s | measure   0.0002s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   1.219,   19.044,   17.639,    5.612,    0.219,   -1.909]
+Sent @ 2026-05-22 17:02:00.375
+Step 0617/0801 | total   0.0471s | measure   0.0002s | feedback   0.0000s | mpc   0.0262s | mpc max   0.0547s | motor [   1.218,   19.097,   17.511,    5.583,    0.243,   -1.929]
+Sent @ 2026-05-22 17:02:00.422
+Step 0618/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0255s | mpc max   0.0547s | motor [   1.236,   19.167,   17.384,    5.556,    0.287,   -1.954]
+Sent @ 2026-05-22 17:02:00.469
+Step 0619/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0258s | mpc max   0.0547s | motor [   1.252,   19.262,   17.264,    5.540,    0.321,   -1.979]
+Sent @ 2026-05-22 17:02:00.515
+Step 0620/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0251s | mpc max   0.0547s | motor [   1.239,   19.329,   17.124,    5.514,    0.356,   -2.004]
+Sent @ 2026-05-22 17:02:00.564
+Step 0621/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [   1.265,   19.436,   16.996,    5.486,    0.399,   -2.029]
+Sent @ 2026-05-22 17:02:00.615
+Step 0622/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   1.286,   19.471,   16.858,    5.464,    0.451,   -2.062]
+Sent @ 2026-05-22 17:02:00.662
+Step 0623/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [   1.290,   19.490,   16.721,    5.435,    0.472,   -2.080]
+Sent @ 2026-05-22 17:02:00.709
+Step 0624/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0319s | mpc max   0.0547s | motor [   1.304,   19.569,   16.591,    5.408,    0.526,   -2.110]
+Sent @ 2026-05-22 17:02:00.755
+Step 0625/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   1.331,   19.645,   16.451,    5.382,    0.570,   -2.133]
+Sent @ 2026-05-22 17:02:00.805
+Step 0626/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0336s | mpc max   0.0547s | motor [   1.347,   19.722,   16.345,    5.356,    0.613,   -2.157]
+Sent @ 2026-05-22 17:02:00.854
+Step 0627/0801 | total   0.0484s | measure   0.0002s | feedback   0.0000s | mpc   0.0373s | mpc max   0.0547s | motor [   1.367,   19.724,   16.188,    5.329,    0.641,   -2.177]
+Sent @ 2026-05-22 17:02:00.899
+Step 0628/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0328s | mpc max   0.0547s | motor [   1.376,   19.776,   16.038,    5.296,    0.674,   -2.197]
+Sent @ 2026-05-22 17:02:00.943
+Step 0629/0801 | total   0.0623s | measure   0.0002s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [   1.424,   19.843,   15.908,    5.267,    0.726,   -2.222]
+Sent @ 2026-05-22 17:02:01.000
+Step 0630/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0249s | mpc max   0.0547s | motor [   1.423,   19.860,   15.784,    5.239,    0.754,   -2.239]
+Sent @ 2026-05-22 17:02:01.051
+Step 0631/0801 | total   0.0615s | measure   0.0001s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [   1.428,   19.891,   15.615,    5.204,    0.779,   -2.258]
+Sent @ 2026-05-22 17:02:01.110
+Step 0632/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0254s | mpc max   0.0547s | motor [   1.473,   19.932,   15.492,    5.171,    0.826,   -2.278]
+Sent @ 2026-05-22 17:02:01.158
+Step 0633/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   1.475,   19.939,   15.363,    5.142,    0.857,   -2.295]
+Sent @ 2026-05-22 17:02:01.205
+Step 0634/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [   1.499,   19.980,   15.226,    5.108,    0.884,   -2.312]
+Sent @ 2026-05-22 17:02:01.251
+Step 0635/0801 | total   0.0608s | measure   0.0001s | feedback   0.0000s | mpc   0.0258s | mpc max   0.0547s | motor [   1.521,   19.999,   15.079,    5.069,    0.919,   -2.325]
+Sent @ 2026-05-22 17:02:01.314
+Step 0636/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0275s | mpc max   0.0547s | motor [   1.538,   20.054,   14.928,    5.038,    0.938,   -2.338]
+Sent @ 2026-05-22 17:02:01.363
+Step 0637/0801 | total   0.0624s | measure   0.0002s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [   1.571,   20.065,   14.791,    5.002,    0.974,   -2.354]
+Sent @ 2026-05-22 17:02:01.428
+Step 0638/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0316s | mpc max   0.0547s | motor [   1.582,   20.074,   14.658,    4.968,    1.006,   -2.368]
+Sent @ 2026-05-22 17:02:01.476
+Step 0639/0801 | total   0.0463s | measure   0.0002s | feedback   0.0000s | mpc   0.0322s | mpc max   0.0547s | motor [   1.602,   20.092,   14.509,    4.934,    1.038,   -2.383]
+Sent @ 2026-05-22 17:02:01.516
+Step 0640/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0262s | mpc max   0.0547s | motor [   1.641,   20.112,   14.381,    4.896,    1.076,   -2.399]
+Sent @ 2026-05-22 17:02:01.565
+Step 0641/0801 | total   0.0624s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [   1.650,   20.125,   14.264,    4.859,    1.118,   -2.414]
+Sent @ 2026-05-22 17:02:01.626
+Step 0642/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   1.674,   20.086,   14.125,    4.821,    1.137,   -2.420]
+Sent @ 2026-05-22 17:02:01.673
+Step 0643/0801 | total   0.0452s | measure   0.0001s | feedback   0.0000s | mpc   0.0262s | mpc max   0.0547s | motor [   1.687,   20.087,   13.975,    4.783,    1.168,   -2.432]
+Sent @ 2026-05-22 17:02:01.720
+Step 0644/0801 | total   0.0477s | measure   0.0002s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   1.719,   20.099,   13.853,    4.745,    1.189,   -2.438]
+Sent @ 2026-05-22 17:02:01.770
+Step 0645/0801 | total   0.0459s | measure   0.0002s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   1.757,   20.098,   13.710,    4.708,    1.228,   -2.451]
+Sent @ 2026-05-22 17:02:01.813
+Step 0646/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0262s | mpc max   0.0547s | motor [   1.764,   20.082,   13.576,    4.672,    1.238,   -2.459]
+Sent @ 2026-05-22 17:02:01.860
+Step 0647/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0254s | mpc max   0.0547s | motor [   1.788,   20.085,   13.422,    4.635,    1.256,   -2.463]
+Sent @ 2026-05-22 17:02:01.909
+Step 0648/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [   1.807,   20.067,   13.283,    4.593,    1.275,   -2.468]
+Sent @ 2026-05-22 17:02:01.961
+Step 0649/0801 | total   0.0473s | measure   0.0001s | feedback   0.0000s | mpc   0.0338s | mpc max   0.0547s | motor [   1.825,   20.054,   13.146,    4.558,    1.298,   -2.477]
+Sent @ 2026-05-22 17:02:02.008
+Step 0650/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0325s | mpc max   0.0547s | motor [   1.852,   20.034,   13.011,    4.521,    1.315,   -2.482]
+Sent @ 2026-05-22 17:02:02.053
+Step 0651/0801 | total   0.0470s | measure   0.0003s | feedback   0.0000s | mpc   0.0313s | mpc max   0.0547s | motor [   1.868,   20.002,   12.871,    4.482,    1.337,   -2.487]
+Sent @ 2026-05-22 17:02:02.099
+Step 0652/0801 | total   0.0466s | measure   0.0002s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [   1.899,   20.005,   12.724,    4.442,    1.354,   -2.491]
+Sent @ 2026-05-22 17:02:02.143
+Step 0653/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   1.921,   19.952,   12.567,    4.402,    1.373,   -2.496]
+Sent @ 2026-05-22 17:02:02.188
+Step 0654/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0256s | mpc max   0.0547s | motor [   1.947,   19.850,   12.405,    4.363,    1.392,   -2.506]
+Sent @ 2026-05-22 17:02:02.236
+Step 0655/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [   1.945,   19.800,   12.279,    4.326,    1.402,   -2.509]
+Sent @ 2026-05-22 17:02:02.284
+Step 0656/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [   1.971,   19.752,   12.126,    4.284,    1.413,   -2.510]
+Sent @ 2026-05-22 17:02:02.327
+Step 0657/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0251s | mpc max   0.0547s | motor [   1.991,   19.700,   11.966,    4.241,    1.442,   -2.518]
+Sent @ 2026-05-22 17:02:02.375
+Step 0658/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [   2.001,   19.650,   11.837,    4.204,    1.444,   -2.514]
+Sent @ 2026-05-22 17:02:02.422
+Step 0659/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0242s | mpc max   0.0547s | motor [   2.022,   19.586,   11.697,    4.164,    1.459,   -2.518]
+Sent @ 2026-05-22 17:02:02.470
+Step 0660/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [   2.028,   19.511,   11.527,    4.130,    1.458,   -2.518]
+Sent @ 2026-05-22 17:02:02.518
+Step 0661/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [   2.049,   19.467,   11.387,    4.089,    1.484,   -2.523]
+Sent @ 2026-05-22 17:02:02.566
+Step 0662/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [   2.064,   19.394,   11.275,    4.052,    1.491,   -2.521]
+Sent @ 2026-05-22 17:02:02.611
+Step 0663/0801 | total   0.0449s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [   2.074,   19.339,   11.129,    4.011,    1.506,   -2.522]
+Sent @ 2026-05-22 17:02:02.656
+Step 0664/0801 | total   0.0635s | measure   0.0001s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [   2.090,   19.260,   10.991,    3.967,    1.524,   -2.524]
+Sent @ 2026-05-22 17:02:02.722
+Step 0665/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [   2.107,   19.183,   10.847,    3.923,    1.539,   -2.521]
+Sent @ 2026-05-22 17:02:02.766
+Step 0666/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0269s | mpc max   0.0547s | motor [   2.111,   19.105,   10.721,    3.883,    1.538,   -2.515]
+Sent @ 2026-05-22 17:02:02.814
+Step 0667/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [   2.123,   19.013,   10.565,    3.846,    1.553,   -2.519]
+Sent @ 2026-05-22 17:02:02.862
+Step 0668/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [   2.122,   18.919,   10.444,    3.816,    1.539,   -2.512]
+Sent @ 2026-05-22 17:02:02.911
+Step 0669/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [   2.126,   18.828,   10.281,    3.774,    1.544,   -2.509]
+Sent @ 2026-05-22 17:02:02.958
+Step 0670/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0297s | mpc max   0.0547s | motor [   2.140,   18.737,   10.123,    3.734,    1.545,   -2.506]
+Sent @ 2026-05-22 17:02:03.007
+Step 0671/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [   2.133,   18.589,    9.941,    3.690,    1.554,   -2.507]
+Sent @ 2026-05-22 17:02:03.048
+Step 0672/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [   2.139,   18.475,    9.806,    3.660,    1.554,   -2.509]
+Sent @ 2026-05-22 17:02:03.094
+Step 0673/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0255s | mpc max   0.0547s | motor [   2.133,   18.364,    9.685,    3.625,    1.568,   -2.510]
+Sent @ 2026-05-22 17:02:03.141
+Step 0674/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [   2.132,   18.223,    9.527,    3.600,    1.560,   -2.515]
+Sent @ 2026-05-22 17:02:03.187
+Step 0675/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [   2.141,   18.097,    9.363,    3.564,    1.560,   -2.516]
+Sent @ 2026-05-22 17:02:03.237
+Step 0676/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0279s | mpc max   0.0547s | motor [   2.140,   17.991,    9.205,    3.524,    1.571,   -2.514]
+Sent @ 2026-05-22 17:02:03.282
+Step 0677/0801 | total   0.0461s | measure   0.0002s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   2.132,   17.852,    9.081,    3.489,    1.569,   -2.511]
+Sent @ 2026-05-22 17:02:03.333
+Step 0678/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0309s | mpc max   0.0547s | motor [   2.126,   17.721,    8.911,    3.458,    1.563,   -2.509]
+Sent @ 2026-05-22 17:02:03.384
+Step 0679/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0345s | mpc max   0.0547s | motor [   2.120,   17.606,    8.765,    3.422,    1.570,   -2.511]
+Sent @ 2026-05-22 17:02:03.426
+Step 0680/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   2.107,   17.472,    8.634,    3.396,    1.573,   -2.513]
+Sent @ 2026-05-22 17:02:03.474
+Step 0681/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0302s | mpc max   0.0547s | motor [   2.087,   17.310,    8.493,    3.375,    1.561,   -2.516]
+Sent @ 2026-05-22 17:02:03.517
+Step 0682/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [   2.087,   17.191,    8.350,    3.345,    1.562,   -2.515]
+Sent @ 2026-05-22 17:02:03.563
+Step 0683/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0253s | mpc max   0.0547s | motor [   2.083,   17.050,    8.198,    3.317,    1.560,   -2.516]
+Sent @ 2026-05-22 17:02:03.610
+Step 0684/0801 | total   0.0466s | measure   0.0002s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [   2.067,   16.891,    8.062,    3.290,    1.565,   -2.522]
+Sent @ 2026-05-22 17:02:03.656
+Step 0685/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0256s | mpc max   0.0547s | motor [   2.045,   16.740,    7.927,    3.264,    1.565,   -2.525]
+Sent @ 2026-05-22 17:02:03.705
+Step 0686/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [   2.019,   16.572,    7.783,    3.235,    1.570,   -2.529]
+Sent @ 2026-05-22 17:02:03.751
+Step 0687/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   2.009,   16.406,    7.637,    3.217,    1.562,   -2.533]
+Sent @ 2026-05-22 17:02:03.805
+Step 0688/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0337s | mpc max   0.0547s | motor [   1.993,   16.234,    7.477,    3.190,    1.557,   -2.534]
+Sent @ 2026-05-22 17:02:03.850
+Step 0689/0801 | total   0.0617s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   1.961,   16.070,    7.340,    3.157,    1.569,   -2.538]
+Sent @ 2026-05-22 17:02:03.905
+Step 0690/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0250s | mpc max   0.0547s | motor [   1.953,   15.904,    7.198,    3.135,    1.566,   -2.540]
+Sent @ 2026-05-22 17:02:03.955
+Step 0691/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0277s | mpc max   0.0547s | motor [   1.919,   15.728,    7.044,    3.112,    1.563,   -2.545]
+Sent @ 2026-05-22 17:02:04.004
+Step 0692/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [   1.902,   15.564,    6.898,    3.092,    1.557,   -2.546]
+Sent @ 2026-05-22 17:02:04.053
+Step 0693/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [   1.870,   15.391,    6.754,    3.072,    1.554,   -2.549]
+Sent @ 2026-05-22 17:02:04.099
+Step 0694/0801 | total   0.0470s | measure   0.0002s | feedback   0.0000s | mpc   0.0300s | mpc max   0.0547s | motor [   1.836,   15.190,    6.605,    3.049,    1.557,   -2.554]
+Sent @ 2026-05-22 17:02:04.142
+Step 0695/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0269s | mpc max   0.0547s | motor [   1.801,   14.999,    6.478,    3.024,    1.559,   -2.557]
+Sent @ 2026-05-22 17:02:04.191
+Step 0696/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0299s | mpc max   0.0547s | motor [   1.767,   14.809,    6.340,    2.999,    1.568,   -2.563]
+Sent @ 2026-05-22 17:02:04.236
+Step 0697/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0267s | mpc max   0.0547s | motor [   1.733,   14.615,    6.191,    2.981,    1.574,   -2.571]
+Sent @ 2026-05-22 17:02:04.287
+Step 0698/0801 | total   0.0462s | measure   0.0002s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [   1.702,   14.424,    6.053,    2.967,    1.576,   -2.579]
+Sent @ 2026-05-22 17:02:04.331
+Step 0699/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   1.658,   14.217,    5.911,    2.957,    1.573,   -2.586]
+Sent @ 2026-05-22 17:02:04.377
+Step 0700/0801 | total   0.0467s | measure   0.0002s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [   1.622,   14.014,    5.762,    2.945,    1.572,   -2.594]
+Sent @ 2026-05-22 17:02:04.423
+Step 0701/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0269s | mpc max   0.0547s | motor [   1.589,   13.815,    5.615,    2.931,    1.577,   -2.602]
+Sent @ 2026-05-22 17:02:04.474
+Step 0702/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0306s | mpc max   0.0547s | motor [   1.541,   13.598,    5.488,    2.915,    1.589,   -2.610]
+Sent @ 2026-05-22 17:02:04.515
+Step 0703/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0256s | mpc max   0.0547s | motor [   1.509,   13.385,    5.343,    2.913,    1.587,   -2.619]
+Sent @ 2026-05-22 17:02:04.561
+Step 0704/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0246s | mpc max   0.0547s | motor [   1.464,   13.165,    5.199,    2.898,    1.597,   -2.627]
+Sent @ 2026-05-22 17:02:04.609
+Step 0705/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0251s | mpc max   0.0547s | motor [   1.421,   12.944,    5.057,    2.891,    1.607,   -2.638]
+Sent @ 2026-05-22 17:02:04.658
+Step 0706/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [   1.377,   12.719,    4.918,    2.885,    1.618,   -2.649]
+Sent @ 2026-05-22 17:02:04.707
+Step 0707/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [   1.327,   12.488,    4.783,    2.880,    1.627,   -2.658]
+Sent @ 2026-05-22 17:02:04.753
+Step 0708/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0286s | mpc max   0.0547s | motor [   1.277,   12.255,    4.645,    2.876,    1.637,   -2.667]
+Sent @ 2026-05-22 17:02:04.799
+Step 0709/0801 | total   0.0625s | measure   0.0002s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [   1.230,   12.023,    4.511,    2.874,    1.643,   -2.674]
+Sent @ 2026-05-22 17:02:04.865
+Step 0710/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0321s | mpc max   0.0547s | motor [   1.174,   11.780,    4.382,    2.865,    1.659,   -2.682]
+Sent @ 2026-05-22 17:02:04.912
+Step 0711/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0311s | mpc max   0.0547s | motor [   1.130,   11.539,    4.242,    2.873,    1.675,   -2.695]
+Sent @ 2026-05-22 17:02:04.957
+Step 0712/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [   1.088,   11.298,    4.113,    2.885,    1.695,   -2.709]
+Sent @ 2026-05-22 17:02:05.001
+Step 0713/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [   1.038,   11.049,    3.977,    2.900,    1.712,   -2.721]
+Sent @ 2026-05-22 17:02:05.050
+Step 0714/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0290s | mpc max   0.0547s | motor [   0.991,   10.793,    3.848,    2.910,    1.743,   -2.735]
+Sent @ 2026-05-22 17:02:05.097
+Step 0715/0801 | total   0.0463s | measure   0.0002s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [   0.950,   10.540,    3.726,    2.926,    1.776,   -2.749]
+Sent @ 2026-05-22 17:02:05.141
+Step 0716/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [   0.894,   10.273,    3.609,    2.946,    1.811,   -2.762]
+Sent @ 2026-05-22 17:02:05.191
+Step 0717/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0279s | mpc max   0.0547s | motor [   0.853,   10.019,    3.496,    2.974,    1.850,   -2.777]
+Sent @ 2026-05-22 17:02:05.235
+Step 0718/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0257s | mpc max   0.0547s | motor [   0.823,    9.780,    3.387,    3.007,    1.890,   -2.792]
+Sent @ 2026-05-22 17:02:05.283
+Step 0719/0801 | total   0.0457s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [   0.788,    9.511,    3.280,    3.045,    1.942,   -2.806]
+Sent @ 2026-05-22 17:02:05.329
+Step 0720/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0268s | mpc max   0.0547s | motor [   0.753,    9.249,    3.164,    3.096,    1.988,   -2.819]
+Sent @ 2026-05-22 17:02:05.375
+Step 0721/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0261s | mpc max   0.0547s | motor [   0.728,    8.974,    3.074,    3.143,    2.053,   -2.830]
+Sent @ 2026-05-22 17:02:05.425
+Step 0722/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   0.699,    8.663,    2.974,    3.208,    2.129,   -2.840]
+Sent @ 2026-05-22 17:02:05.469
+Step 0723/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [   0.681,    8.353,    2.868,    3.295,    2.209,   -2.851]
+Sent @ 2026-05-22 17:02:05.516
+Step 0724/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [   0.685,    8.073,    2.790,    3.404,    2.302,   -2.861]
+Sent @ 2026-05-22 17:02:05.565
+Step 0725/0801 | total   0.0481s | measure   0.0001s | feedback   0.0000s | mpc   0.0289s | mpc max   0.0547s | motor [   0.731,    7.764,    2.696,    3.545,    2.403,   -2.861]
+Sent @ 2026-05-22 17:02:05.611
+Step 0726/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0260s | mpc max   0.0547s | motor [   0.809,    7.414,    2.585,    3.753,    2.526,   -2.854]
+Sent @ 2026-05-22 17:02:05.660
+Step 0727/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [   1.044,    7.049,    2.420,    4.119,    2.654,   -2.831]
+Sent @ 2026-05-22 17:02:05.710
+Step 0728/0801 | total   0.0472s | measure   0.0001s | feedback   0.0000s | mpc   0.0320s | mpc max   0.0547s | motor [   1.888,    6.512,    1.963,    5.195,    2.835,   -2.714]
+Sent @ 2026-05-22 17:02:05.754
+Step 0729/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [   1.062,    6.671,    1.835,    4.180,    2.402,   -2.867]
+Sent @ 2026-05-22 17:02:05.799
+Step 0730/0801 | total   0.0449s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [  -0.416,    7.085,    2.102,    2.454,    2.003,   -3.000]
+Sent @ 2026-05-22 17:02:05.846
+Step 0731/0801 | total   0.0474s | measure   0.0002s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [   0.279,    6.447,    1.616,    3.382,    2.114,   -2.954]
+Sent @ 2026-05-22 17:02:05.897
+Step 0732/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [   1.239,    5.728,    1.169,    4.660,    2.406,   -2.876]
+Sent @ 2026-05-22 17:02:05.943
+Step 0733/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0319s | mpc max   0.0547s | motor [   0.183,    5.973,    1.171,    3.413,    1.979,   -2.975]
+Sent @ 2026-05-22 17:02:05.994
+Step 0734/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0359s | mpc max   0.0547s | motor [   0.638,    5.475,    0.834,    4.077,    2.035,   -3.003]
+Sent @ 2026-05-22 17:02:06.035
+Step 0735/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  -0.385,    5.200,    0.449,    3.085,    1.576,   -3.168]
+Sent @ 2026-05-22 17:02:06.082
+Step 0736/0801 | total   0.0474s | measure   0.0001s | feedback   0.0000s | mpc   0.0301s | mpc max   0.0547s | motor [  -0.787,    5.028,    0.283,    2.706,    1.510,   -3.299]
+Sent @ 2026-05-22 17:02:06.131
+Step 0737/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0312s | mpc max   0.0547s | motor [  -0.839,    4.697,    0.082,    2.709,    1.426,   -3.320]
+Sent @ 2026-05-22 17:02:06.177
+Step 0738/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0316s | mpc max   0.0547s | motor [  -0.866,    4.505,   -0.089,    2.698,    1.335,   -3.322]
+Sent @ 2026-05-22 17:02:06.220
+Step 0739/0801 | total   0.0475s | measure   0.0001s | feedback   0.0000s | mpc   0.0276s | mpc max   0.0547s | motor [  -1.054,    4.374,   -0.151,    2.492,    1.282,   -3.332]
+Sent @ 2026-05-22 17:02:06.271
+Step 0740/0801 | total   0.0468s | measure   0.0001s | feedback   0.0000s | mpc   0.0313s | mpc max   0.0547s | motor [  -1.152,    4.242,   -0.204,    2.371,    1.249,   -3.317]
+Sent @ 2026-05-22 17:02:06.315
+Step 0741/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0270s | mpc max   0.0547s | motor [  -1.191,    4.106,   -0.285,    2.304,    1.200,   -3.297]
+Sent @ 2026-05-22 17:02:06.367
+Step 0742/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [  -1.126,    4.013,   -0.338,    2.322,    1.172,   -3.241]
+Sent @ 2026-05-22 17:02:06.408
+Step 0743/0801 | total   0.0458s | measure   0.0001s | feedback   0.0000s | mpc   0.0275s | mpc max   0.0547s | motor [  -1.120,    3.902,   -0.411,    2.275,    1.148,   -3.196]
+Sent @ 2026-05-22 17:02:06.455
+Step 0744/0801 | total   0.0467s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  -1.189,    3.824,   -0.392,    2.181,    1.129,   -3.164]
+Sent @ 2026-05-22 17:02:06.503
+Step 0745/0801 | total   0.0473s | measure   0.0002s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [  -1.256,    3.714,   -0.429,    2.085,    1.108,   -3.126]
+Sent @ 2026-05-22 17:02:06.548
+Step 0746/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0264s | mpc max   0.0547s | motor [  -1.239,    3.623,   -0.447,    2.042,    1.086,   -3.083]
+Sent @ 2026-05-22 17:02:06.599
+Step 0747/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0314s | mpc max   0.0547s | motor [  -1.223,    3.533,   -0.487,    2.012,    1.053,   -3.036]
+Sent @ 2026-05-22 17:02:06.645
+Step 0748/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0292s | mpc max   0.0547s | motor [  -1.230,    3.430,   -0.498,    1.954,    1.036,   -2.989]
+Sent @ 2026-05-22 17:02:06.690
+Step 0749/0801 | total   0.0461s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [  -1.232,    3.358,   -0.533,    1.903,    1.008,   -2.943]
+Sent @ 2026-05-22 17:02:06.739
+Step 0750/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0303s | mpc max   0.0547s | motor [  -1.237,    3.255,   -0.555,    1.856,    0.979,   -2.896]
+Sent @ 2026-05-22 17:02:06.784
+Step 0751/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [  -1.226,    3.169,   -0.581,    1.810,    0.957,   -2.850]
+Sent @ 2026-05-22 17:02:06.834
+Step 0752/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0317s | mpc max   0.0547s | motor [  -1.224,    3.096,   -0.580,    1.762,    0.943,   -2.800]
+Sent @ 2026-05-22 17:02:06.877
+Step 0753/0801 | total   0.0476s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [  -1.230,    3.006,   -0.600,    1.704,    0.917,   -2.754]
+Sent @ 2026-05-22 17:02:06.929
+Step 0754/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0318s | mpc max   0.0547s | motor [  -1.283,    2.911,   -0.617,    1.618,    0.898,   -2.720]
+Sent @ 2026-05-22 17:02:06.970
+Step 0755/0801 | total   0.0469s | measure   0.0002s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [  -1.247,    2.824,   -0.638,    1.601,    0.869,   -2.660]
+Sent @ 2026-05-22 17:02:07.015
+Step 0756/0801 | total   0.0478s | measure   0.0001s | feedback   0.0000s | mpc   0.0263s | mpc max   0.0547s | motor [  -1.241,    2.746,   -0.662,    1.554,    0.837,   -2.617]
+Sent @ 2026-05-22 17:02:07.075
+Step 0757/0801 | total   0.0457s | measure   0.0002s | feedback   0.0000s | mpc   0.0373s | mpc max   0.0547s | motor [  -1.270,    2.649,   -0.684,    1.486,    0.815,   -2.576]
+Sent @ 2026-05-22 17:02:07.120
+Step 0758/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0369s | mpc max   0.0547s | motor [  -1.263,    2.543,   -0.701,    1.444,    0.783,   -2.528]
+Sent @ 2026-05-22 17:02:07.165
+Step 0759/0801 | total   0.0456s | measure   0.0002s | feedback   0.0000s | mpc   0.0330s | mpc max   0.0547s | motor [  -1.269,    2.464,   -0.719,    1.398,    0.755,   -2.482]
+Sent @ 2026-05-22 17:02:07.206
+Step 0760/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0283s | mpc max   0.0547s | motor [  -1.254,    2.379,   -0.738,    1.354,    0.726,   -2.435]
+Sent @ 2026-05-22 17:02:07.256
+Step 0761/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0308s | mpc max   0.0547s | motor [  -1.274,    2.292,   -0.747,    1.292,    0.708,   -2.390]
+Sent @ 2026-05-22 17:02:07.298
+Step 0762/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0271s | mpc max   0.0547s | motor [  -1.275,    2.216,   -0.753,    1.241,    0.683,   -2.342]
+Sent @ 2026-05-22 17:02:07.348
+Step 0763/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0291s | mpc max   0.0547s | motor [  -1.258,    2.131,   -0.751,    1.200,    0.658,   -2.288]
+Sent @ 2026-05-22 17:02:07.395
+Step 0764/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0307s | mpc max   0.0547s | motor [  -1.232,    2.063,   -0.781,    1.170,    0.622,   -2.238]
+Sent @ 2026-05-22 17:02:07.440
+Step 0765/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  -1.254,    1.972,   -0.779,    1.110,    0.612,   -2.183]
+Sent @ 2026-05-22 17:02:07.488
+Step 0766/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [  -1.269,    1.890,   -0.761,    1.046,    0.598,   -2.140]
+Sent @ 2026-05-22 17:02:07.534
+Step 0767/0801 | total   0.0468s | measure   0.0002s | feedback   0.0000s | mpc   0.0294s | mpc max   0.0547s | motor [  -1.241,    1.809,   -0.789,    1.022,    0.560,   -2.085]
+Sent @ 2026-05-22 17:02:07.582
+Step 0768/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0299s | mpc max   0.0547s | motor [  -1.210,    1.745,   -0.790,    0.987,    0.531,   -2.033]
+Sent @ 2026-05-22 17:02:07.626
+Step 0769/0801 | total   0.0466s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [  -1.192,    1.678,   -0.784,    0.956,    0.520,   -1.967]
+Sent @ 2026-05-22 17:02:07.675
+Step 0770/0801 | total   0.0633s | measure   0.0001s | feedback   0.0000s | mpc   0.0288s | mpc max   0.0547s | motor [  -1.129,    1.636,   -0.784,    0.938,    0.481,   -1.909]
+Sent @ 2026-05-22 17:02:07.737
+Step 0771/0801 | total   0.0456s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [  -1.117,    1.556,   -0.782,    0.898,    0.465,   -1.853]
+Sent @ 2026-05-22 17:02:07.786
+Step 0772/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0310s | mpc max   0.0547s | motor [  -1.116,    1.496,   -0.758,    0.846,    0.458,   -1.800]
+Sent @ 2026-05-22 17:02:07.830
+Step 0773/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0278s | mpc max   0.0547s | motor [  -1.097,    1.409,   -0.752,    0.803,    0.433,   -1.746]
+Sent @ 2026-05-22 17:02:07.880
+Step 0774/0801 | total   0.0459s | measure   0.0001s | feedback   0.0000s | mpc   0.0298s | mpc max   0.0547s | motor [  -1.094,    1.345,   -0.753,    0.763,    0.409,   -1.692]
+Sent @ 2026-05-22 17:02:07.924
+Step 0775/0801 | total   0.0464s | measure   0.0001s | feedback   0.0000s | mpc   0.0279s | mpc max   0.0547s | motor [  -1.073,    1.281,   -0.734,    0.724,    0.395,   -1.637]
+Sent @ 2026-05-22 17:02:07.973
+Step 0776/0801 | total   0.0477s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  -1.018,    1.220,   -0.735,    0.701,    0.362,   -1.577]
+Sent @ 2026-05-22 17:02:08.019
+Step 0777/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0287s | mpc max   0.0547s | motor [  -1.010,    1.158,   -0.721,    0.658,    0.342,   -1.521]
+Sent @ 2026-05-22 17:02:08.063
+Step 0778/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0266s | mpc max   0.0547s | motor [  -0.995,    1.100,   -0.691,    0.616,    0.336,   -1.460]
+Sent @ 2026-05-22 17:02:08.113
+Step 0779/0801 | total   0.0450s | measure   0.0001s | feedback   0.0000s | mpc   0.0284s | mpc max   0.0547s | motor [  -0.967,    1.040,   -0.667,    0.581,    0.322,   -1.399]
+Sent @ 2026-05-22 17:02:08.170
+Step 0780/0801 | total   0.0482s | measure   0.0001s | feedback   0.0000s | mpc   0.0399s | mpc max   0.0547s | motor [  -0.930,    0.980,   -0.669,    0.553,    0.295,   -1.340]
+Sent @ 2026-05-22 17:02:08.210
+Step 0781/0801 | total   0.0454s | measure   0.0001s | feedback   0.0000s | mpc   0.0315s | mpc max   0.0547s | motor [  -0.877,    0.928,   -0.663,    0.538,    0.262,   -1.274]
+Sent @ 2026-05-22 17:02:08.258
+Step 0782/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0334s | mpc max   0.0547s | motor [  -0.854,    0.865,   -0.646,    0.498,    0.247,   -1.220]
+Sent @ 2026-05-22 17:02:08.307
+Step 0783/0801 | total   0.0629s | measure   0.0001s | feedback   0.0000s | mpc   0.0358s | mpc max   0.0547s | motor [  -0.843,    0.806,   -0.616,    0.454,    0.236,   -1.163]
+Sent @ 2026-05-22 17:02:08.366
+Step 0784/0801 | total   0.0453s | measure   0.0001s | feedback   0.0000s | mpc   0.0323s | mpc max   0.0547s | motor [  -0.809,    0.748,   -0.601,    0.420,    0.214,   -1.102]
+Sent @ 2026-05-22 17:02:08.407
+Step 0785/0801 | total   0.0479s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  -0.768,    0.684,   -0.595,    0.394,    0.185,   -1.044]
+Sent @ 2026-05-22 17:02:08.458
+Step 0786/0801 | total   0.0471s | measure   0.0001s | feedback   0.0000s | mpc   0.0305s | mpc max   0.0547s | motor [  -0.741,    0.633,   -0.585,    0.358,    0.160,   -0.985]
+Sent @ 2026-05-22 17:02:08.503
+Step 0787/0801 | total   0.0455s | measure   0.0001s | feedback   0.0000s | mpc   0.0282s | mpc max   0.0547s | motor [  -0.724,    0.569,   -0.550,    0.316,    0.152,   -0.930]
+Sent @ 2026-05-22 17:02:08.548
+Step 0788/0801 | total   0.0480s | measure   0.0001s | feedback   0.0000s | mpc   0.0273s | mpc max   0.0547s | motor [  -0.700,    0.528,   -0.522,    0.277,    0.132,   -0.862]
+Sent @ 2026-05-22 17:02:08.598
+Step 0789/0801 | total   0.0460s | measure   0.0001s | feedback   0.0000s | mpc   0.0281s | mpc max   0.0547s | motor [  -0.639,    0.493,   -0.485,    0.259,    0.126,   -0.791]
+Sent @ 2026-05-22 17:02:08.645
+Step 0790/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0294s | mpc max   0.0547s | motor [  -0.572,    0.469,   -0.435,    0.247,    0.123,   -0.715]
+Sent @ 2026-05-22 17:02:08.695
+Step 0791/0801 | total   0.0470s | measure   0.0001s | feedback   0.0000s | mpc   0.0336s | mpc max   0.0547s | motor [  -0.516,    0.430,   -0.381,    0.230,    0.119,   -0.642]
+Sent @ 2026-05-22 17:02:08.742
+Step 0792/0801 | total   0.0462s | measure   0.0001s | feedback   0.0000s | mpc   0.0327s | mpc max   0.0547s | motor [  -0.450,    0.405,   -0.334,    0.213,    0.114,   -0.570]
+Sent @ 2026-05-22 17:02:08.789
+Step 0793/0801 | total   0.0467s | measure   0.0002s | feedback   0.0000s | mpc   0.0335s | mpc max   0.0547s | motor [  -0.387,    0.368,   -0.283,    0.196,    0.107,   -0.499]
+Sent @ 2026-05-22 17:02:08.830
+Step 0794/0801 | total   0.0482s | measure   0.0001s | feedback   0.0000s | mpc   0.0272s | mpc max   0.0547s | motor [  -0.332,    0.336,   -0.240,    0.177,    0.100,   -0.430]
+Sent @ 2026-05-22 17:02:08.880
+Step 0795/0801 | total   0.0452s | measure   0.0001s | feedback   0.0000s | mpc   0.0296s | mpc max   0.0547s | motor [  -0.279,    0.297,   -0.198,    0.155,    0.092,   -0.360]
+Sent @ 2026-05-22 17:02:08.923
+Step 0796/0801 | total   0.0465s | measure   0.0001s | feedback   0.0000s | mpc   0.0275s | mpc max   0.0547s | motor [  -0.230,    0.254,   -0.157,    0.130,    0.082,   -0.296]
+Sent @ 2026-05-22 17:02:08.970
+Step 0797/0801 | total   0.0482s | measure   0.0001s | feedback   0.0000s | mpc   0.0265s | mpc max   0.0547s | motor [  -0.186,    0.208,   -0.116,    0.101,    0.072,   -0.233]
+Sent @ 2026-05-22 17:02:09.018
+Step 0798/0801 | total   0.0450s | measure   0.0001s | feedback   0.0000s | mpc   0.0274s | mpc max   0.0547s | motor [  -0.154,    0.158,   -0.073,    0.066,    0.065,   -0.173]
+Sent @ 2026-05-22 17:02:09.063
+Step 0799/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0269s | mpc max   0.0547s | motor [  -0.134,    0.106,   -0.018,    0.019,    0.067,   -0.115]
+Sent @ 2026-05-22 17:02:09.109
+Step 0800/0801 | total   0.0469s | measure   0.0001s | feedback   0.0000s | mpc   0.0252s | mpc max   0.0547s | motor [  -0.119,    0.052,    0.042,   -0.031,    0.072,   -0.058]
+Sent @ 2026-05-22 17:02:09.159
+Step 0801/0801 | total   0.0463s | measure   0.0001s | feedback   0.0000s | mpc   0.0280s | mpc max   0.0547s | motor [  -0.092,   -0.007,    0.076,   -0.071,    0.060,   -0.004]
+
+Timing summary
+  completed steps : 801
+  avg total       : 0.047408s
+  avg measure     : 0.000136s
+  avg feedback    : 0.000000s
+  avg mpc         : 0.029492s
+  max mpc         : 0.054708s

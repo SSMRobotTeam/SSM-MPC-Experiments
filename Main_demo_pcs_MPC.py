@@ -11,11 +11,10 @@ import scipy.io as sciIO
 from controller.nmpc import NmpcConfig
 from controller.nmpc_pcs import nmpc_pcs_multi_shooting
 from dynamics.pcs_model import PCSSection, Tendon, TwoSectionPCSRobot
-# Capture debug disabled:
-# from measure.motion_capture import capture_motion, initialize_motion_reference
+from measure.motion_capture import capture_motion, initialize_motion_reference
 from utils.sdk_utils import load_lumo_sdk
 from utils.timing_utils import fixed_cpu_time
-from zmq_message.zmq_control import close_publisher, create_publisher, send_motor_command
+from zmq_message.zmq_control import clamp_motor_positions, close_publisher, create_publisher, send_motor_command
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -23,31 +22,33 @@ BASE_DIR = Path(__file__).resolve().parent
 TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/spiral"
 # TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/eight"
 PLOT_DIR = BASE_DIR / "PlotFig"
+RESULT_DIR = PLOT_DIR / "pcs_results"
 MOTOR_ENDPOINT = "tcp://localhost:5555"
 
 IP_ADDRESS = "127.0.0.1"
 CONTROL_PERIOD_SECONDS = 0.075
-MPC_HORIZON = 1
+MPC_HORIZON = 3
 
 L1, L2 = 0.2225, 0.2175
-D1, D2 = 0.0165, 0.0145
+D1, D2 = 0.016, 0.014
 END_OFFSET = np.array([0.0, 0.0, L1 + L2])
 PCS_UNITS_PER_SECTION = 2
 PCS_UNIT_COUNT = 2 * PCS_UNITS_PER_SECTION
 PCS_MODEL = "full"  # simplified: [kx, ky, tau, eps], full: [kx, ky, tau, eps, gx, gy]
+MOTOR_FACTOR = 1.01
 
-PCS_MAX_COMMAND_MM = 100.0
+PCS_MAX_COMMAND_MM = 40.0
 PCS_MAX_COMMAND_STEP_MM = 10
 
-PCS_MPC_Q = np.diag([5e5, 5e5, 5e5])
+PCS_MPC_Q = np.diag([5e3, 5e3, 5e3])
 PCS_MPC_R = 1e-5
 PCS_MPC_R_SMOOTH = 1
 
 PCS_MPC_R_STRAIN = 1
-PCS_MPC_R_BEND = 0.075
-PCS_MPC_R_TWIST = 20
-PCS_MPC_R_AXIAL = 20
-PCS_MPC_R_SHEAR = 120
+PCS_MPC_R_BEND = 0.05
+PCS_MPC_R_TWIST = 10
+PCS_MPC_R_AXIAL = 10
+PCS_MPC_R_SHEAR = 50
 PCS_MPC_MAX_NFEV = 1e2
 PCS_MPC_SOLVER = "qp"  # "ipopt" for nonlinear MPC, "qp" for linearized CasADi QP
 PCS_MPC_QP_BACKEND = "qpoases"
@@ -243,15 +244,14 @@ def run_control_step(
     ref_positions = reference_window(desired_positions, step_index, mpc_config.Np)
     u_sol, q_sol, mpc_elapsed_time = solve_pcs_position(robot, ref_positions, q0, mpc_config)
 
-    motor_positions_mm = (u_sol * 1000.0).tolist()
+    motor_positions_mm = clamp_motor_positions(u_sol * 1000.0 * MOTOR_FACTOR)
     print(f"control action = {motor_positions_mm}")
     send_motor_command(socket, motor_positions_mm, solver_order=True)
 
-    # Capture debug disabled:
-    # disp_end, disp_mid, _ = capture_motion(sdk, reference)
-    # y_expm[step_index, :] = np.hstack([disp_end, disp_mid])
+    disp_end, disp_mid, _ = capture_motion(sdk, reference)
+    y_expm[step_index, :] = np.hstack([disp_end, disp_mid])
     q_save[step_index, :] = q_sol.reshape(-1)
-    u_save[step_index, :] = u_sol * 1000.0
+    u_save[step_index, :] = np.asarray(motor_positions_mm, dtype=float)
     pcs_position_save[step_index, :] = pcs_section_end_positions(robot, q_sol)
     return q_sol, mpc_elapsed_time
 
@@ -263,18 +263,16 @@ def save_results(
     u_save: np.ndarray,
     pcs_position_save: np.ndarray,
 ) -> None:
-    PLOT_DIR.mkdir(exist_ok=True)
-    np.save(PLOT_DIR / "y_expm_pcs", y_expm)
-    np.save(PLOT_DIR / "t_expm_pcs", t_list)
-    np.save(PLOT_DIR / "q_save_pcs", q_save)
-    np.save(PLOT_DIR / "u_save_pcs", u_save)
-    np.save(PLOT_DIR / "pcs_section_positions_pcs", pcs_position_save)
+    RESULT_DIR.mkdir(parents=True, exist_ok=True)
+    np.save(RESULT_DIR / "y_expm_pcs", y_expm)
+    np.save(RESULT_DIR / "t_expm_pcs", t_list)
+    np.save(RESULT_DIR / "q_save_pcs", q_save)
+    np.save(RESULT_DIR / "u_save_pcs", u_save)
+    np.save(RESULT_DIR / "pcs_section_positions_pcs", pcs_position_save)
 
 
 def run_experiment() -> None:
-    # Capture debug disabled:
-    # sdk = connect_sdk()
-    sdk = None
+    sdk = connect_sdk()
     context = None
     socket = None
 
@@ -295,9 +293,7 @@ def run_experiment() -> None:
         u_save = np.zeros((step_count, 6))
         pcs_position_save = np.zeros((step_count, 6))
 
-        # Capture debug disabled:
-        # reference = initialize_motion_reference(sdk)
-        reference = None
+        reference = initialize_motion_reference(sdk)
         context, socket = create_publisher(MOTOR_ENDPOINT)
         print("ZeroMQ publisher started on /controller/setActuatorDate")
 

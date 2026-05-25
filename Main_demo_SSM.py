@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # C:\Users\beau\AppData\Local\Programs\Python\Python311\python.exe -m pip install
 import sys
+import argparse
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 import time
@@ -10,8 +11,16 @@ import scipy.io as sciIO
 
 from controller.cable_constraints import cable_length_double_part
 from controller.ssm_controller import SsmExperimentConfig, SsmFeedbackState, SsmMpcController
-from dynamics.SSM.matlab_data import EIGHT_TRAJ_DIR, ROM_DIR, clone_struct_array, get_field, load_rom_data, subset_mapping_rows
-from measure.motion_capture import capture_motion, initialize_motion_reference
+from dynamics.SSM.matlab_data import (
+    EIGHT_TRAJ_DIR,
+    ROM_DIR,
+    SPIRAL_TRAJ_DIR,
+    clone_struct_array,
+    get_field,
+    load_rom_data,
+    subset_mapping_rows,
+)
+from measure.motion_capture import MotionReference
 from utils.sdk_utils import load_lumo_sdk
 from utils.timing_utils import fixed_cpu_time
 from zmq_message.zmq_control import close_publisher, create_publisher, send_motor_command
@@ -20,21 +29,31 @@ from zmq_message.zmq_control import close_publisher, create_publisher, send_moto
 BASE_DIR = Path(__file__).resolve().parent
 PLOT_DIR = BASE_DIR / "PlotFig"
 LOG_DIR = PLOT_DIR / "logs"
+RESULT_DIR = PLOT_DIR / "SSM_results"
 IP_ADDRESS = "127.0.0.1"
 MOTOR_ENDPOINT = "tcp://localhost:5555"
 CONTROL_PERIOD_SECONDS = 0.075
+TRAJECTORY_NAME = "spiral"  # choose one: "eight" or "spiral"
 SSM_FACTOR = 1.475
 MOTOR_FACTOR = 1.225
-horizon = 1
+horizon = 3
 RUN_STEPS = np.inf # determined by desired trajectory
+MEASUREMENT_ENABLED = True
 FEEDBACK_ENABLED = False
-MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
+MPC_SOLVER_TYPE = "qp"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
 USE_FAST_SINGLE_STEP_QP = True
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 100023
+Q_WEIGHT = 1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
+R_WEIGHT = 1e0
+CONTROL_SMOOTH_WEIGHT = 5e3
+END_MARKER_ID = 103013
 CHECKPOINT_RIGID_ID = 2
 POS_END = np.array([0.0, 0.0, 0.4400])
+TRAJECTORY_DIRS = {
+    "eight": EIGHT_TRAJ_DIR,
+    "spiral": SPIRAL_TRAJ_DIR,
+}
 
 
 class BufferedTeeLogger:
@@ -86,9 +105,6 @@ def build_default_config(rom_data) -> SsmExperimentConfig:
     dt = CONTROL_PERIOD_SECONDS
     node_list = rom_data["Node_List"]
 
-    # These defaults mirror the MATLAB controller shape; tune weights in this function if needed.
-    q_weight = 1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
-    r_weight = 1e-2
     u_lb = np.full(6 * horizon, -50)
     u_ub = np.full(6 * horizon,  50)
     dist0 = cable_length_double_part(np.zeros(cable_displacement_size(node_list)), node_list)
@@ -99,8 +115,8 @@ def build_default_config(rom_data) -> SsmExperimentConfig:
         td=t_list,
         zd=zd,
         Np=horizon,
-        Q=q_weight,
-        R=r_weight,
+        Q=Q_WEIGHT,
+        R=R_WEIGHT,
         u_lb=u_lb,
         u_ub=u_ub,
         Node_List=node_list,
@@ -109,7 +125,24 @@ def build_default_config(rom_data) -> SsmExperimentConfig:
         solver_type=MPC_SOLVER_TYPE,
         qp_backend=QP_BACKEND,
         use_fast_single_step=USE_FAST_SINGLE_STEP_QP,
+        control_smooth_weight=CONTROL_SMOOTH_WEIGHT,
     )
+
+
+def resolve_trajectory_dir(trajectory_name: str) -> Path:
+    key = trajectory_name.lower()
+    if key not in TRAJECTORY_DIRS:
+        choices = ", ".join(sorted(TRAJECTORY_DIRS))
+        raise ValueError(f"Unknown trajectory '{trajectory_name}'. Choose one of: {choices}")
+    return TRAJECTORY_DIRS[key]
+
+
+def resolve_result_dir(trajectory_name: str) -> Path:
+    key = trajectory_name.lower()
+    if key not in TRAJECTORY_DIRS:
+        choices = ", ".join(sorted(TRAJECTORY_DIRS))
+        raise ValueError(f"Unknown trajectory '{trajectory_name}'. Choose one of: {choices}")
+    return RESULT_DIR / key
 
 
 def cable_dofs_for_wp(node_list) -> np.ndarray:
@@ -119,6 +152,23 @@ def cable_dofs_for_wp(node_list) -> np.ndarray:
             for node_idx in range(1, last_node):
                 dofs.extend(np.asarray(node_list[section_idx][cable_idx, node_idx]).reshape(-1)[3:6])
     return np.asarray(dofs, dtype=int)
+
+
+def node_index_from_dofs(dofs: np.ndarray) -> int:
+    return int((np.asarray(dofs, dtype=int).reshape(-1)[0] + 2) // 3) - 1
+
+
+def build_default_motion_reference(rom_data) -> MotionReference:
+    nodes_xyz = np.asarray(rom_data["nodes_coord"], dtype=float).T
+    mid_index = node_index_from_dofs(np.asarray(rom_data["outdof_half"], dtype=int))
+    mid_offset_mm = (nodes_xyz[mid_index] - POS_END) * 1000.0
+    return MotionReference(
+        end_effector=np.zeros(3),
+        mid_effector=mid_offset_mm,
+        checkpoint=mid_offset_mm,
+        base_xyz=np.zeros(3),
+        base_to_global=np.eye(3),
+    )
 
 
 def feedback_point_node_info(rom_data, reference) -> dict[str, np.ndarray | int | float]:
@@ -165,7 +215,7 @@ def build_ssm_maps(rom_data, reference):
     if len(w0) > 1:
         w0[1].coeffs = np.asarray(get_field(w0[1], "coeffs")) * SSM_FACTOR
 
-    n = 5574
+    n = 3 * np.asarray(rom_data["nodes_coord"], dtype=float).shape[1]
     outdof_endeff = np.asarray(rom_data["outdof_endeff"], dtype=int).reshape(-1)
     outdof_half = np.asarray(rom_data["outdof_half"], dtype=int).reshape(-1)
     outdof_feedback_pt = feedback_point_dofs(rom_data, reference)
@@ -192,25 +242,37 @@ def build_initial_feedback_state(x_num: int, control_num: int, horizon: int) -> 
 
 @fixed_cpu_time(CONTROL_PERIOD_SECONDS)
 def run_step(sdk, socket, controller, reference, step_index, y_expm, u_save, end_marker_id, checkpoint_rigid_id, feedback=False):
-    measure_start = time.perf_counter()
-    disp_end, disp_mid, disp_checkpoint = capture_motion(
-        sdk,
-        reference,
-        checkpoint_rigid_id=checkpoint_rigid_id,
-        end_marker_id=end_marker_id,
-    )
-    measure_time = time.perf_counter() - measure_start
+    measure_time = 0.0
+    measurement = None
+    disp_end = np.zeros(3)
+    disp_mid = np.zeros(3)
+    disp_checkpoint = np.zeros(3)
+
+    # Measurement is temporarily disabled. Set MEASUREMENT_ENABLED=True to restore capture_motion.
+    if MEASUREMENT_ENABLED:
+        from measure.motion_capture import capture_motion
+
+        measure_start = time.perf_counter()
+        disp_end, disp_mid, disp_checkpoint = capture_motion(
+            sdk,
+            reference,
+            checkpoint_rigid_id=checkpoint_rigid_id,
+            end_marker_id=end_marker_id,
+        )
+        measure_time = time.perf_counter() - measure_start
+        measurement = np.concatenate([disp_end, disp_mid, disp_checkpoint])
 
     measurement = np.concatenate([disp_end, disp_mid, disp_checkpoint]) # 测量
     mpc_start = time.perf_counter()
-    motor_positions = controller.compute_next_command(measurement_mm=measurement, feedback=feedback)
+    motor_positions = controller.compute_next_command(measurement_mm=measurement, feedback=feedback and MEASUREMENT_ENABLED)
     mpc_time = time.perf_counter() - mpc_start
     feedback_time = controller.last_feedback_time
 
     send_motor_command(socket, motor_positions.tolist(), solver_order=False)
 
     y_expm[step_index, :6] = np.concatenate([disp_end, disp_mid])
-    y_expm[step_index, 6:] = measurement[6:]
+    if measurement is not None:
+        y_expm[step_index, 6:] = measurement[6:]
     u_save[step_index, :] = motor_positions
     return motor_positions, measure_time, mpc_time, feedback_time
 
@@ -238,7 +300,7 @@ def print_timing_summary(timing_records):
     print(f"  max mpc         : {np.max(mpc):.6f}s")
 
 
-def main(end_marker_id=END_MARKER_ID):
+def main(end_marker_id=END_MARKER_ID, trajectory_name=TRAJECTORY_NAME):
     original_stdout = sys.stdout
     logger = BufferedTeeLogger(original_stdout)
     sys.stdout = logger
@@ -249,16 +311,24 @@ def main(end_marker_id=END_MARKER_ID):
     timing_records = []
     max_mpc_time = 0.0
     try:
-        rom_data = load_rom_data(ROM_DIR, traj_dir=EIGHT_TRAJ_DIR)
+        traj_dir = resolve_trajectory_dir(trajectory_name)
+        print(f"Using SSM trajectory: {trajectory_name.lower()} ({traj_dir})")
+        rom_data = load_rom_data(ROM_DIR, traj_dir=traj_dir)
         config = build_default_config(rom_data)
         x_num = np.asarray(get_field(rom_data["auData"], "lamd")).reshape(-1).size
 
-        sdk = connect_sdk()
-        reference = initialize_motion_reference(
-            sdk,
-            checkpoint_rigid_id=CHECKPOINT_RIGID_ID,
-            end_marker_id=end_marker_id,
-        )
+        if MEASUREMENT_ENABLED:
+            from measure.motion_capture import initialize_motion_reference
+
+            sdk = connect_sdk()
+            reference = initialize_motion_reference(
+                sdk,
+                checkpoint_rigid_id=CHECKPOINT_RIGID_ID,
+                end_marker_id=end_marker_id,
+            )
+        else:
+            print("Motion-capture measurement disabled; using model default reference.")
+            reference = build_default_motion_reference(rom_data)
         w0_for_out, w0_for_cables, w0_for_feedback = build_ssm_maps(rom_data, reference)
         print_measurement_node_info(rom_data, reference)
 
@@ -277,6 +347,8 @@ def main(end_marker_id=END_MARKER_ID):
         context, socket = create_publisher(MOTOR_ENDPOINT)
         step_count = config.zd.shape[1] if np.isinf(RUN_STEPS) else min(int(RUN_STEPS), config.zd.shape[1])
         y_expm = np.zeros((step_count, 9))
+        y_ssm = np.zeros((step_count, 6))
+        pk_save = np.zeros((step_count, x_num))
         u_save = np.zeros((step_count, 6))
 
         for step_index in range(step_count):
@@ -293,6 +365,8 @@ def main(end_marker_id=END_MARKER_ID):
                 CHECKPOINT_RIGID_ID,
                 feedback=FEEDBACK_ENABLED,
             )
+            y_ssm[step_index, :6] = controller.yk_ssm
+            pk_save[step_index, :] = controller.feedback_state.pk
             total_time = time.perf_counter() - start
             max_mpc_time = max(max_mpc_time, mpc_time)
             timing_records.append(
@@ -313,11 +387,17 @@ def main(end_marker_id=END_MARKER_ID):
                 f"motor {format_motor_positions(motor_positions)}"
             )
 
-        PLOT_DIR.mkdir(exist_ok=True)
-        np.save(PLOT_DIR / "y_exprm_ssm", y_expm)
-        np.save(PLOT_DIR / "ut_save_ssm", u_save)
-        np.save(PLOT_DIR / "t_ssm", config.td[:step_count])
-        sciIO.savemat(PLOT_DIR / "ssm_python_results.mat", {"y_exprm": y_expm, "ut_save": u_save, "t": config.td[:step_count]})
+        result_dir = resolve_result_dir(trajectory_name)
+        result_dir.mkdir(parents=True, exist_ok=True)
+        np.save(result_dir / "y_exprm_ssm", y_expm)
+        np.save(result_dir / "y_ssm_ssm", y_ssm)
+        np.save(result_dir / "pk_save_ssm", pk_save)
+        np.save(result_dir / "ut_save_ssm", u_save)
+        np.save(result_dir / "t_ssm", config.td[:step_count])
+        sciIO.savemat(
+            result_dir / "ssm_python_results.mat",
+            {"y_exprm": y_expm, "y_ssm": y_ssm, "pk_save": pk_save, "ut_save": u_save, "t": config.td[:step_count]},
+        )
     finally:
         print_timing_summary(timing_records)
         if socket is not None and context is not None:
@@ -329,5 +409,24 @@ def main(end_marker_id=END_MARKER_ID):
         print(f"Log saved to {log_path}")
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Run the SSM MPC demo with selectable reference trajectory.")
+    parser.add_argument(
+        "--trajectory",
+        "-t",
+        choices=sorted(TRAJECTORY_DIRS),
+        default=TRAJECTORY_NAME,
+        help="Desired reference trajectory to track.",
+    )
+    parser.add_argument(
+        "--end-marker-id",
+        type=int,
+        default=END_MARKER_ID,
+        help="Motion-capture marker ID for the end effector.",
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    main()
+    args = parse_args()
+    main(end_marker_id=args.end_marker_id, trajectory_name=args.trajectory)

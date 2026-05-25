@@ -38,10 +38,12 @@ class SsmExperimentConfig:
     nmpc_solver: object = nmpc_multi_shooting_zoh
     pos_end: np.ndarray | None = None
     pos_obstacle: np.ndarray | None = None
+    avoid_node_positions: np.ndarray | None = None
     d_safe: float | None = None
     avoid_beta: float = 1e5
     avoid_weight: float = 0.5
-    motor_safety_limit: float = 100.0
+    control_smooth_weight: float = 1e3
+    motor_safety_limit: float = 40.0
 
 
 @dataclass
@@ -78,6 +80,7 @@ class SsmMpcController:
         w0_for_cables,
         w0_for_feedback,
         feedback_state: SsmFeedbackState,
+        w0_for_avoid_nodes=None,
         factor: float = 1.0,
         feedback_enabled: bool = False,
         save_feedback_each_step: bool = False,
@@ -88,6 +91,7 @@ class SsmMpcController:
         self.w0_for_out = w0_for_out
         self.w0_for_cables = w0_for_cables
         self.w0_for_feedback = w0_for_feedback
+        self.w0_for_avoid_nodes = w0_for_avoid_nodes
         self.feedback_state = feedback_state
         self.factor = factor
         self.feedback_enabled = feedback_enabled
@@ -112,9 +116,11 @@ class SsmMpcController:
             use_fast_single_step=config.use_fast_single_step,
             pos_end=config.pos_end,
             pos_obstacle=config.pos_obstacle,
+            avoid_node_positions=config.avoid_node_positions,
             d_safe=config.d_safe,
             avoid_beta=config.avoid_beta,
             avoid_weight=config.avoid_weight,
+            control_smooth_weight=config.control_smooth_weight,
         )
 
     @property
@@ -162,6 +168,27 @@ class SsmMpcController:
         solved = self._left_solve(a_matrix, rhs)
         return ad, solved[:, : self.x_num], solved[:, self.x_num]
 
+    @staticmethod
+    def _linearize_w_map(w_map, pk):
+        w0 = reduced_to_full(pk, w_map, None, 1)[:, 0]
+        wp = jacobian_w_map(w_map, pk, w0.size, w0)
+        b = -wp @ pk + w0
+        return w0, wp, b
+
+    def _linearize_avoid_nodes(self, pk):
+        if self.w0_for_avoid_nodes is None:
+            return None, None
+        _, avoid_mhat, avoid_bhat = self._linearize_w_map(self.w0_for_avoid_nodes, pk)
+        obstacle_count = 0 if self.config.pos_obstacle is None else np.asarray(self.config.pos_obstacle).reshape(-1, 3).shape[0]
+        expected_rows = 3 * obstacle_count
+        if expected_rows and (avoid_mhat.shape[0] != expected_rows or avoid_bhat.size != expected_rows):
+            raise ValueError(
+                "avoid_mhat/avoid_bhat shape mismatch: expected "
+                f"{expected_rows} rows for {obstacle_count} obstacle-nearest nodes, "
+                f"got {avoid_mhat.shape[0]} and {avoid_bhat.size}."
+            )
+        return avoid_mhat, avoid_bhat
+
     def compute_next_command(self, measurement_mm=None, feedback=None):
         cont = self.config
         state = self.feedback_state
@@ -172,8 +199,8 @@ class SsmMpcController:
             measurement_mm,
             feedback=feedback_flag,
         )
-        zk_outdof = reduced_to_full(pk, self.w0_for_out, None, 1)
-        zk_cables = reduced_to_full(pk, self.w0_for_cables, None, 1)
+        zk_outdof, wp_out, bhat_full = self._linearize_w_map(self.w0_for_out, pk)
+        zk_cables, wp_cables, _ = self._linearize_w_map(self.w0_for_cables, pk)
 
         if self.nmpc_config.use_fast_single_step and int(cont.Np) == 1:
             p_guess = None
@@ -193,14 +220,12 @@ class SsmMpcController:
 
         ad, bd, dd = self._discretize_linear_model(a_matrix, d_vector)
 
-        w0_out = zk_outdof[:, 0]
-        w0_cables = zk_cables[:, 0]
-        wp_out = jacobian_w_map(self.w0_for_out, pk, w0_out.size, w0_out)
-        wp_cables = jacobian_w_map(self.w0_for_cables, pk, w0_cables.size, w0_cables)
-
         mhat = np.vstack([wp_out[0:3, :], wp_out[6:9, :]])
-        bhat_full = -wp_out @ pk + w0_out
         bhat = np.concatenate([bhat_full[0:3], bhat_full[6:9]])
+        avoid_mhat, avoid_bhat = self._linearize_avoid_nodes(pk)
+
+        if self.config.avoid_node_positions is not None and (avoid_mhat is None or avoid_bhat is None):
+            raise ValueError("Obstacle avoidance NMPC requires w0_for_avoid_nodes to build avoid_mhat/avoid_bhat.")
 
         d0 = cable_length_double_part(zk_cables.reshape(-1), cont.Node_List)
         hz = constraint_hz_part(zk_cables.reshape(-1), cont.Node_List)
@@ -223,17 +248,16 @@ class SsmMpcController:
             bhat,
             hp,
             btilde,
+            avoid_mhat,
+            avoid_bhat,
         )
 
         next_pk = pt_opt[:, 0]
         next_u = ut_opt[:, 0]
         commanded_posi = next_u * 1000.0 * self.factor
-        if np.any(np.abs(commanded_posi) > cont.motor_safety_limit):
-            self.posi = np.zeros_like(commanded_posi)
-        else:
-            self.posi = commanded_posi
+        self.posi = np.clip(commanded_posi, -cont.motor_safety_limit, cont.motor_safety_limit)
 
-        self.yk_ssm = zk_outdof[:6, 0] * 1000.0
+        self.yk_ssm = zk_outdof[:6] * 1000.0
         self.feedback_state = SsmFeedbackState(
             t=state.t + cont.dt,
             k=state.k + 1,

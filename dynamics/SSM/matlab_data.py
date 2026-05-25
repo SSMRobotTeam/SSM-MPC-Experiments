@@ -12,6 +12,7 @@ ROM_DIR = SSM_DIR / "ROM8_Expe"
 TRAJ_INFO_DIR = SSM_DIR.parent / "trajinfom"
 EIGHT_TRAJ_DIR = TRAJ_INFO_DIR / "eight"
 SPIRAL_TRAJ_DIR = TRAJ_INFO_DIR / "spiral"
+CONSTRAINED_NODES_PATH = ROM_DIR / "nodes_coord_constrained.mat"
 
 
 def loadmat(path: str | Path) -> dict[str, Any]:
@@ -60,6 +61,21 @@ def subset_mapping_rows(w_map: Any, rows_1based: Any) -> list[Any]:
     return subset
 
 
+def load_nodes_coord(rom_dir: str | Path = ROM_DIR) -> np.ndarray:
+    rom_dir = Path(rom_dir)
+    constrained_path = rom_dir / "nodes_coord_constrained.mat"
+    if not constrained_path.exists():
+        constrained_path = CONSTRAINED_NODES_PATH
+    if constrained_path.exists():
+        data = loadmat(constrained_path)
+        if "nodes_coord_constrained" in data:
+            return np.asarray(data["nodes_coord_constrained"], dtype=float)
+        if "nodes_coord" in data:
+            return np.asarray(data["nodes_coord"], dtype=float)
+        raise KeyError(f"Missing nodes_coord_constrained in {constrained_path}")
+    return np.asarray(loadmat(rom_dir / "nodes_coord.mat")["nodes_coord"], dtype=float)
+
+
 def load_rom_data(rom_dir: str | Path = ROM_DIR, traj_dir: str | Path | None = None) -> dict[str, Any]:
     rom_dir = Path(rom_dir)
     traj_dir = rom_dir if traj_dir is None else Path(traj_dir)
@@ -67,7 +83,7 @@ def load_rom_data(rom_dir: str | Path = ROM_DIR, traj_dir: str | Path | None = N
         "auData": loadmat(rom_dir / "auData.mat")["auData"],
         "W_0": loadmat(rom_dir / "W_0.mat")["W_0"],
         "Node_List": loadmat(rom_dir / "Node_List.mat")["Node_List"],
-        "nodes_coord": np.asarray(loadmat(rom_dir / "nodes_coord.mat")["nodes_coord"], dtype=float),
+        "nodes_coord": load_nodes_coord(rom_dir),
         "zd_proj": np.asarray(loadmat(traj_dir / "zd_proj.mat")["zd_proj"], dtype=float),
         "t_list": np.asarray(loadmat(traj_dir / "t_list.mat")["t_list"], dtype=float).reshape(-1),
         "outdof_endeff": np.asarray(loadmat(rom_dir / "outdof_endeff.mat")["outdof_endeff"]),

@@ -8,6 +8,15 @@ import zmq
 DEFAULT_TOPIC = "/controller/setActuatorDate"
 DEFAULT_ENDPOINT = "tcp://localhost:5555"
 MOTOR_COUNT = 6
+MOTOR_POSITION_LIMIT_MM = 40.0
+
+
+def clamp_motor_positions(positions: Iterable[float], limit_mm: float = MOTOR_POSITION_LIMIT_MM) -> list[float]:
+    p = [float(value) for value in positions]
+    if len(p) != MOTOR_COUNT:
+        raise ValueError(f"Expected {MOTOR_COUNT} motor positions, got {len(p)}")
+    limit = float(limit_mm)
+    return [min(max(value, -limit), limit) for value in p]
 
 
 def swap_motor_channel_pairs(positions: Iterable[float]) -> list[float]:
@@ -34,8 +43,7 @@ def build_motor_message(
     posi_sp = reorder_motor_positions(positions) if solver_order else list(positions)
     if swap_motor_pairs and not solver_order:
         posi_sp = swap_motor_channel_pairs(posi_sp)
-    if len(posi_sp) != MOTOR_COUNT:
-        raise ValueError(f"Expected {MOTOR_COUNT} motor positions, got {len(posi_sp)}")
+    posi_sp = clamp_motor_positions(posi_sp)
 
     return {
         "command": "set_motors",

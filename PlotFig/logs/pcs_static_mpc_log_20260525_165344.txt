@@ -1,0 +1,4 @@
+PCS static MPC log file: E:\RobotGit\SSM-MPC-Experiments-v1\PlotFig\logs\pcs_static_mpc_log_20260525_165344.txt
+LuMo SDK connected successfully
+PCS static length model: segments = 2, cables = 3, solver = linearized, horizon = 1, control period = 0.075s
+ZeroMQ publisher started on /controller/setActuatorDate

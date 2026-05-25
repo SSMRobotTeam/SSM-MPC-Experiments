@@ -154,6 +154,8 @@ def _scaled_w0(rom_data: dict):
 
 
 def _load_null_matrix(path: Path):
+    if path is None:
+        return None
     if not path.exists():
         raise FileNotFoundError(f"Null constraint matrix not found: {path}")
     data = loadmat(path)
@@ -533,8 +535,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--null",
         type=Path,
-        default=REPO_ROOT / "StaticVerification" / "Null.mat",
-        help="Constraint null-space matrix used to expand SSM reduced displacements to all nodes.",
+        default=None,
+        help="Optional legacy Null matrix. By default constrained nodes_coord is used directly.",
     )
     parser.add_argument(
         "--output-dir",
