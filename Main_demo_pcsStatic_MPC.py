@@ -34,7 +34,7 @@ MOTOR_ENDPOINT = "tcp://localhost:5555"
 
 IP_ADDRESS = "127.0.0.1"
 CONTROL_PERIOD_SECONDS = 0.075
-MPC_HORIZON = 3
+MPC_HORIZON = 1
 
 # The static PCS model uses the model x-axis as the undeformed backbone axis.
 # Reference physical displacement [x, y, z] is tracked as model tip [L + z, x, y].
@@ -51,13 +51,13 @@ PCS_MAX_COMMAND_STEP_MM = 5.0
 MOTOR_FACTOR = 1.225
 
 # Weight order is model [x, y, z]. Physical trajectory z maps to model x.
-PCS_STATIC_Q = np.diag([2e3, 2e3, 1e5])
+PCS_STATIC_Q = np.diag([2e4, 2e3, 2e3])
 PCS_STATIC_R = 1e-5
 PCS_STATIC_R_SMOOTH = 1
 PCS_STATIC_PROGRESS_REWARD = 1e-4
 PCS_STATIC_SOLVER = "linearized"  # "linearized" or "nonlinear"
 PCS_STATIC_MAX_NFEV = 40
-PCS_STATIC_COMPUTE_FULL_RESIDUAL = True
+PCS_STATIC_COMPUTE_FULL_RESIDUAL = False
 PCS_STATIC_MAX_LENGTH_RESIDUAL_M = 1e-2
 # PCS_STATIC_RESIDUAL_BLEND_FACTORS = np.array([1.0, 0.75, 0.5, 0.25, 0.1, 0.0])
 PCS_STATIC_RESIDUAL_BLEND_FACTORS = np.array([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
@@ -383,18 +383,21 @@ def solve_static_mpc(
             fallback_residual = float(trial_point.residual_norm)
 
     if best_point is None:
-        best_command = prev_u.copy()
-        best_point = solve_pcs_length_static_forward_point(
-            model=model,
-            cable_length_controls=best_command,
-            cable_reference_lengths=cable_reference_lengths,
-            options=opts,
-            q0=q_start,
-            lam0=lam_start,
-        )
-        best_error = model.tip_position(best_point.q) - target_xyz
-        best_cost = float(best_error.T @ q_weight @ best_error)
-        best_blend = 0.0
+        best_command = fallback_command if fallback_command is not None else prev_u.copy()
+        best_point = fallback_point
+        best_cost = fallback_cost
+        best_blend = fallback_blend
+        if best_point is None:
+            best_point = solve_pcs_length_static_forward_point(
+                model=model,
+                cable_length_controls=best_command,
+                cable_reference_lengths=cable_reference_lengths,
+                options=opts,
+                q0=q_start,
+                lam0=lam_start,
+            )
+            best_error = model.tip_position(best_point.q) - target_xyz
+            best_cost = float(best_error.T @ q_weight @ best_error)
         optimizer_success = False
 
     command = np.asarray(best_command, dtype=float)
