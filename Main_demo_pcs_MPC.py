@@ -22,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent
 TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/spiral"
 # TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/eight"
 PLOT_DIR = BASE_DIR / "PlotFig"
-RESULT_DIR = PLOT_DIR / "pcs_results"
+TRAJECTORY_NAME = TRAJ_DIR.name.lower()
+RESULT_DIR = PLOT_DIR / "pcs_results" / TRAJECTORY_NAME
 MOTOR_ENDPOINT = "tcp://localhost:5555"
 
 IP_ADDRESS = "127.0.0.1"
@@ -30,12 +31,12 @@ CONTROL_PERIOD_SECONDS = 0.075
 MPC_HORIZON = 3
 
 L1, L2 = 0.2225, 0.2175
-D1, D2 = 0.016, 0.014
+D1, D2 = 0.01625, 0.01425
 END_OFFSET = np.array([0.0, 0.0, L1 + L2])
 PCS_UNITS_PER_SECTION = 2
 PCS_UNIT_COUNT = 2 * PCS_UNITS_PER_SECTION
 PCS_MODEL = "full"  # simplified: [kx, ky, tau, eps], full: [kx, ky, tau, eps, gx, gy]
-MOTOR_FACTOR = 1.01
+MOTOR_FACTOR = 1
 
 PCS_MAX_COMMAND_MM = 40.0
 PCS_MAX_COMMAND_STEP_MM = 10

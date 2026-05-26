@@ -6,16 +6,17 @@ import scipy.io as sciIO
 
 
 PLOT_DIR = Path(__file__).resolve().parent
+AVOID_COMPLEX_RESULT_DIR = PLOT_DIR / "Avoid_Complex"
 BASE_DIR = PLOT_DIR.parent
 TRAJ_DIR = BASE_DIR / "dynamics" / "trajinfom" / "eight"
 
 SUFFIX = "_complex"
-AVOID_RESULTS_MAT = PLOT_DIR / f"ssm_avoid_python_results{SUFFIX}.mat"
+AVOID_RESULTS_MAT = AVOID_COMPLEX_RESULT_DIR / f"ssm_avoid_python_results{SUFFIX}.mat"
 END_INITIAL_POSITION_M = np.array([0.0, 0.0, 0.4400])
 DEFAULT_OBSTACLE_RADIUS_M = 0.02
 
 
-def load_ssm_avoid_complex_results(plot_dir: str | Path = PLOT_DIR):
+def load_ssm_avoid_complex_results(plot_dir: str | Path = AVOID_COMPLEX_RESULT_DIR):
     plot_dir = Path(plot_dir)
     results = {
         "t": np.load(plot_dir / f"t_ssm_avoid{SUFFIX}.npy"),

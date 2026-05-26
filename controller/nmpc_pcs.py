@@ -15,6 +15,130 @@ class PcsNmpcResult:
     model_error: float = 0.0
 
 
+@dataclass
+class PcsStaticLinearQpResult:
+    command: np.ndarray
+    cost: float
+    success: bool
+    nfev: int
+    message: str
+
+
+def solve_static_linear_mpc_qp_ca(
+    *,
+    tip_base,
+    tip_jac_u,
+    target_xyz,
+    prev_u,
+    q_weight,
+    r_weight,
+    smooth_weight,
+    lower,
+    upper,
+    max_command_step_m: float | None = None,
+    qp_backend: str = "qpoases",
+) -> PcsStaticLinearQpResult:
+    """Solve the static PCS linearized single-step MPC as a CasADi QP.
+
+    The decision variable is the cable length command ``u`` in meters. The
+    smoothness term is intentionally evaluated in millimeters, matching the
+    motor command scale used by the experiment program.
+    """
+
+    try:
+        import casadi as ca
+    except ImportError as exc:
+        raise ImportError("The static PCS MPC QP requires the Python package `casadi`.") from exc
+
+    tip_base = np.asarray(tip_base, dtype=float).reshape(3)
+    tip_jac_u = np.asarray(tip_jac_u, dtype=float)
+    targets = np.asarray(target_xyz, dtype=float)
+    if targets.ndim == 1:
+        targets = targets.reshape(1, 3)
+    elif targets.ndim == 2 and targets.shape[0] == 3 and targets.shape[1] != 3:
+        targets = targets.T
+    if targets.ndim != 2 or targets.shape[1] != 3:
+        raise ValueError(f"target_xyz must have shape (3,), (horizon, 3), or (3, horizon), got {targets.shape}")
+    prev_u = np.asarray(prev_u, dtype=float).reshape(-1)
+    q_weight = np.asarray(q_weight, dtype=float).reshape(3, 3)
+    lower = np.asarray(lower, dtype=float).reshape(prev_u.shape)
+    upper = np.asarray(upper, dtype=float).reshape(prev_u.shape)
+
+    horizon = int(targets.shape[0])
+    u_size = prev_u.size
+    if tip_jac_u.shape != (3, u_size):
+        raise ValueError(f"tip_jac_u must have shape (3, {u_size}), got {tip_jac_u.shape}")
+
+    U = ca.SX.sym("U", u_size, horizon)
+    obj = 0
+    g = []
+    lbg = []
+    ubg = []
+    last_u = ca.DM(prev_u)
+    for k in range(horizon):
+        uk = U[:, k]
+        tip_linear = ca.DM(tip_base) + ca.DM(tip_jac_u) @ (uk - ca.DM(prev_u))
+        tracking_error = tip_linear - ca.DM(targets[k])
+        delta_u = uk - last_u
+        delta_u_mm = 1000.0 * delta_u
+        obj += tracking_error.T @ ca.DM(q_weight) @ tracking_error
+        obj += float(r_weight) * (uk.T @ uk)
+        obj += float(smooth_weight) * (delta_u_mm.T @ delta_u_mm)
+        if max_command_step_m is not None:
+            g.append(delta_u)
+            lbg.extend([-float(max_command_step_m)] * u_size)
+            ubg.extend([float(max_command_step_m)] * u_size)
+        last_u = uk
+
+    options = {"print_time": False}
+    backend = str(qp_backend).lower()
+    is_qpoases = backend == "qpoases"
+    if is_qpoases:
+        options["printLevel"] = "none"
+    if backend == "qrqp":
+        options.update(
+            {
+                "error_on_fail": False,
+                "print_header": False,
+                "print_info": False,
+                "print_iter": False,
+            }
+        )
+
+    opt_variables = ca.reshape(U, u_size * horizon, 1)
+    qp = {"x": opt_variables, "f": obj}
+    if g:
+        qp["g"] = ca.vertcat(*g)
+    lbx = np.tile(lower, horizon)
+    ubx = np.tile(upper, horizon)
+    x0 = np.tile(np.clip(prev_u, lower, upper), horizon)
+    if is_qpoases:
+        with suppress_native_output():
+            solver = ca.qpsol("pcs_static_linear_qp_solver", qp_backend, qp, options)
+            kwargs = {"x0": x0, "lbx": lbx, "ubx": ubx}
+            if g:
+                kwargs.update({"lbg": np.asarray(lbg), "ubg": np.asarray(ubg)})
+            sol = solver(**kwargs)
+    else:
+        solver = ca.qpsol("pcs_static_linear_qp_solver", qp_backend, qp, options)
+        kwargs = {"x0": x0, "lbx": lbx, "ubx": ubx}
+        if g:
+            kwargs.update({"lbg": np.asarray(lbg), "ubg": np.asarray(ubg)})
+        sol = solver(**kwargs)
+
+    stats = solver.stats()
+    success = bool(stats.get("success", True))
+    command_sequence = np.asarray(sol["x"], dtype=float).reshape((u_size, horizon), order="F")
+    command = command_sequence[:, 0]
+    return PcsStaticLinearQpResult(
+        command=command,
+        cost=float(sol["f"]),
+        success=success and np.all(np.isfinite(command)),
+        nfev=int(stats.get("iter_count", 0)),
+        message=str(stats.get("return_status", "casadi qp")),
+    )
+
+
 def nmpc_pcs_multi_shooting(
     robot,
     q0,

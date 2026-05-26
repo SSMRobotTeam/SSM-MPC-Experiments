@@ -9,6 +9,7 @@ import time
 import numpy as np
 import scipy.io as sciIO
 
+from controller.nmpc_pcs import solve_static_linear_mpc_qp_ca
 from dynamics.pcs_length_static_forward import (
     PCSLengthStaticOptions,
     solve_pcs_length_static_forward_point,
@@ -26,8 +27,8 @@ from zmq_message.zmq_control import clamp_motor_positions, close_publisher, crea
 
 
 BASE_DIR = Path(__file__).resolve().parent
-TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/spiral"
-# TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/eight"
+# TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/spiral"
+TRAJ_DIR = BASE_DIR / "dynamics/trajinfom/eight"
 PLOT_DIR = BASE_DIR / "PlotFig"
 RESULT_DIR = PLOT_DIR / "pcs_static_results"
 MOTOR_ENDPOINT = "tcp://localhost:5555"
@@ -47,18 +48,19 @@ ROBOT_MOTOR_COUNT = 6
 ACTIVE_MOTOR_INDICES = np.array([0, 1, 2, 3, 4, 5], dtype=int)
 
 PCS_MAX_COMMAND_MM = 40.0
-PCS_MAX_COMMAND_STEP_MM = 5.0
+PCS_MAX_COMMAND_STEP_MM = 10.0
 MOTOR_FACTOR = 1.225
 
 # Weight order is model [x, y, z]. Physical trajectory z maps to model x.
 PCS_STATIC_Q = np.diag([2e4, 2e3, 2e3])
 PCS_STATIC_R = 1e-5
 PCS_STATIC_R_SMOOTH = 1
+PCS_STATIC_QP_BACKEND = "qrqp"
 PCS_STATIC_PROGRESS_REWARD = 1e-4
 PCS_STATIC_SOLVER = "linearized"  # "linearized" or "nonlinear"
 PCS_STATIC_MAX_NFEV = 40
 PCS_STATIC_COMPUTE_FULL_RESIDUAL = False
-PCS_STATIC_MAX_LENGTH_RESIDUAL_M = 1e-2
+PCS_STATIC_MAX_LENGTH_RESIDUAL_M = 1e-4
 # PCS_STATIC_RESIDUAL_BLEND_FACTORS = np.array([1.0, 0.75, 0.5, 0.25, 0.1, 0.0])
 PCS_STATIC_RESIDUAL_BLEND_FACTORS = np.array([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 
@@ -130,14 +132,20 @@ def make_static_model() -> PCSTwoSegmentsModel:
         segments_per_section,
         axis=0,
     )
-    return PCSTwoSegmentsModel.with_uniform_section_cables(
+    model = PCSTwoSegmentsModel.with_uniform_section_cables(
         section_lengths=np.array([L1, L2], dtype=float),
         section_radii=0.5 * np.array([D1, D2], dtype=float),
         segments_per_section=segments_per_section,
         section_stiffness=section_stiffness,
         swap_section_cable_order=False,
-        gravity=np.zeros(3, dtype=float),
+        disk_masses=None,
+        mass_per_length=0.0,
+        gravity=None,
     )
+    model.disk_masses = None
+    model.mass_per_length = 0.0
+    model.gravity = np.zeros(3, dtype=float)
+    return model
 
 
 def validate_static_robot_dimensions(model: PCSSingleSegmentModel) -> None:
@@ -147,6 +155,12 @@ def validate_static_robot_dimensions(model: PCSSingleSegmentModel) -> None:
         raise ValueError(f"Static model has {model.n_cables} cables, but STATIC_MOTOR_COUNT is {STATIC_MOTOR_COUNT}.")
     if getattr(model, "swap_section_cable_order", False):
         raise ValueError("Static cable order must be 0..2 long cables and 3..5 short cables.")
+    if getattr(model, "disk_masses", None) is not None and np.any(np.asarray(model.disk_masses, dtype=float) != 0.0):
+        raise ValueError("PCS static MPC model must not include lumped disk masses.")
+    if float(getattr(model, "mass_per_length", 0.0)) != 0.0:
+        raise ValueError("PCS static MPC model must not include distributed mass.")
+    if np.linalg.norm(np.asarray(getattr(model, "gravity", np.zeros(3)), dtype=float)) != 0.0:
+        raise ValueError("PCS static MPC model must not include gravity.")
     if ACTIVE_MOTOR_INDICES.shape != (STATIC_MOTOR_COUNT,):
         raise ValueError(
             f"ACTIVE_MOTOR_INDICES must have shape ({STATIC_MOTOR_COUNT},), got {ACTIVE_MOTOR_INDICES.shape}."
@@ -237,8 +251,7 @@ def command_to_tip_jacobian(
     command_prev_m = np.asarray(command_prev_m, dtype=float)
     target_lengths = np.asarray(cable_reference_lengths, dtype=float) - command_prev_m
     A = model.cable_length_jacobian_fd(q_start, eps=fd_eps)
-    Qg = model.gravity_generalized_force_fd(q_start, eps=fd_eps)
-    r_top = model.K_pcs @ (q_start - model.q0) - Qg
+    r_top = model.K_pcs @ (q_start - model.q0)
     r_bot = model.cable_lengths(q_start) - target_lengths
 
     n = model.dof
@@ -267,30 +280,28 @@ def solve_bounded_linear_mpc_step(
     lower: np.ndarray,
     upper: np.ndarray,
 ) -> tuple[np.ndarray, float, bool, str]:
-    command_size = prev_u.size
     q_weight = np.asarray(PCS_STATIC_Q, dtype=float)
-    smooth_weight_m = float(PCS_STATIC_R_SMOOTH) * 1.0e6
-    regularization = float(PCS_STATIC_R) + smooth_weight_m
-    linear_offset = tip_base - tip_jac_u @ prev_u - target_xyz
-    hessian = tip_jac_u.T @ q_weight @ tip_jac_u + regularization * np.eye(command_size)
-    gradient = tip_jac_u.T @ q_weight @ linear_offset - smooth_weight_m * prev_u
-
-    try:
-        command = -np.linalg.solve(hessian, gradient)
-        message = "bounded linear least-squares step"
-    except np.linalg.LinAlgError:
-        command = -np.linalg.lstsq(hessian, gradient, rcond=None)[0]
-        message = "bounded linear least-squares step via lstsq"
-
-    command = np.clip(command, lower, upper)
+    result = solve_static_linear_mpc_qp_ca(
+        tip_base=tip_base,
+        tip_jac_u=tip_jac_u,
+        target_xyz=target_xyz,
+        prev_u=prev_u,
+        q_weight=q_weight,
+        r_weight=PCS_STATIC_R,
+        smooth_weight=PCS_STATIC_R_SMOOTH,
+        lower=lower,
+        upper=upper,
+        qp_backend=PCS_STATIC_QP_BACKEND,
+    )
+    command = np.clip(result.command, lower, upper)
     predicted_tip = tip_base + tip_jac_u @ (command - prev_u)
     error = predicted_tip - target_xyz
     du = command - prev_u
     cost = float(error.T @ q_weight @ error)
     cost += float(PCS_STATIC_R) * float(command @ command)
     cost += float(PCS_STATIC_R_SMOOTH) * float((1000.0 * du) @ (1000.0 * du))
-    success = bool(np.all(np.isfinite(command)) and np.isfinite(cost))
-    return command, cost, success, message
+    success = bool(result.success and np.all(np.isfinite(command)) and np.isfinite(cost))
+    return command, cost, success, f"CasADi QP {PCS_STATIC_QP_BACKEND}: {result.message}"
 
 
 def solve_static_mpc(

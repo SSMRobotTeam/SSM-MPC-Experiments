@@ -59,7 +59,7 @@ def initialize_motion_reference(
     base_rigid_id: int = 0,
     mid_rigid_id: int = 1,
     checkpoint_rigid_id: int = 2,
-    end_marker_id: int = 100028,
+    end_marker_id: int = 100037,
     base_y_offset: float = -12,
 ) -> MotionReference:
     sdk.ReceiveData(0)
@@ -88,7 +88,7 @@ def capture_motion(
     reference: MotionReference,
     mid_rigid_id: int = 1,
     checkpoint_rigid_id: int = 2,
-    end_marker_id: int = 100028,
+    end_marker_id: int = 100037,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     sdk.ReceiveData(0)
     rigid_info = sdk.GetRigid()

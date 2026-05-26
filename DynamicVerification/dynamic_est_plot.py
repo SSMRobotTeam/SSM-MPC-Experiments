@@ -462,15 +462,14 @@ def plot_cable_control_overlay(
     return fig
 
 
-def _total_ise(time_s: np.ndarray, errors: np.ndarray) -> float:
+def _rms_error(errors: np.ndarray) -> float:
     errors = np.asarray(errors, dtype=float)
-    if time_s.size <= 1:
+    if errors.size == 0:
         return 0.0
-    per_axis = np.trapezoid(errors**2, x=time_s, axis=0)
-    return float(np.sum(per_axis))
+    return float(np.sqrt(np.mean(errors**2)))
 
 
-def plot_total_ise_bar(
+def plot_rms_error_bar(
     labels: list[str],
     values: list[float],
     *,
@@ -633,39 +632,39 @@ def main() -> None:
     print(f"Saved {short_cable_path}")
 
     measured_endeff = _measured_displacement(raw_data, "endeff")
-    ssm_cable_total_ise = _total_ise(time_s, ssm_cables - measured_cables)
-    ssm_endeff_total_ise = _total_ise(time_s, ssm_displacements["endeff"] - measured_endeff)
-    ise_labels = ["SSM"]
-    cable_ise_values = [ssm_cable_total_ise]
-    endeff_ise_values = [ssm_endeff_total_ise]
+    ssm_cable_rms = _rms_error(ssm_cables - measured_cables)
+    ssm_endeff_rms = _rms_error(ssm_displacements["endeff"] - measured_endeff)
+    rms_labels = ["SSM"]
+    cable_rms_values = [ssm_cable_rms]
+    endeff_rms_values = [ssm_endeff_rms]
     if pcs_cables is not None and pcs_displacements is not None:
-        ise_labels.append("PCS")
-        cable_ise_values.append(_total_ise(time_s, pcs_cables - measured_cables))
-        endeff_ise_values.append(_total_ise(time_s, pcs_displacements["endeff"] - measured_endeff))
+        rms_labels.append("PCS")
+        cable_rms_values.append(_rms_error(pcs_cables - measured_cables))
+        endeff_rms_values.append(_rms_error(pcs_displacements["endeff"] - measured_endeff))
 
-    cable_ise_path = args.output_dir / "Dyndata01_SSM_PCS_cable_total_ISE.png"
+    cable_rms_path = args.output_dir / "Dyndata01_SSM_PCS_cable_RMS.png"
     figures.append(
-        plot_total_ise_bar(
-            ise_labels,
-            cable_ise_values,
-            title="Cable Total ISE",
-            ylabel=r"Total ISE ($\mathrm{mm}^2\cdot\mathrm{s}$)",
-            output_path=cable_ise_path,
+        plot_rms_error_bar(
+            rms_labels,
+            cable_rms_values,
+            title="Cable RMS Error",
+            ylabel="RMS error (mm)",
+            output_path=cable_rms_path,
         )
     )
-    print(f"Saved {cable_ise_path}")
+    print(f"Saved {cable_rms_path}")
 
-    endeff_ise_path = args.output_dir / "Dyndata01_SSM_PCS_endeff_total_ISE.png"
+    endeff_rms_path = args.output_dir / "Dyndata01_SSM_PCS_endeff_RMS.png"
     figures.append(
-        plot_total_ise_bar(
-            ise_labels,
-            endeff_ise_values,
-            title="Endeff Total ISE",
-            ylabel=r"Total ISE ($\mathrm{mm}^2\cdot\mathrm{s}$)",
-            output_path=endeff_ise_path,
+        plot_rms_error_bar(
+            rms_labels,
+            endeff_rms_values,
+            title="Endeff RMS Error",
+            ylabel="RMS error (mm)",
+            output_path=endeff_rms_path,
         )
     )
-    print(f"Saved {endeff_ise_path}")
+    print(f"Saved {endeff_rms_path}")
 
     if args.show:
         plt.show()

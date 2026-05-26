@@ -15,7 +15,10 @@ TRAJ_DIRS = {
     "spiral": BASE_DIR / "dynamics" / "trajinfom" / "spiral",
 }
 DEFAULT_TRAJECTORY = "spiral"
-
+DEFAULT_ERROR_METRIC = "norm"
+# --error-metric norm   # 原来的瞬时误差范数，默认
+# --error-metric ise    # 累积积分平方误差 ISE
+# --error-metric both   # 两种误差图都画
 
 def resolve_result_dir(candidate_dirs, trajectory: str, required_files) -> Path:
     traj_key = trajectory.lower()
@@ -105,11 +108,26 @@ def plot_tracking_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd):
     plt.show()
 
 
-def plot_error_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd):
+def cumulative_trapezoid(values, time):
+    values = np.asarray(values, dtype=float)
+    time = np.asarray(time, dtype=float)
+    if values.size == 0:
+        return values
+    if values.size == 1:
+        return np.zeros_like(values)
+    increments = 0.5 * (values[1:] + values[:-1]) * np.diff(time)
+    return np.concatenate(([0.0], np.cumsum(increments)))
+
+
+def tracking_error_norm(y_measured, zd):
+    return np.linalg.norm(y_measured[:, :3] - zd[:, :3], axis=1)
+
+
+def plot_error_norm_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd):
     pcs_count = min(len(t_pcs), len(y_pcs), len(zd))
     ssm_count = min(len(t_ssm), len(y_ssm), len(zd))
-    pcs_error = np.linalg.norm(y_pcs[:pcs_count, :3] - zd[:pcs_count, :3], axis=1)
-    ssm_error = np.linalg.norm(y_ssm[:ssm_count, :3] - zd[:ssm_count, :3], axis=1)
+    pcs_error = tracking_error_norm(y_pcs[:pcs_count], zd[:pcs_count])
+    ssm_error = tracking_error_norm(y_ssm[:ssm_count], zd[:ssm_count])
 
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
@@ -121,6 +139,34 @@ def plot_error_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd):
     ax.grid(True, alpha=0.3)
     ax.legend()
     plt.show()
+
+
+def plot_ise_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd):
+    pcs_count = min(len(t_pcs), len(y_pcs), len(zd))
+    ssm_count = min(len(t_ssm), len(y_ssm), len(zd))
+    pcs_squared_error = tracking_error_norm(y_pcs[:pcs_count], zd[:pcs_count]) ** 2
+    ssm_squared_error = tracking_error_norm(y_ssm[:ssm_count], zd[:ssm_count]) ** 2
+    pcs_ise = cumulative_trapezoid(pcs_squared_error, t_pcs[:pcs_count])
+    ssm_ise = cumulative_trapezoid(ssm_squared_error, t_ssm[:ssm_count])
+
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.plot(t_pcs[:pcs_count], pcs_ise, label=f"PCS ISE={pcs_ise[-1]:.2f} mm^2*s")
+    ax.plot(t_ssm[:ssm_count], ssm_ise, label=f"SSM ISE={ssm_ise[-1]:.2f} mm^2*s")
+    ax.set_xlabel("Time (s)")
+    ax.set_ylabel("Cumulative ISE (mm^2*s)")
+    ax.set_title("PCS vs SSM Integral Squared Error")
+    ax.grid(True, alpha=0.3)
+    ax.legend()
+    plt.show()
+
+
+def plot_error_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd, error_metric: str = DEFAULT_ERROR_METRIC):
+    metric = error_metric.lower()
+    if metric in ("norm", "both"):
+        plot_error_norm_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd)
+    if metric in ("ise", "both"):
+        plot_ise_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd)
 
 
 def plot_motor_commands_compare(t_pcs, u_pcs, t_ssm, u_ssm):
@@ -163,7 +209,7 @@ def rms(values):
     return float(np.sqrt(np.mean(np.square(values))))
 
 
-def plot_pcs_ssm_compare(trajectory: str = DEFAULT_TRAJECTORY):
+def plot_pcs_ssm_compare(trajectory: str = DEFAULT_TRAJECTORY, error_metric: str = DEFAULT_ERROR_METRIC):
     trajectory = trajectory.lower()
     zd = load_reference_trajectory(trajectory)
     t_pcs, y_pcs, u_pcs, _pcs_positions = load_pcs_results(trajectory)
@@ -171,7 +217,7 @@ def plot_pcs_ssm_compare(trajectory: str = DEFAULT_TRAJECTORY):
 
     zd_for_3d = zd[: min(len(zd), len(y_pcs), len(y_ssm))]
     plot_tracking_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd)
-    plot_error_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd)
+    plot_error_compare(t_pcs, y_pcs, t_ssm, y_ssm, zd, error_metric)
     plot_motor_commands_compare(t_pcs, u_pcs, t_ssm, u_ssm)
     plot_3d_tracking_compare(y_pcs[: len(zd_for_3d)], y_ssm[: len(zd_for_3d)], zd_for_3d)
 
@@ -185,9 +231,16 @@ def parse_args():
         default=DEFAULT_TRAJECTORY,
         help="Reference trajectory used by the PCS and SSM runs.",
     )
+    parser.add_argument(
+        "--error-metric",
+        "-e",
+        choices=("norm", "ise", "both"),
+        default=DEFAULT_ERROR_METRIC,
+        help="Error comparison plot: instantaneous norm, cumulative ISE, or both.",
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    plot_pcs_ssm_compare(trajectory=args.trajectory)
+    plot_pcs_ssm_compare(trajectory=args.trajectory, error_metric=args.error_metric)

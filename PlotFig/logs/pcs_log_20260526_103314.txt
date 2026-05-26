@@ -1,0 +1,4 @@
+PCS log file: E:\RobotGit\SSM-MPC-Experiments-v1\PlotFig\logs\pcs_log_20260526_103314.txt
+LuMo SDK connected successfully
+PCS model = full, strain size per unit = 6
+PCS NMPC solver = qp, horizon = 3, fast single step = False, control period = 0.075s

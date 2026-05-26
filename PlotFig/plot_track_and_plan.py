@@ -15,9 +15,10 @@ from dynamics.SSM.ssm_dynamics import reduced_to_full
 
 
 PLOT_DIR = Path(__file__).resolve().parent
+PLAN_RESULT_DIR = PLOT_DIR / "Plan_And_Avoid"
 STATIC_VERIFICATION_DIR = REPO_ROOT / "StaticVerification"
 SUFFIX = "_plan_avoid_complex"
-RESULT_MAT = PLOT_DIR / f"ssm_python_results{SUFFIX}.mat"
+RESULT_MAT = PLAN_RESULT_DIR / f"ssm_python_results{SUFFIX}.mat"
 DEFAULT_POS_END_M = np.array([0.0, 0.0, 0.4400])
 DEFAULT_POS_MID_M = np.array([0.0, 0.0, 0.2225])
 DEFAULT_POS_BASE_M = np.array([0.0, 0.0, 0.0])
@@ -31,7 +32,7 @@ def _load_optional_npy(plot_dir: Path, name: str):
     return np.load(path) if path.exists() else None
 
 
-def load_track_and_plan_results(plot_dir: str | Path = PLOT_DIR):
+def load_track_and_plan_results(plot_dir: str | Path = PLAN_RESULT_DIR):
     plot_dir = Path(plot_dir)
     mat_path = plot_dir / f"ssm_python_results{SUFFIX}.mat"
     results = {

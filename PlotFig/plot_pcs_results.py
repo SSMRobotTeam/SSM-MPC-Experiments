@@ -13,7 +13,7 @@ TRAJ_DIRS = {
     "eight": BASE_DIR / "dynamics" / "trajinfom" / "eight",
     "spiral": BASE_DIR / "dynamics" / "trajinfom" / "spiral",
 }
-DEFAULT_TRAJECTORY = "eight"
+DEFAULT_TRAJECTORY = "spiral"
 
 L1, L2 = 0.2225, 0.2175
 SECTION_1_OFFSET = np.array([0.0, 0.0, L1])

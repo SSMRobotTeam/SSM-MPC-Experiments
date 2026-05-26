@@ -172,7 +172,7 @@ def plot_pcs_static_results(trajectory: str, show_states: bool = False):
     plot_tracking_results(t_expm, y_expm, zd, static_tip, trajectory)
     plot_tracking_error(t_expm, y_expm, zd, static_tip, trajectory)
     plot_motor_commands(t_expm, u_save, trajectory)
-    plot_cable_multipliers(t_expm, lambda_save, trajectory)
+    # plot_cable_multipliers(t_expm, lambda_save, trajectory)
     if show_states:
         plot_strain_states(t_expm, q_save, trajectory)
 

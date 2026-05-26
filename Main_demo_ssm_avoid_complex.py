@@ -30,6 +30,7 @@ from zmq_message.zmq_control import close_publisher, create_publisher, send_moto
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_INFO_DIR = BASE_DIR / "dynamics" / "modelinfom"
 PLOT_DIR = BASE_DIR / "PlotFig"
+AVOID_COMPLEX_RESULT_DIR = PLOT_DIR / "Avoid_Complex"
 LOG_DIR = PLOT_DIR / "logs"
 OBSTACLE_INFO_DIR = BASE_DIR / "obstacleInformation"
 OBSTACLE_INFO_PATH = OBSTACLE_INFO_DIR / "obstacle_information_complex.npz"
@@ -38,7 +39,7 @@ MOTOR_ENDPOINT = "tcp://localhost:5555"
 CONTROL_PERIOD_SECONDS = 0.075
 TRAJECTORY_NAME = "spiral"
 SSM_FACTOR = 1.475
-MOTOR_FACTOR = 1.225
+MOTOR_FACTOR = 1.3
 horizon = 3
 RUN_STEPS = np.inf
 FEEDBACK_ENABLED = False
@@ -46,18 +47,18 @@ MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
 USE_FAST_SINGLE_STEP_QP = False
 CONTROL_SMOOTH_WEIGHT = 1e4
-Q_WEIGHT = np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
-R_WEIGHT = 1e1
+Q_WEIGHT = np.diag([1e4, 1e4, 1e4, 0, 0, 0])
+R_WEIGHT = 2e2
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 103013 # 100027
+END_MARKER_ID = 100096 # 100027 
 BASE_RIGID_ID = 0
 MID_RIGID_ID = 1
 FEEDBACK_RIGID_ID = 2
-OBSTACLE_RIGID_IDS = (5, 6, 7) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
+OBSTACLE_RIGID_IDS = (3,) # (3, 4, 5) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
 BASE_Y_OFFSET = -12.0
 POS_END = np.array([0.0, 0.0, 0.4400])
 OBSTACLE_RADIUS = 0.015
-SAFE_DISTANCE_FACTOR = 1.25
+SAFE_DISTANCE_FACTOR = 2.0
 OUTPUT_SUFFIX = "_complex"
 TRAJECTORY_DIRS = {
     "eight": EIGHT_TRAJ_DIR,
@@ -522,14 +523,14 @@ def main(trajectory_name=TRAJECTORY_NAME):
                 f"motor {format_motor_positions(motor_positions)}"
             )
 
-        PLOT_DIR.mkdir(exist_ok=True)
+        AVOID_COMPLEX_RESULT_DIR.mkdir(parents=True, exist_ok=True)
         t_save = config.td[:step_count]
-        np.save(PLOT_DIR / f"y_exprm_ssm_avoid{OUTPUT_SUFFIX}", y_expm)
-        np.save(PLOT_DIR / f"y_ssm_avoid{OUTPUT_SUFFIX}", y_ssm)
-        np.save(PLOT_DIR / f"ut_save_ssm_avoid{OUTPUT_SUFFIX}", u_save)
-        np.save(PLOT_DIR / f"t_ssm_avoid{OUTPUT_SUFFIX}", t_save)
+        np.save(AVOID_COMPLEX_RESULT_DIR / f"y_exprm_ssm_avoid{OUTPUT_SUFFIX}", y_expm)
+        np.save(AVOID_COMPLEX_RESULT_DIR / f"y_ssm_avoid{OUTPUT_SUFFIX}", y_ssm)
+        np.save(AVOID_COMPLEX_RESULT_DIR / f"ut_save_ssm_avoid{OUTPUT_SUFFIX}", u_save)
+        np.save(AVOID_COMPLEX_RESULT_DIR / f"t_ssm_avoid{OUTPUT_SUFFIX}", t_save)
         sciIO.savemat(
-            PLOT_DIR / f"ssm_avoid_python_results{OUTPUT_SUFFIX}.mat",
+            AVOID_COMPLEX_RESULT_DIR / f"ssm_avoid_python_results{OUTPUT_SUFFIX}.mat",
             {
                 "y_exprm": y_expm,
                 "y_ssm": y_ssm,

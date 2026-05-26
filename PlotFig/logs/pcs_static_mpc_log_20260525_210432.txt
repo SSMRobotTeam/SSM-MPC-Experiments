@@ -1,0 +1,939 @@
+PCS static MPC log file: E:\RobotGit\SSM-MPC-Experiments-v1\PlotFig\logs\pcs_static_mpc_log_20260525_210432.txt
+LuMo SDK connected successfully
+PCS static length model: segments = 2, cables = 6, solver = linearized, horizon = 2, control period = 0.075s
+ZeroMQ publisher started on /controller/setActuatorDate
+PCS static MPC cost = -6.374088e-05, nfev = 1, success = True, solve time = 0.130480s, residual = 3.884571e-09
+control action = [0.002341674174573535, -0.0038746860987590023, 0.0015330119247731853, 0.0008852825775907527, -0.001464846010184963, 0.000579563433181927]
+Sent @ 2026-05-25 21:04:32.393
+Warning: run_control_step CPU time (0.109375s) exceeded target (0.075000s)
+Step 0: running time = 0.131051s, mpc time = 0.130480s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.205948e-04, nfev = 1, success = True, solve time = 0.060943s, residual = 6.648338e-08
+control action = [0.01202662174072095, -0.019906969670484116, 0.00787193927112828, 0.004544911255120233, -0.007527738991341187, 0.00297421321678622]
+Sent @ 2026-05-25 21:04:32.455
+Step 1: running time = 0.067243s, mpc time = 0.060943s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 8.123298e-04, nfev = 1, success = True, solve time = 0.062060s, residual = 9.768230e-08
+control action = [0.02374732178961799, -0.03936026517539791, 0.015533864639097823, 0.008960635228937492, -0.014896791152447795, 0.005855589435200758]
+Sent @ 2026-05-25 21:04:32.523
+Warning: run_control_step CPU time (0.078125s) exceeded target (0.075000s)
+Step 2: running time = 0.062559s, mpc time = 0.062060s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.058136e-04, nfev = 1, success = True, solve time = 0.074288s, residual = 1.074476e-07
+control action = [0.03600471573880028, -0.059800321593293695, 0.023528561790128594, 0.013553332483424508, -0.022661764272838007, 0.008837242875020987]
+Sent @ 2026-05-25 21:04:32.598
+Step 3: running time = 0.078479s, mpc time = 0.074288s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.377406e-04, nfev = 1, success = True, solve time = 0.055252s, residual = 1.101998e-07
+control action = [0.04836701447085603, -0.0805553934815613, 0.03156482102782657, 0.018147607274927813, -0.030576843762925368, 0.011797447637019898]
+Sent @ 2026-05-25 21:04:32.657
+Step 4: running time = 0.063384s, mpc time = 0.055252s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.570788e-04, nfev = 1, success = True, solve time = 0.053460s, residual = 1.108891e-07
+control action = [0.06070171623970532, -0.10144706345676971, 0.039547573221693826, 0.022681085182042197, -0.03858131297754426, 0.014688705137794082]
+Sent @ 2026-05-25 21:04:32.719
+Step 5: running time = 0.091867s, mpc time = 0.053460s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.808510e-04, nfev = 1, success = True, solve time = 0.072290s, residual = 1.109764e-07
+control action = [0.07296050808565648, -0.1224350674163527, 0.04743700391994059, 0.027122935411399225, -0.04666550240429521, 0.017484316005127953]
+Sent @ 2026-05-25 21:04:32.830
+Step 6: running time = 0.109698s, mpc time = 0.072290s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.016954e-03, nfev = 1, success = True, solve time = 0.065425s, residual = 1.108797e-07
+control action = [0.08511901513066239, -0.14351787454736203, 0.055209082410974816, 0.03145104215648595, -0.05483329424377574, 0.02016340437136269]
+Sent @ 2026-05-25 21:04:32.933
+Step 7: running time = 0.077673s, mpc time = 0.065425s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.071089e-03, nfev = 1, success = True, solve time = 0.059034s, residual = 1.107164e-07
+control action = [0.09715992998984879, -0.1647048541732541, 0.06284450762850412, 0.035645622043707616, -0.06309164449016355, 0.022706730512397622]
+Sent @ 2026-05-25 21:04:33.005
+Step 8: running time = 0.078313s, mpc time = 0.059034s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.148717e-03, nfev = 1, success = True, solve time = 0.053504s, residual = 1.105238e-07
+control action = [0.10906829318065481, -0.18600848169825787, 0.07032561892065514, 0.039687451434140396, -0.07144766603461837, 0.025095532030421214]
+Sent @ 2026-05-25 21:04:33.078
+Step 9: running time = 0.077843s, mpc time = 0.053504s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.255588e-03, nfev = 1, success = True, solve time = 0.056968s, residual = 1.103145e-07
+control action = [0.12083017703477533, -0.20744214921699874, 0.07763553364846355, 0.04355738676290588, -0.07990782828766789, 0.027311213976250585]
+Sent @ 2026-05-25 21:04:33.159
+Step 10: running time = 0.078514s, mpc time = 0.056968s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.397855e-03, nfev = 1, success = True, solve time = 0.054095s, residual = 1.100937e-07
+control action = [0.13243232046334005, -0.22901954460543825, 0.08475791031749604, 0.04723624810683342, -0.08847775026961252, 0.02933527698723348]
+Sent @ 2026-05-25 21:04:33.235
+Step 11: running time = 0.076459s, mpc time = 0.054095s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.582085e-03, nfev = 1, success = True, solve time = 0.063469s, residual = 1.098665e-07
+control action = [0.14386202887566957, -0.2507544676100102, 0.09167688508819243, 0.050704803195018404, -0.0971621597655593, 0.031149312526437208]
+Sent @ 2026-05-25 21:04:33.321
+Step 12: running time = 0.125018s, mpc time = 0.063469s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.721683e-03, nfev = 1, success = True, solve time = 0.064939s, residual = 1.101165e-07
+control action = [0.15521239599067913, -0.27262561138435504, 0.09847305177334488, 0.05404358908209872, -0.10592077693865491, 0.032827468011706225]
+Sent @ 2026-05-25 21:04:33.448
+Step 13: running time = 0.078045s, mpc time = 0.064939s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.647863e-03, nfev = 1, success = True, solve time = 0.066386s, residual = 1.114385e-07
+control action = [0.16673602150898004, -0.2945370391436784, 0.10537515383231172, 0.05749425073722463, -0.11464139771921622, 0.034593127017861006]
+Sent @ 2026-05-25 21:04:33.528
+Step 14: running time = 0.093621s, mpc time = 0.066386s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.623813e-03, nfev = 1, success = True, solve time = 0.063706s, residual = 1.114709e-07
+control action = [0.17830977649424548, -0.31642106144255383, 0.11228210862558799, 0.06097105714171544, -0.12331973857385882, 0.03637128929236258]
+Sent @ 2026-05-25 21:04:33.618
+Step 15: running time = 0.124754s, mpc time = 0.063706s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.563840e-03, nfev = 1, success = True, solve time = 0.061267s, residual = 1.117355e-07
+control action = [0.18998300367365006, -0.3382626430761849, 0.11923555346078588, 0.06452144698453811, -0.13193938332437766, 0.038204106385066564]
+Sent @ 2026-05-25 21:04:33.741
+Warning: run_control_step CPU time (0.078125s) exceeded target (0.075000s)
+Step 16: running time = 0.061883s, mpc time = 0.061267s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.505161e-03, nfev = 1, success = True, solve time = 0.062958s, residual = 1.118844e-07
+control action = [0.20175071970869946, -0.3600502003468589, 0.12623011490705546, 0.0681453102061406, -0.14049820808135544, 0.04009080141027942]
+Sent @ 2026-05-25 21:04:33.805
+Step 17: running time = 0.079164s, mpc time = 0.062958s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.458340e-03, nfev = 1, success = True, solve time = 0.064121s, residual = 1.119533e-07
+control action = [0.21359993546114034, -0.38178604762007184, 0.1332511111614201, 0.07183099271750233, -0.1490024478720731, 0.042019282730601674]
+Sent @ 2026-05-25 21:04:33.886
+Step 18: running time = 0.094039s, mpc time = 0.064121s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.409411e-03, nfev = 1, success = True, solve time = 0.068165s, residual = 1.120593e-07
+control action = [0.22554036004504302, -0.4034679734186462, 0.14030069338793855, 0.07558730108147138, -0.1574520095462894, 0.04399472305211827]
+Sent @ 2026-05-25 21:04:33.984
+Step 19: running time = 0.076291s, mpc time = 0.068165s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.352935e-03, nfev = 1, success = True, solve time = 0.070019s, residual = 1.121755e-07
+control action = [0.237583395555824, -0.4250851316333807, 0.14739063038514563, 0.0794294670686004, -0.16584209885218665, 0.04603112156984301]
+Sent @ 2026-05-25 21:04:34.062
+Step 20: running time = 0.078293s, mpc time = 0.070019s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.315477e-03, nfev = 1, success = True, solve time = 0.057394s, residual = 1.120807e-07
+control action = [0.2496979384494754, -0.4466390205421525, 0.1544900744886832, 0.08332923504375969, -0.17418093715956656, 0.04810152174155126]
+Sent @ 2026-05-25 21:04:34.128
+Step 21: running time = 0.078734s, mpc time = 0.057394s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.284576e-03, nfev = 1, success = True, solve time = 0.054734s, residual = 1.119101e-07
+control action = [0.26187414719880897, -0.4681294171373149, 0.16158711017282645, 0.0872777772807084, -0.18247184878560982, 0.05019655227762851]
+Sent @ 2026-05-25 21:04:34.204
+Step 22: running time = 0.062852s, mpc time = 0.054734s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.264262e-03, nfev = 1, success = True, solve time = 0.059884s, residual = 1.117049e-07
+control action = [0.2740992807378685, -0.489565577259277, 0.1686657591340776, 0.09126008541591268, -0.19072241694875616, 0.05230083081468909]
+Sent @ 2026-05-25 21:04:34.273
+Step 23: running time = 0.077374s, mpc time = 0.059884s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.232548e-03, nfev = 1, success = True, solve time = 0.053928s, residual = 1.119254e-07
+control action = [0.28641828395554847, -0.5109651789225925, 0.1757617579013145, 0.09531253877753329, -0.1989366622266966, 0.05444496597237616]
+Sent @ 2026-05-25 21:04:34.344
+Step 24: running time = 0.077088s, mpc time = 0.053928s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.185718e-03, nfev = 1, success = True, solve time = 0.055914s, residual = 1.119186e-07
+control action = [0.2988401090978826, -0.5322849512440063, 0.1828851721979611, 0.09945847971964368, -0.2070967698142163, 0.05665014647905534]
+Sent @ 2026-05-25 21:04:34.423
+Step 25: running time = 0.063343s, mpc time = 0.055914s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.135479e-03, nfev = 1, success = True, solve time = 0.053732s, residual = 1.119484e-07
+control action = [0.3113820454676204, -0.5535149330611835, 0.19004461517052956, 0.10371707474149175, -0.2151999740769826, 0.05893032057399236]
+Sent @ 2026-05-25 21:04:34.484
+Step 26: running time = 0.077232s, mpc time = 0.053732s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.093345e-03, nfev = 1, success = True, solve time = 0.057072s, residual = 1.121208e-07
+control action = [0.32405047802854947, -0.5746705220077696, 0.19724120784304222, 0.1080902429292036, -0.22325555730447186, 0.061284944486237614]
+Sent @ 2026-05-25 21:04:34.566
+Step 27: running time = 0.077729s, mpc time = 0.057072s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.054975e-03, nfev = 1, success = True, solve time = 0.051654s, residual = 1.123497e-07
+control action = [0.33685145072933015, -0.5957527439490835, 0.204480603693792, 0.1125855197332377, -0.23126658234734954, 0.06372022121137812]
+Sent @ 2026-05-25 21:04:34.638
+Step 28: running time = 0.078762s, mpc time = 0.051654s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.019822e-03, nfev = 1, success = True, solve time = 0.052552s, residual = 1.124394e-07
+control action = [0.34978337459610426, -0.6167450414348044, 0.21175490688584145, 0.11720657122528896, -0.2392297699448866, 0.06623631509799119]
+Sent @ 2026-05-25 21:04:34.718
+Step 29: running time = 0.061002s, mpc time = 0.052552s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.882496e-04, nfev = 1, success = True, solve time = 0.056786s, residual = 1.123409e-07
+control action = [0.36283816220516496, -0.6376274860025013, 0.21905721841989315, 0.12195402989360214, -0.2471407586241675, 0.06883322429193818]
+Sent @ 2026-05-25 21:04:34.783
+Step 30: running time = 0.093884s, mpc time = 0.056786s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.617115e-04, nfev = 1, success = True, solve time = 0.057558s, residual = 1.118513e-07
+control action = [0.37598352091216, -0.6583735732057365, 0.22636403293511143, 0.12680830185919117, -0.2549932980319022, 0.07149507515790429]
+Sent @ 2026-05-25 21:04:34.878
+Step 31: running time = 0.093636s, mpc time = 0.057558s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.419409e-04, nfev = 1, success = True, solve time = 0.055178s, residual = 1.117498e-07
+control action = [0.389252533348239, -0.6790082956910366, 0.23369623887453508, 0.13179335501528902, -0.2627995901115549, 0.07423904504594127]
+Sent @ 2026-05-25 21:04:34.970
+Step 32: running time = 0.062763s, mpc time = 0.055178s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.286962e-04, nfev = 1, success = True, solve time = 0.054587s, residual = 1.117976e-07
+control action = [0.4026613919118181, -0.699532293802564, 0.24107647451479194, 0.1369302431073961, -0.27056316952168424, 0.07708581772048381]
+Sent @ 2026-05-25 21:04:35.032
+Step 33: running time = 0.062729s, mpc time = 0.054587s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.332053e-04, nfev = 1, success = True, solve time = 0.052324s, residual = 1.128073e-07
+control action = [0.41629913017194276, -0.720006524242885, 0.24854799149089027, 0.1422792147903192, -0.2783113019511607, 0.08007360549578593]
+Sent @ 2026-05-25 21:04:35.093
+Step 34: running time = 0.076505s, mpc time = 0.052324s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.418768e-04, nfev = 1, success = True, solve time = 0.058854s, residual = 1.127459e-07
+control action = [0.4301057902958633, -0.7403281934259627, 0.2560763185787444, 0.1478237228260474, -0.2860100200895742, 0.0831935969224564]
+Sent @ 2026-05-25 21:04:35.175
+Step 35: running time = 0.078307s, mpc time = 0.058854s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.651396e-04, nfev = 1, success = True, solve time = 0.066449s, residual = 1.126624e-07
+control action = [0.4440803571384081, -0.760493281630955, 0.2636616570100777, 0.15356774887601862, -0.2936628011120125, 0.08644853143392797]
+Sent @ 2026-05-25 21:04:35.262
+Step 36: running time = 0.079112s, mpc time = 0.066449s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.004280e-03, nfev = 1, success = True, solve time = 0.057313s, residual = 1.127237e-07
+control action = [0.458231706657872, -0.7805147061040202, 0.2713052514930509, 0.1595169597168062, -0.3012794618225042, 0.08983976079005078]
+Sent @ 2026-05-25 21:04:35.332
+Step 37: running time = 0.061405s, mpc time = 0.057313s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.058465e-03, nfev = 1, success = True, solve time = 0.054521s, residual = 1.125463e-07
+control action = [0.472558680269205, -0.8003623544108094, 0.27899115225574533, 0.16567890784968795, -0.3088540063440207, 0.09336684077064529]
+Sent @ 2026-05-25 21:04:35.391
+Step 38: running time = 0.077953s, mpc time = 0.054521s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.129965e-03, nfev = 1, success = True, solve time = 0.057389s, residual = 1.122182e-07
+control action = [0.487051402480278, -0.8200182115736788, 0.28672201723727375, 0.1720572463099529, -0.31638519755490463, 0.0970357629228467]
+Sent @ 2026-05-25 21:04:35.472
+Step 39: running time = 0.077749s, mpc time = 0.057389s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.220140e-03, nfev = 1, success = True, solve time = 0.053213s, residual = 1.121245e-07
+control action = [0.5017086734480268, -0.839506865624822, 0.29452060798545343, 0.1786539817497273, -0.3238875228845429, 0.1008559639436299]
+Sent @ 2026-05-25 21:04:35.546
+Step 40: running time = 0.093105s, mpc time = 0.053213s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.338889e-03, nfev = 1, success = True, solve time = 0.054943s, residual = 1.117435e-07
+control action = [0.5165352836354684, -0.8587823090709181, 0.3023803763655553, 0.18549092654850124, -0.3313511587075084, 0.10484021705845878]
+Sent @ 2026-05-25 21:04:35.640
+Step 41: running time = 0.093455s, mpc time = 0.054943s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.490348e-03, nfev = 1, success = True, solve time = 0.051693s, residual = 1.115305e-07
+control action = [0.5315614723951166, -0.8778453026089229, 0.3102980390741811, 0.19259334105327153, -0.33878381287547915, 0.10899720501929039]
+Sent @ 2026-05-25 21:04:35.731
+Step 42: running time = 0.078149s, mpc time = 0.051693s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.685147e-03, nfev = 1, success = True, solve time = 0.059219s, residual = 1.110460e-07
+control action = [0.5467914153394554, -0.8966489293229817, 0.3182717639170411, 0.19998584413808998, -0.34617721388316713, 0.11334348161497179]
+Sent @ 2026-05-25 21:04:35.817
+Step 43: running time = 0.077750s, mpc time = 0.059219s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.892607e-03, nfev = 1, success = True, solve time = 0.056828s, residual = 1.115862e-07
+control action = [0.5622605463107865, -0.9153078587845128, 0.32632559624631063, 0.20766540601351657, -0.353577783964925, 0.11787303138492428]
+Sent @ 2026-05-25 21:04:35.893
+Step 44: running time = 0.109524s, mpc time = 0.056828s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.119175e-03, nfev = 1, success = True, solve time = 0.054929s, residual = 1.113425e-07
+control action = [0.5779264551465209, -0.9337453841037483, 0.3344250940040397, 0.2156205438229068, -0.36096291007392173, 0.12257484828482809]
+Sent @ 2026-05-25 21:04:36.001
+Step 45: running time = 0.078884s, mpc time = 0.054929s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.367794e-03, nfev = 1, success = True, solve time = 0.051711s, residual = 1.109276e-07
+control action = [0.5937797073678995, -0.9519435912375782, 0.34255754478005096, 0.22385055962472516, -0.3683317981861048, 0.12744471321295037]
+Sent @ 2026-05-25 21:04:36.076
+Step 46: running time = 0.092044s, mpc time = 0.051711s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.636016e-03, nfev = 1, success = True, solve time = 0.053272s, residual = 1.109347e-07
+control action = [0.6098160318227849, -0.9699512297624304, 0.3507616388219262, 0.23235256885362424, -0.3757078603260524, 0.13249451223797684]
+Sent @ 2026-05-25 21:04:36.170
+Step 47: running time = 0.079670s, mpc time = 0.053272s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.934188e-03, nfev = 1, success = True, solve time = 0.054532s, residual = 1.101776e-07
+control action = [0.6260131193541079, -0.9876822889463457, 0.3589889681310974, 0.24112885651922075, -0.38306627567298324, 0.1377127568027102]
+Sent @ 2026-05-25 21:04:36.251
+Step 48: running time = 0.092422s, mpc time = 0.054532s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.243520e-03, nfev = 1, success = True, solve time = 0.055728s, residual = 1.089662e-07
+control action = [0.6423408056569467, -1.0050957804277756, 0.3672111448600968, 0.25016555842568305, -0.3903960064409503, 0.14308491202197934]
+Sent @ 2026-05-25 21:04:36.345
+Step 49: running time = 0.077519s, mpc time = 0.055728s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.552231e-03, nfev = 1, success = True, solve time = 0.061871s, residual = 1.083752e-07
+control action = [0.6588284568811071, -1.0222591856861671, 0.3754279662144071, 0.2594623465488391, -0.39772425528992256, 0.14860002903800343]
+Sent @ 2026-05-25 21:04:36.429
+Step 50: running time = 0.078624s, mpc time = 0.061871s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.894683e-03, nfev = 1, success = True, solve time = 0.051304s, residual = 1.086344e-07
+control action = [0.6755189735072871, -1.0392489195223695, 0.383680975792487, 0.26904279406498255, -0.4050864155520476, 0.15427776845813246]
+Sent @ 2026-05-25 21:04:36.497
+Step 51: running time = 0.063190s, mpc time = 0.051304s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.244582e-03, nfev = 1, success = True, solve time = 0.056063s, residual = 1.081753e-07
+control action = [0.692345091159223, -1.0560045471423432, 0.39196431732081294, 0.2788806546197474, -0.4124639613204965, 0.1601134451648403]
+Sent @ 2026-05-25 21:04:36.565
+Step 52: running time = 0.092568s, mpc time = 0.056063s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.624204e-03, nfev = 1, success = True, solve time = 0.050609s, residual = 1.081047e-07
+control action = [0.7093281609436254, -1.0725575537931298, 0.40029372495485877, 0.288990501998136, -0.4198751335232757, 0.16611628534535072]
+Sent @ 2026-05-25 21:04:36.653
+Step 53: running time = 0.077836s, mpc time = 0.050609s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.056864e-03, nfev = 1, success = True, solve time = 0.054220s, residual = 1.090654e-07
+control action = [0.7266070681799218, -1.0889666785421053, 0.40861327941562503, 0.29943954317175275, -0.42735128090313623, 0.17227445595291796]
+Sent @ 2026-05-25 21:04:36.734
+Step 54: running time = 0.062603s, mpc time = 0.054220s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.500724e-03, nfev = 1, success = True, solve time = 0.053882s, residual = 1.088583e-07
+control action = [0.7440799848185691, -1.1051282028490552, 0.4169126254494698, 0.3101908510624943, -0.4348583925346872, 0.1785828711320665]
+Sent @ 2026-05-25 21:04:36.796
+Warning: run_control_step CPU time (0.078125s) exceeded target (0.075000s)
+Step 55: running time = 0.054409s, mpc time = 0.053882s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.969102e-03, nfev = 1, success = True, solve time = 0.054313s, residual = 1.085003e-07
+control action = [0.7617038874045119, -1.1210337511282313, 0.42522580722957154, 0.32123266931898586, -0.4423992653762922, 0.18505561599158282]
+Sent @ 2026-05-25 21:04:36.852
+Step 56: running time = 0.069505s, mpc time = 0.054313s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.462705e-03, nfev = 1, success = True, solve time = 0.054033s, residual = 1.072510e-07
+control action = [0.7794117004274091, -1.1365945244370643, 0.4335332087049953, 0.3325454919799561, -0.4499467375465758, 0.19168758193503882]
+Sent @ 2026-05-25 21:04:36.921
+Step 57: running time = 0.078092s, mpc time = 0.054033s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.027678e-03, nfev = 1, success = True, solve time = 0.057941s, residual = 1.066270e-07
+control action = [0.7972683053351918, -1.1518410743376049, 0.44183383340301086, 0.34417339548596604, -0.45752372713977296, 0.19849092080178182]
+Sent @ 2026-05-25 21:04:37.004
+Step 58: running time = 0.078004s, mpc time = 0.057941s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.685090e-03, nfev = 1, success = True, solve time = 0.053792s, residual = 1.060735e-07
+control action = [0.8152856866147697, -1.166751326702295, 0.45014003043888895, 0.3561472821082355, -0.46513643289647555, 0.2054875525688708]
+Sent @ 2026-05-25 21:04:37.077
+Step 59: running time = 0.093238s, mpc time = 0.053792s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 8.503888e-03, nfev = 1, success = True, solve time = 0.053061s, residual = 1.055120e-07
+control action = [0.8335299829166994, -1.181252963188263, 0.4584023052388535, 0.3685391303965764, -0.4727807692288563, 0.2126907899083544]
+Sent @ 2026-05-25 21:04:37.170
+Step 60: running time = 0.078358s, mpc time = 0.053061s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.574987e-03, nfev = 1, success = True, solve time = 0.051145s, residual = 1.039237e-07
+control action = [0.8518413625670543, -1.1952150621671545, 0.46678806685345314, 0.3813602388755582, -0.48044174228684167, 0.22021374521556772]
+Sent @ 2026-05-25 21:04:37.247
+Step 61: running time = 0.077000s, mpc time = 0.051145s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.104239e-02, nfev = 1, success = True, solve time = 0.053003s, residual = 1.010738e-07
+control action = [0.8702670734248444, -1.2083451381719013, 0.47515694618749804, 0.39473117065118596, -0.48805786823659125, 0.22807521083802135]
+Sent @ 2026-05-25 21:04:37.326
+Step 62: running time = 0.078465s, mpc time = 0.053003s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.290130e-02, nfev = 1, success = True, solve time = 0.052409s, residual = 1.037787e-07
+control action = [0.8891990845574141, -1.2211009404412867, 0.4837218000932591, 0.4088791839442248, -0.4958440454208014, 0.2364082403998376]
+Sent @ 2026-05-25 21:04:37.404
+Step 63: running time = 0.077536s, mpc time = 0.052409s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.564013e-02, nfev = 1, success = True, solve time = 0.056775s, residual = 1.030273e-07
+control action = [0.9084337837424904, -1.2328877373019438, 0.49246390212103885, 0.4239220060506789, -0.503670384930617, 0.2453407893177904]
+Sent @ 2026-05-25 21:04:37.487
+Step 64: running time = 0.079268s, mpc time = 0.056775s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.850844e-02, nfev = 1, success = True, solve time = 0.063149s, residual = 1.098864e-07
+control action = [0.9284369176505933, -1.244487664450727, 0.5016205412450365, 0.4400120523754276, -0.5118362724667512, 0.2549374314123592]
+Sent @ 2026-05-25 21:04:37.573
+Step 65: running time = 0.092840s, mpc time = 0.063149s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.164986e-02, nfev = 1, success = True, solve time = 0.056681s, residual = 1.121403e-07
+control action = [0.9488532378821504, -1.2553528753014576, 0.5109958769515789, 0.457034280842928, -0.5201585523053138, 0.26512954827502244]
+Sent @ 2026-05-25 21:04:37.660
+Step 66: running time = 0.078019s, mpc time = 0.056681s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.643409e-02, nfev = 1, success = True, solve time = 0.053843s, residual = 1.122533e-07
+control action = [0.9693435435380547, -1.2649030015138238, 0.5208807165173321, 0.47514534474337805, -0.5285629547086017, 0.2762220475686379]
+Sent @ 2026-05-25 21:04:37.734
+Step 67: running time = 0.077407s, mpc time = 0.053843s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.517009e-02, nfev = 1, success = True, solve time = 0.053205s, residual = 9.947477e-08
+control action = [0.9889544867828117, -1.2702676251551392, 0.5304765919794868, 0.49458065222072134, -0.5362609242187559, 0.2883247473578557]
+Sent @ 2026-05-25 21:04:37.812
+Step 68: running time = 0.078681s, mpc time = 0.053205s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.226913e-02, nfev = 1, success = True, solve time = 0.053524s, residual = 1.199452e-07
+control action = [1.0102852679256258, -1.2760556034331405, 0.5409979972985371, 0.5159297577148517, -0.5448266578727141, 0.30160472741101224]
+Sent @ 2026-05-25 21:04:37.891
+Step 69: running time = 0.076596s, mpc time = 0.053524s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.014301e-02, nfev = 1, success = True, solve time = 0.050051s, residual = 1.410303e-07
+control action = [1.0330978313585473, -1.282076072496466, 0.5525027014936084, 0.5391476029694379, -0.5542402151435679, 0.31609912532466883]
+Sent @ 2026-05-25 21:04:37.964
+Step 70: running time = 0.078225s, mpc time = 0.050051s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.918710e-02, nfev = 1, success = True, solve time = 0.060711s, residual = 1.531118e-07
+control action = [1.0565706461040518, -1.2868766955658755, 0.5644292419442729, 0.5640052870430621, -0.5640239648396435, 0.33163630404602423]
+Sent @ 2026-05-25 21:04:38.053
+Step 71: running time = 0.094049s, mpc time = 0.060711s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.929606e-02, nfev = 1, success = True, solve time = 0.052386s, residual = 1.499453e-07
+control action = [1.0790646746454078, -1.2882355714052587, 0.576179373414806, 0.5899186740726698, -0.5733790968674688, 0.3479984625386021]
+Sent @ 2026-05-25 21:04:38.139
+Step 72: running time = 0.077673s, mpc time = 0.052386s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 8.090213e-02, nfev = 1, success = True, solve time = 0.054883s, residual = 1.645746e-07
+control action = [1.1020894627025666, -1.2879078748453643, 0.5881922177506448, 0.6175766534964607, -0.583042289452329, 0.36541860435025086]
+Sent @ 2026-05-25 21:04:38.220
+Step 73: running time = 0.077780s, mpc time = 0.054883s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.427049e-02, nfev = 1, success = True, solve time = 0.052192s, residual = 1.914491e-07
+control action = [1.1264130811343835, -1.2870879945524265, 0.6010915568528785, 0.6474106583816789, -0.593563627409496, 0.38420773771708705]
+Sent @ 2026-05-25 21:04:38.295
+Step 74: running time = 0.094048s, mpc time = 0.052192s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.074207e-01, nfev = 1, success = True, solve time = 0.048949s, residual = 2.063742e-07
+control action = [1.1504288770718405, -1.284345791965437, 0.6147409566339881, 0.6786979016816461, -0.6043763837916614, 0.4042176176134694]
+Sent @ 2026-05-25 21:04:38.385
+Step 75: running time = 0.092950s, mpc time = 0.048949s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.223833e-01, nfev = 1, success = True, solve time = 0.050951s, residual = 2.388962e-07
+control action = [1.175935781957532, -1.2812266668069192, 0.6291008493096032, 0.7122631183258499, -0.6161694763086324, 0.42551830835353666]
+Sent @ 2026-05-25 21:04:38.480
+Step 76: running time = 0.077478s, mpc time = 0.050951s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.387733e-01, nfev = 1, success = True, solve time = 0.056240s, residual = 2.759853e-07
+control action = [1.2028669782801198, -1.2777966495036637, 0.6443532801434998, 0.7481670396182949, -0.6290536645319624, 0.44820985377910383]
+Sent @ 2026-05-25 21:04:38.564
+Step 77: running time = 0.079149s, mpc time = 0.056240s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.544107e-01, nfev = 1, success = True, solve time = 0.058924s, residual = 2.952348e-07
+control action = [1.2297127299641095, -1.2719908776720985, 0.6595547102487637, 0.7856878530097734, -0.642203297292106, 0.47181198417040987]
+Sent @ 2026-05-25 21:04:38.646
+Step 78: running time = 0.076497s, mpc time = 0.058924s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.734480e-01, nfev = 1, success = True, solve time = 0.060670s, residual = 3.431377e-07
+control action = [1.2584878398362713, -1.266114920211818, 0.6754540087169277, 0.8258821845237765, -0.6566787213090421, 0.4967747786039368]
+Sent @ 2026-05-25 21:04:38.724
+Step 79: running time = 0.093787s, mpc time = 0.060670s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.939524e-01, nfev = 1, success = True, solve time = 0.052759s, residual = 3.866412e-07
+control action = [1.2879646271408103, -1.2593236913152992, 0.6924077105064175, 0.8683524225648607, -0.6722451658131774, 0.5232421631857668]
+Sent @ 2026-05-25 21:04:38.811
+Step 80: running time = 0.078224s, mpc time = 0.052759s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.152601e-01, nfev = 1, success = True, solve time = 0.053628s, residual = 4.264958e-07
+control action = [1.3178365154199232, -1.2508146038815786, 0.7098118364781875, 0.9129861760939585, -0.6886456232418254, 0.550967158753987]
+Sent @ 2026-05-25 21:04:38.890
+Step 81: running time = 0.078732s, mpc time = 0.053628s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.369604e-01, nfev = 1, success = True, solve time = 0.054177s, residual = 4.661465e-07
+control action = [1.347806665819027, -1.2403999671423422, 0.7276516527538436, 0.9596570239280521, -0.7058351359668438, 0.579909854408514]
+Sent @ 2026-05-25 21:04:38.969
+Step 82: running time = 0.077762s, mpc time = 0.054177s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.570007e-01, nfev = 1, success = True, solve time = 0.060220s, residual = 4.813023e-07
+control action = [1.376171654042909, -1.2260340675072225, 0.7451481545955113, 1.0075154651852747, -0.7229435969903047, 0.609626393918443]
+Sent @ 2026-05-25 21:04:39.053
+Step 83: running time = 0.077274s, mpc time = 0.060220s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.789322e-01, nfev = 1, success = True, solve time = 0.051796s, residual = 5.372744e-07
+control action = [1.4055606268728082, -1.2111096227358196, 0.7633487262710661, 1.0577342140291561, -0.741371310475701, 0.6406080409916796]
+Sent @ 2026-05-25 21:04:39.123
+Step 84: running time = 0.078845s, mpc time = 0.051796s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.016887e-01, nfev = 1, success = True, solve time = 0.053801s, residual = 5.936147e-07
+control action = [1.4358661301110567, -1.1951619158529445, 0.7818366901402591, 1.1103100196111557, -0.7610068805128609, 0.6726912954911756]
+Sent @ 2026-05-25 21:04:39.204
+Step 85: running time = 0.077020s, mpc time = 0.053801s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.251806e-01, nfev = 1, success = True, solve time = 0.055058s, residual = 6.544738e-07
+control action = [1.4670485286083166, -1.1781993986442354, 0.8006154578326292, 1.1652728926125553, -0.7819165628632366, 0.7058692289358847]
+Sent @ 2026-05-25 21:04:39.282
+Step 86: running time = 0.094014s, mpc time = 0.055058s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.500693e-01, nfev = 1, success = True, solve time = 0.049978s, residual = 7.237825e-07
+control action = [1.498816146666276, -1.160548271070027, 0.8203350873645691, 1.2226076640148076, -0.8043220433570178, 0.7404114857981241]
+Sent @ 2026-05-25 21:04:39.371
+Step 87: running time = 0.077816s, mpc time = 0.049978s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.747732e-01, nfev = 1, success = True, solve time = 0.054018s, residual = 7.841622e-07
+control action = [1.5307006937143401, -1.1411979355995412, 0.8402671645970126, 1.2820941718260874, -0.8278585955503023, 0.775995227514699]
+Sent @ 2026-05-25 21:04:39.453
+Step 88: running time = 0.077246s, mpc time = 0.054018s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.995276e-01, nfev = 1, success = True, solve time = 0.054794s, residual = 8.499736e-07
+control action = [1.5632029082999868, -1.1201821162690517, 0.8598565134891379, 1.3439277219684165, -0.8525706003661958, 0.8123817142007479]
+Sent @ 2026-05-25 21:04:39.532
+Step 89: running time = 0.077907s, mpc time = 0.054794s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.244617e-01, nfev = 1, success = True, solve time = 0.055709s, residual = 9.202200e-07
+control action = [1.5955473170977212, -1.0978850649006446, 0.8801924527043088, 1.4078399530120382, -0.8786438748884103, 0.8499556067034099]
+Sent @ 2026-05-25 21:04:39.611
+Step 90: running time = 0.109234s, mpc time = 0.055709s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.486622e-01, nfev = 1, success = True, solve time = 0.052678s, residual = 9.953854e-07
+control action = [1.6285553851958692, -1.0742308808463092, 0.9002312828025552, 1.474103068974609, -0.9060599554511725, 0.8882800312735142]
+Sent @ 2026-05-25 21:04:39.717
+Step 91: running time = 0.093239s, mpc time = 0.052678s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.714847e-01, nfev = 1, success = True, solve time = 0.055775s, residual = 1.057382e-06
+control action = [1.6607728036246132, -1.0486872639769498, 0.9206581305016492, 1.5420791863725483, -0.934579254579542, 0.9275236032442303]
+Sent @ 2026-05-25 21:04:39.813
+Step 92: running time = 0.061897s, mpc time = 0.055775s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.937076e-01, nfev = 1, success = True, solve time = 0.054225s, residual = 1.138482e-06
+control action = [1.6927563048094554, -1.0224549102850051, 0.9420690078552891, 1.6119791888419022, -0.9646856593025017, 0.9679043109086406]
+Sent @ 2026-05-25 21:04:39.874
+Step 93: running time = 0.078137s, mpc time = 0.054225s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.167062e-01, nfev = 1, success = True, solve time = 0.055022s, residual = 1.217526e-06
+control action = [1.7255552379729209, -0.994447776239749, 0.9622899493245095, 1.6842383886059196, -0.9960300774681625, 1.0086057294032245]
+Sent @ 2026-05-25 21:04:39.953
+Step 94: running time = 0.077930s, mpc time = 0.055022s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.401203e-01, nfev = 1, success = True, solve time = 0.054872s, residual = 1.297436e-06
+control action = [1.7584049645419833, -0.9646690920174334, 0.9820522405586929, 1.7586235006942093, -1.0286534903256008, 1.049869194808143]
+Sent @ 2026-05-25 21:04:40.031
+Step 95: running time = 0.077902s, mpc time = 0.054872s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.614490e-01, nfev = 1, success = True, solve time = 0.053933s, residual = 1.381537e-06
+control action = [1.7911796513139955, -0.93359378724409, 1.0017646281992851, 1.8350054881221127, -1.062689580673572, 1.0917635072755996]
+Sent @ 2026-05-25 21:04:40.107
+Step 96: running time = 0.093595s, mpc time = 0.053933s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.827018e-01, nfev = 1, success = True, solve time = 0.058242s, residual = 1.467023e-06
+control action = [1.823579893731635, -0.9011663790191844, 1.0216107447472225, 1.913286445076368, -1.098147163673234, 1.134338036889294]
+Sent @ 2026-05-25 21:04:40.206
+Step 97: running time = 0.093769s, mpc time = 0.058242s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.045682e-01, nfev = 1, success = True, solve time = 0.055399s, residual = 1.556061e-06
+control action = [1.8550834417671336, -0.8674570993297351, 1.0421788112640913, 1.9933186066099966, -1.1351129116531944, 1.1778260833387602]
+Sent @ 2026-05-25 21:04:40.297
+Step 98: running time = 0.093950s, mpc time = 0.055399s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.231345e-01, nfev = 1, success = True, solve time = 0.050703s, residual = 1.642612e-06
+control action = [1.886108965898397, -0.8324586809599142, 1.0627735180677187, 2.0750885692852608, -1.173488446367854, 1.2218725984498233]
+Sent @ 2026-05-25 21:04:40.387
+Step 99: running time = 0.092815s, mpc time = 0.050703s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.390441e-01, nfev = 1, success = True, solve time = 0.052952s, residual = 1.724915e-06
+control action = [1.9169337181802677, -0.7960129314332066, 1.0827415514182344, 2.158573117077717, -1.2131317767085013, 1.2661417582412915]
+Sent @ 2026-05-25 21:04:40.482
+Step 100: running time = 0.094248s, mpc time = 0.052952s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.554191e-01, nfev = 1, success = True, solve time = 0.049399s, residual = 1.812996e-06
+control action = [1.9471722487721925, -0.7583295300995516, 1.102691833596863, 2.2436853325263666, -1.2541692055633762, 1.3108622434157167]
+Sent @ 2026-05-25 21:04:40.574
+Step 101: running time = 0.062445s, mpc time = 0.049399s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.723077e-01, nfev = 1, success = True, solve time = 0.052269s, residual = 1.907486e-06
+control action = [1.977146107784597, -0.7192984890500406, 1.1222041647776424, 2.330601081398667, -1.2966111676718002, 1.3558820710390458]
+Sent @ 2026-05-25 21:04:40.639
+Step 102: running time = 0.076928s, mpc time = 0.052269s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.883460e-01, nfev = 1, success = True, solve time = 0.054714s, residual = 2.002015e-06
+control action = [2.0071732349527687, -0.6786566027224165, 1.1406106274264467, 2.4194233833607783, -1.3403442043180818, 1.4009004372218798]
+Sent @ 2026-05-25 21:04:40.718
+Step 103: running time = 0.078433s, mpc time = 0.054714s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.012043e-01, nfev = 1, success = True, solve time = 0.050563s, residual = 2.103698e-06
+control action = [2.037125644938972, -0.6372230257623346, 1.1586683541669458, 2.509992102712239, -1.3855856576906185, 1.4460992498210266]
+Sent @ 2026-05-25 21:04:40.793
+Step 104: running time = 0.061682s, mpc time = 0.050563s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.142375e-01, nfev = 1, success = True, solve time = 0.053060s, residual = 2.194860e-06
+control action = [2.0656402398343547, -0.5947440365595865, 1.177442612968846, 2.6018023279081652, -1.432259037716669, 1.4918709567812758]
+Sent @ 2026-05-25 21:04:40.857
+Step 105: running time = 0.078173s, mpc time = 0.053060s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.264437e-01, nfev = 1, success = True, solve time = 0.057226s, residual = 2.291562e-06
+control action = [2.093303037375287, -0.5511835549519881, 1.1962561502250768, 2.6950434213367678, -1.480348969436804, 1.5379555628625117]
+Sent @ 2026-05-25 21:04:40.940
+Step 106: running time = 0.094023s, mpc time = 0.057226s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.327824e-01, nfev = 1, success = True, solve time = 0.060171s, residual = 2.407462e-06
+control action = [2.1218195281037953, -0.5076441237720151, 1.2142078932407132, 2.790114064755528, -1.5300895983733536, 1.583874552607227]
+Sent @ 2026-05-25 21:04:41.037
+Step 107: running time = 0.077479s, mpc time = 0.060171s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.387206e-01, nfev = 1, success = True, solve time = 0.051188s, residual = 2.483067e-06
+control action = [2.1489655577724585, -0.4628738175102429, 1.2321255118145311, 2.8861059567500025, -1.580949088742372, 1.6298784202026837]
+Sent @ 2026-05-25 21:04:41.105
+Step 108: running time = 0.077910s, mpc time = 0.051188s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.436219e-01, nfev = 1, success = True, solve time = 0.057349s, residual = 2.558437e-06
+control action = [2.1753054710592283, -0.4166559730843521, 1.2491701902058714, 2.9831822409768867, -1.632802276482523, 1.6756215797749383]
+Sent @ 2026-05-25 21:04:41.190
+Step 109: running time = 0.094332s, mpc time = 0.057349s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.478399e-01, nfev = 1, success = True, solve time = 0.054230s, residual = 2.644577e-06
+control action = [2.2015466183611134, -0.3691797119702777, 1.264810286555205, 3.081614917400804, -1.6857033598321607, 1.7208697088687674]
+Sent @ 2026-05-25 21:04:41.282
+Step 110: running time = 0.062148s, mpc time = 0.054230s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.509525e-01, nfev = 1, success = True, solve time = 0.057083s, residual = 2.724798e-06
+control action = [2.2265809987367393, -0.32078769055341005, 1.2804263219812142, 3.1809408897771805, -1.7397299362383711, 1.7660951730935102]
+Sent @ 2026-05-25 21:04:41.347
+Step 111: running time = 0.078342s, mpc time = 0.057083s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.542257e-01, nfev = 1, success = True, solve time = 0.053877s, residual = 2.831350e-06
+control action = [2.2513777545310507, -0.2721015660519596, 1.2957310728788967, 3.2815908944850887, -1.7951744341249043, 1.8112128717496963]
+Sent @ 2026-05-25 21:04:41.422
+Step 112: running time = 0.062387s, mpc time = 0.053877s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.543072e-01, nfev = 1, success = True, solve time = 0.051638s, residual = 2.920125e-06
+control action = [2.2752721140348156, -0.22306233804759584, 1.3111143074781086, 3.383119512206297, -1.8518616080839005, 1.8562790146707675]
+Sent @ 2026-05-25 21:04:41.482
+Step 113: running time = 0.076804s, mpc time = 0.051638s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.518758e-01, nfev = 1, success = True, solve time = 0.053453s, residual = 2.992514e-06
+control action = [2.2979355843593567, -0.17346073338040593, 1.3265286387639437, 3.485230778678325, -1.9095787409574447, 1.901212465643287]
+Sent @ 2026-05-25 21:04:41.561
+Step 114: running time = 0.077821s, mpc time = 0.053453s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.484662e-01, nfev = 1, success = True, solve time = 0.054370s, residual = 3.049209e-06
+control action = [2.3202766830748716, -0.12218427807275986, 1.3398685212291686, 3.5881813008448273, -1.9678108158057654, 1.9451629593816966]
+Sent @ 2026-05-25 21:04:41.640
+Step 115: running time = 0.078422s, mpc time = 0.054370s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.474312e-01, nfev = 1, success = True, solve time = 0.052983s, residual = 3.141484e-06
+control action = [2.3424087021918907, -0.07025584229487808, 1.3522490949187929, 3.6922399028096113, -2.02709625679573, 1.9885992521971085]
+Sent @ 2026-05-25 21:04:41.717
+Step 116: running time = 0.077746s, mpc time = 0.052983s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.491924e-01, nfev = 1, success = True, solve time = 0.054100s, residual = 3.261931e-06
+control action = [2.3640147257551654, -0.018362640437967575, 1.3648632592736538, 3.7975136072337716, -2.087881642592665, 2.0320490242887668]
+Sent @ 2026-05-25 21:04:41.796
+Step 117: running time = 0.077551s, mpc time = 0.054100s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.443206e-01, nfev = 1, success = True, solve time = 0.056346s, residual = 3.330444e-06
+control action = [2.384241308994132, 0.03406923813973497, 1.377547070432416, 3.903198944932162, -2.149559149943995, 2.0752683041229107]
+Sent @ 2026-05-25 21:04:41.876
+Step 118: running time = 0.078818s, mpc time = 0.056346s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.354621e-01, nfev = 1, success = True, solve time = 0.050438s, residual = 3.345705e-06
+control action = [2.403252470418942, 0.08864644585957779, 1.3882349298017622, 4.009008469939031, -2.2111980276165193, 2.117329016771874]
+Sent @ 2026-05-25 21:04:41.950
+Step 119: running time = 0.092504s, mpc time = 0.050438s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.268664e-01, nfev = 1, success = True, solve time = 0.056886s, residual = 3.403491e-06
+control action = [2.420972920113344, 0.14339592184394442, 1.399109212172874, 4.11501570748295, -2.273614260659913, 2.1590902202110307]
+Sent @ 2026-05-25 21:04:42.049
+Step 120: running time = 0.077874s, mpc time = 0.056886s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.186476e-01, nfev = 1, success = True, solve time = 0.060312s, residual = 3.472349e-06
+control action = [2.4382880468381263, 0.19846964729177374, 1.4091715557782893, 4.221582564285073, -2.3367668457487296, 2.200186100092904]
+Sent @ 2026-05-25 21:04:42.131
+Step 121: running time = 0.093754s, mpc time = 0.060312s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 7.085140e-01, nfev = 1, success = True, solve time = 0.054841s, residual = 3.527301e-06
+control action = [2.4556690087460327, 0.2543413965813662, 1.4173537867577408, 4.328742168069398, -2.4003195586943074, 2.240124285901136]
+Sent @ 2026-05-25 21:04:42.219
+Step 122: running time = 0.078491s, mpc time = 0.054841s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.968210e-01, nfev = 1, success = True, solve time = 0.056845s, residual = 3.574815e-06
+control action = [2.4719762119861244, 0.31022470503397404, 1.4255060034669704, 4.435951183907365, -2.4644597406062174, 2.2795557890905864]
+Sent @ 2026-05-25 21:04:42.299
+Step 123: running time = 0.077670s, mpc time = 0.056845s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.823499e-01, nfev = 1, success = True, solve time = 0.050675s, residual = 3.627870e-06
+control action = [2.4872912363352526, 0.3651676418636454, 1.4343805518809678, 4.543048269177748, -2.529403650512389, 2.3187272404475148]
+Sent @ 2026-05-25 21:04:42.372
+Step 124: running time = 0.061934s, mpc time = 0.050675s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.693261e-01, nfev = 1, success = True, solve time = 0.054948s, residual = 3.697660e-06
+control action = [2.504075534044752, 0.4203685869886358, 1.4403955857927406, 4.651065021082016, -2.594744829321853, 2.356278981891126]
+Sent @ 2026-05-25 21:04:42.438
+Step 125: running time = 0.078337s, mpc time = 0.054948s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.570986e-01, nfev = 1, success = True, solve time = 0.055756s, residual = 3.747354e-06
+control action = [2.520121250021216, 0.4754765831223533, 1.4461152200899057, 4.759175358339446, -2.6605983145874847, 2.3931663519924307]
+Sent @ 2026-05-25 21:04:42.517
+Step 126: running time = 0.077952s, mpc time = 0.055756s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.482498e-01, nfev = 1, success = True, solve time = 0.056059s, residual = 3.823679e-06
+control action = [2.5341508142114053, 0.5294497924520781, 1.4540803732946659, 4.867139480041197, -2.7276096446384037, 2.430497657840596]
+Sent @ 2026-05-25 21:04:42.596
+Step 127: running time = 0.062175s, mpc time = 0.056059s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.326875e-01, nfev = 1, success = True, solve time = 0.056895s, residual = 3.785853e-06
+control action = [2.5468994757521357, 0.5855775444826664, 1.4597254202463428, 4.974485396895906, -2.7938481207205204, 2.4662918998799253]
+Sent @ 2026-05-25 21:04:42.658
+Step 128: running time = 0.078562s, mpc time = 0.056895s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.143781e-01, nfev = 1, success = True, solve time = 0.056302s, residual = 3.754444e-06
+control action = [2.558511274881729, 0.6426809962684874, 1.4640008425306188, 5.081068567603609, -2.859553239846703, 2.5008301337379266]
+Sent @ 2026-05-25 21:04:42.737
+Step 129: running time = 0.078607s, mpc time = 0.056302s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.997088e-01, nfev = 1, success = True, solve time = 0.061501s, residual = 3.819716e-06
+control action = [2.57035483592132, 0.6985469513950492, 1.4681193365476608, 5.187852918196654, -2.925953229818621, 2.534718688673278]
+Sent @ 2026-05-25 21:04:42.821
+Step 130: running time = 0.092028s, mpc time = 0.061501s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.859102e-01, nfev = 1, success = True, solve time = 0.053593s, residual = 3.935456e-06
+control action = [2.584459029853427, 0.7527894815512601, 1.4705366335887455, 5.295763568683657, -2.9933105099624315, 2.567378553938472]
+Sent @ 2026-05-25 21:04:42.905
+Step 131: running time = 0.077323s, mpc time = 0.053593s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.727675e-01, nfev = 1, success = True, solve time = 0.052854s, residual = 3.968267e-06
+control action = [2.59695818668379, 0.8063087642641852, 1.4740943376503342, 5.4031591235795835, -3.0611411648500337, 2.599876652963784]
+Sent @ 2026-05-25 21:04:42.983
+Step 132: running time = 0.078328s, mpc time = 0.052854s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.510448e-01, nfev = 1, success = True, solve time = 0.057174s, residual = 3.787390e-06
+control action = [2.605045713902835, 0.862794524493346, 1.4771354900962326, 5.507748087909458, -3.126943378715467, 2.631267603640924]
+Sent @ 2026-05-25 21:04:43.066
+Step 133: running time = 0.078566s, mpc time = 0.057174s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.314438e-01, nfev = 1, success = True, solve time = 0.054574s, residual = 3.758617e-06
+control action = [2.613881893317963, 0.9200129366413704, 1.4771401908361572, 5.611959212464899, -3.191927197525839, 2.6606836139859276]
+Sent @ 2026-05-25 21:04:43.141
+Step 134: running time = 0.061981s, mpc time = 0.054574s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.104391e-01, nfev = 1, success = True, solve time = 0.052898s, residual = 3.710176e-06
+control action = [2.621432259765061, 0.9765423723375428, 1.47747940593404, 5.714810067687054, -3.256460708973538, 2.6893826019020324]
+Sent @ 2026-05-25 21:04:43.202
+Step 135: running time = 0.077307s, mpc time = 0.052898s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.869637e-01, nfev = 1, success = True, solve time = 0.067937s, residual = 3.639645e-06
+control action = [2.62864158719843, 1.0327581047934224, 1.4766636575279972, 5.8163165148094675, -3.320080223552747, 2.716705220974764]
+Sent @ 2026-05-25 21:04:43.294
+Step 136: running time = 0.094312s, mpc time = 0.067937s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.669931e-01, nfev = 1, success = True, solve time = 0.053851s, residual = 3.605473e-06
+control action = [2.6361904531343354, 1.0885469950609927, 1.4743664747915137, 5.917043818993285, -3.3830664176160647, 2.7426059146968305]
+Sent @ 2026-05-25 21:04:43.375
+Step 137: running time = 0.078724s, mpc time = 0.053851s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.475741e-01, nfev = 1, success = True, solve time = 0.049871s, residual = 3.532478e-06
+control action = [2.642717293705922, 1.1443817002855476, 1.4714412301900728, 6.016344097466787, -3.445109004271152, 2.767399166293283]
+Sent @ 2026-05-25 21:04:43.449
+Step 138: running time = 0.091935s, mpc time = 0.049871s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.279757e-01, nfev = 1, success = True, solve time = 0.051189s, residual = 3.468819e-06
+control action = [2.6486850166926184, 1.1997831083965562, 1.4679169988795207, 6.1143256039501885, -3.5063258344372645, 2.7910953213796885]
+Sent @ 2026-05-25 21:04:43.543
+Step 139: running time = 0.077695s, mpc time = 0.051189s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.096794e-01, nfev = 1, success = True, solve time = 0.054976s, residual = 3.434904e-06
+control action = [2.654278488374177, 1.2537925810845334, 1.4646920344149963, 6.211182062920553, -3.567209574946211, 2.8141060767469614]
+Sent @ 2026-05-25 21:04:43.625
+Step 140: running time = 0.078339s, mpc time = 0.054976s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.911582e-01, nfev = 1, success = True, solve time = 0.052348s, residual = 3.361262e-06
+control action = [2.65927337855618, 1.3074887348162836, 1.460818591575592, 6.306604627781611, -3.6271322301155813, 2.836028606139924]
+Sent @ 2026-05-25 21:04:43.701
+Step 141: running time = 0.078624s, mpc time = 0.052348s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.731539e-01, nfev = 1, success = True, solve time = 0.053415s, residual = 3.280693e-06
+control action = [2.6641734914994832, 1.361424203820612, 1.455251869048581, 6.400731349553284, -3.685796987682094, 2.856439735344591]
+Sent @ 2026-05-25 21:04:43.781
+Step 142: running time = 0.078254s, mpc time = 0.053415s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.545052e-01, nfev = 1, success = True, solve time = 0.051569s, residual = 3.191828e-06
+control action = [2.6679869652320654, 1.41445367453485, 1.4500911569232933, 6.4930188355886695, -3.7435268815702294, 2.8761572914399816]
+Sent @ 2026-05-25 21:04:43.857
+Step 143: running time = 0.076731s, mpc time = 0.051569s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.380665e-01, nfev = 1, success = True, solve time = 0.056406s, residual = 3.149087e-06
+control action = [2.6733415672449734, 1.4673902810302215, 1.4420768329706568, 6.584739208818549, -3.800176279319228, 2.8939363251489785]
+Sent @ 2026-05-25 21:04:43.939
+Warning: run_control_step CPU time (0.078125s) exceeded target (0.075000s)
+Step 144: running time = 0.056922s, mpc time = 0.056406s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.219988e-01, nfev = 1, success = True, solve time = 0.053832s, residual = 3.088422e-06
+control action = [2.6780887645338285, 1.519024491939385, 1.4345703726947017, 6.675001407581501, -3.856188991874746, 2.911116076631287]
+Sent @ 2026-05-25 21:04:43.993
+Step 145: running time = 0.084066s, mpc time = 0.053832s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.078340e-01, nfev = 1, success = True, solve time = 0.057128s, residual = 3.045696e-06
+control action = [2.682163868994603, 1.569104724920273, 1.4280281248954039, 6.763958387135105, -3.9118427842575967, 2.927962128328336]
+Sent @ 2026-05-25 21:04:44.081
+Step 146: running time = 0.077539s, mpc time = 0.057128s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.967556e-01, nfev = 1, success = True, solve time = 0.058956s, residual = 3.077286e-06
+control action = [2.6876167101056736, 1.6174467299517858, 1.4208777528059404, 6.852904084734171, -3.9676399731558774, 2.9439655129897147]
+Sent @ 2026-05-25 21:04:44.161
+Step 147: running time = 0.063098s, mpc time = 0.058956s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.847876e-01, nfev = 1, success = True, solve time = 0.055283s, residual = 3.012585e-06
+control action = [2.6932627204608006, 1.6665946175254365, 1.4115185091324631, 6.940912627114661, -4.022120913460952, 2.958383949338882]
+Sent @ 2026-05-25 21:04:44.220
+Step 148: running time = 0.093337s, mpc time = 0.055283s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.701622e-01, nfev = 1, success = True, solve time = 0.054995s, residual = 2.852448e-06
+control action = [2.696701955255942, 1.7169068580560982, 1.401681677898812, 7.026372894867125, -4.074547944889182, 2.971792289641009]
+Sent @ 2026-05-25 21:04:44.313
+Step 149: running time = 0.092526s, mpc time = 0.054995s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.542475e-01, nfev = 1, success = True, solve time = 0.060176s, residual = 2.700506e-06
+control action = [2.69902550378425, 1.7679215536545327, 1.3906744091795393, 7.109466746478371, -4.124880260219567, 2.983879247619632]
+Sent @ 2026-05-25 21:04:44.412
+Step 150: running time = 0.078807s, mpc time = 0.060176s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.396760e-01, nfev = 1, success = True, solve time = 0.056724s, residual = 2.585873e-06
+control action = [2.7001311515651545, 1.8180745880558178, 1.3803267870851148, 7.190355448060134, -4.173939364986557, 2.995455223290772]
+Sent @ 2026-05-25 21:04:44.487
+Step 151: running time = 0.077150s, mpc time = 0.056724s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.250440e-01, nfev = 1, success = True, solve time = 0.053115s, residual = 2.487825e-06
+control action = [2.7018985573024397, 1.868022078347065, 1.3681072396735365, 7.26970893566627, -4.22138449200174, 3.0054938094631716]
+Sent @ 2026-05-25 21:04:44.561
+Step 152: running time = 0.078834s, mpc time = 0.053115s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.121507e-01, nfev = 1, success = True, solve time = 0.052780s, residual = 2.424005e-06
+control action = [2.703914674971566, 1.9158266499743473, 1.356533230387948, 7.3476118248656075, -4.26821706296406, 3.0150800612542095]
+Sent @ 2026-05-25 21:04:44.640
+Step 153: running time = 0.093216s, mpc time = 0.052780s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.990957e-01, nfev = 1, success = True, solve time = 0.056840s, residual = 2.302599e-06
+control action = [2.7059879093636736, 1.9638442931811813, 1.343385504572711, 7.423863358584924, -4.313410200663076, 3.0233118811256063]
+Sent @ 2026-05-25 21:04:44.737
+Step 154: running time = 0.077110s, mpc time = 0.056840s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.896168e-01, nfev = 1, success = True, solve time = 0.057502s, residual = 1.957457e-06
+control action = [2.705292144413264, 2.011184620930864, 1.332282567125372, 7.496919054871883, -4.356822019219619, 3.031643739979648]
+Sent @ 2026-05-25 21:04:44.815
+Step 155: running time = 0.078436s, mpc time = 0.057502s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.782051e-01, nfev = 1, success = True, solve time = 0.059855s, residual = 2.236851e-06
+control action = [2.7122319436775406, 2.060883592966939, 1.3102527737656964, 7.572299005501153, -4.398856138609789, 3.034893336428532]
+Sent @ 2026-05-25 21:04:44.897
+Step 156: running time = 0.062066s, mpc time = 0.059855s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.554202e-01, nfev = 1, success = True, solve time = 0.049692s, residual = 3.187397e-05
+control action = [2.6967878887319228, 2.099199137859473, 1.3199683049377886, 7.634736214196965, -4.441427919996579, 3.050245514642222]
+Sent @ 2026-05-25 21:04:44.948
+Step 157: running time = 0.078890s, mpc time = 0.049692s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 8.899617e-01, nfev = 1, success = False, solve time = 0.053635s, residual = 3.746656e-04
+control action = [2.7536298145873763, 2.1688225891157233, 1.228062565426724, 7.740641606369732, -4.492309073159329, 3.023642155007772]
+Sent @ 2026-05-25 21:04:45.031
+Step 158: running time = 0.076816s, mpc time = 0.053635s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.691735e+00, nfev = 1, success = False, solve time = 0.054509s, residual = 2.935086e-03
+control action = [2.611559823596599, 2.102516540345584, 1.4671622636691195, 7.798330080628286, -4.663147887607707, 3.1294243164196516]
+Sent @ 2026-05-25 21:04:45.109
+Step 159: running time = 0.078535s, mpc time = 0.054509s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.224080e+01, nfev = 1, success = False, solve time = 0.055539s, residual = 6.356534e-03
+control action = [3.3879549815194823, 1.8991523045462837, 1.04311070695864, 8.457717645694622, -5.012544938598905, 2.8961700435098505]
+Sent @ 2026-05-25 21:04:45.189
+Step 160: running time = 0.077491s, mpc time = 0.055539s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 8.314911e+00, nfev = 1, success = False, solve time = 0.058654s, residual = 4.872977e-03
+control action = [3.702366106511687, 1.1460398819675721, 1.6560221157675883, 8.70872403512845, -5.518420139208581, 3.31234036882824]
+Sent @ 2026-05-25 21:04:45.270
+Step 161: running time = 0.093350s, mpc time = 0.058654s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.172512e+01, nfev = 1, success = False, solve time = 0.058422s, residual = 8.365228e-03
+control action = [4.152192489029737, 1.5130126448607992, 0.9464205601178021, 9.123786208416051, -5.681005712651773, 3.048983550913316]
+Sent @ 2026-05-25 21:04:45.364
+Step 162: running time = 0.078449s, mpc time = 0.058422s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.203822e+01, nfev = 1, success = False, solve time = 0.050496s, residual = 6.346812e-03
+control action = [4.07620845676536, 0.9010572390540305, 1.7799567087155213, 9.209026637369183, -6.109408935944033, 3.4810925557793952]
+Sent @ 2026-05-25 21:04:45.434
+Step 163: running time = 0.077112s, mpc time = 0.050496s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.661306e+01, nfev = 1, success = False, solve time = 0.059635s, residual = 9.002672e-03
+control action = [4.676738034284624, 1.3329658662527315, 0.8782467141221445, 9.678985296451962, -6.293392365982108, 3.1859795828257482]
+Sent @ 2026-05-25 21:04:45.520
+Step 164: running time = 0.079489s, mpc time = 0.059635s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 2.680164e+01, nfev = 1, success = False, solve time = 0.061168s, residual = 7.345262e-03
+control action = [4.439868286394534, 0.6389315894281709, 1.9492333384009857, 9.72544324877959, -6.713275435385467, 3.598767013923943]
+Sent @ 2026-05-25 21:04:45.602
+Warning: run_control_step CPU time (0.078125s) exceeded target (0.075000s)
+Step 165: running time = 0.061602s, mpc time = 0.061168s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.950457e+01, nfev = 1, success = False, solve time = 0.050098s, residual = 9.472479e-03
+control action = [5.120696652458266, 1.5903389687261202, 0.38617150540327894, 10.054317281661518, -6.934378959081872, 3.3353595740120627]
+Sent @ 2026-05-25 21:04:45.652
+Step 166: running time = 0.078147s, mpc time = 0.050098s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.612876e+01, nfev = 1, success = False, solve time = 0.051292s, residual = 1.269527e-02
+control action = [4.100148701080555, 0.7960132139872763, 2.2537509059411924, 10.019050368959705, -7.425694491069326, 3.6378873376133245]
+Sent @ 2026-05-25 21:04:45.732
+Step 167: running time = 0.076713s, mpc time = 0.051292s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 5.151191e+01, nfev = 1, success = False, solve time = 0.054542s, residual = 1.050525e-02
+control action = [4.878210291246813, 2.021317722151927, 0.27986287472458754, 10.396056144428881, -7.748982480449994, 3.3162598121004656]
+Sent @ 2026-05-25 21:04:45.812
+Step 168: running time = 0.094093s, mpc time = 0.054542s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.566633e+01, nfev = 1, success = False, solve time = 0.055178s, residual = 1.463013e-02
+control action = [4.05413565581379, 1.0162451940785104, 2.170787464718412, 10.477362863695088, -8.381884084693002, 3.6217786603855395]
+Sent @ 2026-05-25 21:04:45.907
+Step 169: running time = 0.077345s, mpc time = 0.055178s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.240781e+02, nfev = 1, success = False, solve time = 0.059261s, residual = 1.950713e-02
+control action = [5.283767067426996, 1.8412088630870105, 0.18835037257346068, 11.004726155303912, -8.754919227952886, 3.2942022332217857]
+Sent @ 2026-05-25 21:04:45.989
+Step 170: running time = 0.078393s, mpc time = 0.059261s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.043875e+02, nfev = 1, success = False, solve time = 0.058470s, residual = 2.556654e-02
+control action = [3.4055094916282833, 0.9685141269499389, 2.909627043773183, 11.13042737151351, -9.432273220426168, 3.3343582002222667]
+Sent @ 2026-05-25 21:04:46.066
+Step 171: running time = 0.078540s, mpc time = 0.058470s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.239502e+02, nfev = 1, success = False, solve time = 0.055910s, residual = 2.097184e-02
+control action = [4.822521136308081, 2.3996432018507914, 0.06587552449162891, 11.767102757272617, -9.959313619610677, 2.878733270563602]
+Sent @ 2026-05-25 21:04:46.143
+Step 172: running time = 0.076902s, mpc time = 0.055910s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.070616e+02, nfev = 1, success = False, solve time = 0.056881s, residual = 2.957729e-02
+control action = [3.2975535236679407, 1.1691305815671014, 2.801672130288535, 12.10831468660115, -10.828622528881667, 2.8724800507609287]
+Sent @ 2026-05-25 21:04:46.221
+Step 173: running time = 0.077764s, mpc time = 0.056881s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.566900e+02, nfev = 1, success = False, solve time = 0.053423s, residual = 5.473731e-02
+control action = [5.291274479580012, 2.043957196021463, -0.017445158292572673, 12.861521269552368, -11.272924812244398, 2.3641076502362526]
+Sent @ 2026-05-25 21:04:46.296
+Step 174: running time = 0.079524s, mpc time = 0.053423s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 4.116128e+02, nfev = 1, success = False, solve time = 0.054329s, residual = 6.092957e-02
+control action = [1.1250356191427682, 1.2907107516731475, 4.682086722092229, 13.236080453363767, -12.067981061930986, 1.9813255659285218]
+Sent @ 2026-05-25 21:04:46.377
+Step 175: running time = 0.076270s, mpc time = 0.054329s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.584911e+02, nfev = 1, success = False, solve time = 0.058875s, residual = 2.329210e-02
+control action = [1.741314479048707, 4.757278644702803, 0.43047783525829336, 15.079100130705644, -14.036967229329806, 1.351233149677731]
+Sent @ 2026-05-25 21:04:46.458
+Step 176: running time = 0.079217s, mpc time = 0.058875s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 3.939704e+02, nfev = 1, success = False, solve time = 0.056196s, residual = 1.437681e-01
+control action = [2.9852416184023536, 2.4713886979033566, 1.7380193047999795, 16.0718098909371, -15.427182440705883, 1.9740245060032788]
+Sent @ 2026-05-25 21:04:46.534
+Step 177: running time = 0.077162s, mpc time = 0.056196s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 9.135048e+02, nfev = 1, success = False, solve time = 0.055753s, residual = 3.444525e-01
+control action = [8.399846592481511, 0.8281679672694463, -2.381832103304175, 16.819721367834553, -14.045618710134345, -0.5286740242318221]
+Sent @ 2026-05-25 21:04:46.611
+Step 178: running time = 0.076896s, mpc time = 0.055753s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 8.505501e+02, nfev = 1, success = False, solve time = 0.059662s, residual = 2.603615e-01
+control action = [0.9145386532549479, 2.1627818712928253, 2.2164389216338196, 12.105655935074234, -8.286466583032404, 7.536870714715967]
+Sent @ 2026-05-25 21:04:46.692
+Step 179: running time = 0.078529s, mpc time = 0.059662s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 1.620218e+04, nfev = 1, success = False, solve time = 0.058027s, residual = 1.701272e+00
+control action = [-0.24505270449535696, 6.173373915749264, -1.5597917320924939, 14.989677394943307, -6.587007441334762, 2.691895404685822]
+Sent @ 2026-05-25 21:04:46.769
+Step 180: running time = 0.077819s, mpc time = 0.058027s, max mpc step time = 0.130480s
+
+PCS static MPC cost = 6.099369e+09, nfev = 1, success = False, solve time = 0.057182s, residual = 1.598016e+03
+control action = [9.754947295504643, -3.8266260842507362, -11.559791732092494, 19.91335447581535, -2.2843339582108486, -3.20992331161722]
+Sent @ 2026-05-25 21:04:46.847
+Step 181: running time = 0.078356s, mpc time = 0.057182s, max mpc step time = 0.130480s
+
+Function pcs_static_linear_qp_solver_qpsol (0x23c4bf5d3b0)
+Input 0 (h): 
+[[4.44671e+14, -1.19079e+14, -3.62599e+14, 1.03688e+18, -1.55329e+17, -8.81583e+17], 
+ [-1.19079e+14, 5.34907e+13, 7.21374e+13, -1.83915e+17, 2.75371e+16, 1.56385e+17], 
+ [-3.62599e+14, 7.21374e+13, 3.24523e+14, -9.53841e+17, 1.42907e+17, 8.10968e+17], 
+ [1.03688e+18, -1.83915e+17, -9.53841e+17, 2.82464e+21, -4.23208e+20, -2.40153e+21], 
+ [-1.55329e+17, 2.75371e+16, 1.42907e+17, -4.23208e+20, 6.34082e+19, 3.59815e+20], 
+ [-8.81583e+17, 1.56385e+17, 8.10968e+17, -2.40153e+21, 3.59815e+20, 2.0418e+21]]
+Input 1 (g): [-2.38431e+16, 4.22997e+15, 2.19328e+16, -6.49496e+19, 9.73123e+18, 5.52207e+19]
+Input 2 (a): 0x6
+Input 3 (lba): 0x1
+Input 4 (uba): 0x1
+Input 5 (lbx): [-0.000245053, -0.0138266, -0.0215598, 0.00991335, -0.0122843, -0.0132099]
+Input 6 (ubx): [0.0197549, 0.00617337, -0.00155979, 0.0299134, 0.00771567, 0.00679008]
+Input 7 (x0): [0.00975495, -0.00382663, -0.0115598, 0.0199134, -0.00228433, -0.00320992]
+Input 8 (lam_x0): [0, 0, 0, 0, 0, 0]
+Input 9 (lam_a0): 0x1
+Input 10 (q): 0x6
+Input 11 (p): 0x0

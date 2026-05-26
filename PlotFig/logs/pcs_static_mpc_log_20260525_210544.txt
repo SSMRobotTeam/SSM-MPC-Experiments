@@ -1,0 +1,148 @@
+PCS static MPC log file: E:\RobotGit\SSM-MPC-Experiments-v1\PlotFig\logs\pcs_static_mpc_log_20260525_210544.txt
+LuMo SDK connected successfully
+PCS static length model: segments = 4, cables = 6, solver = linearized, horizon = 1, control period = 0.075s
+ZeroMQ publisher started on /controller/setActuatorDate
+PCS static MPC cost = -1.000000e-04, nfev = 1, success = True, solve time = 0.368051s, residual = 0.000000e+00
+control action = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+Sent @ 2026-05-25 21:05:44.705
+Warning: run_control_step CPU time (0.359375s) exceeded target (0.075000s)
+Step 0: running time = 0.368662s, mpc time = 0.368051s, max mpc step time = 0.368051s
+
+PCS static MPC cost = 4.394567e-04, nfev = 1, success = True, solve time = 0.377441s, residual = 1.444848e-08
+control action = [0.009032171720929941, -0.01494521795524495, 0.005913046047901281, 0.003414661354352233, -0.005650120618099439, 0.0022354592368495204]
+Sent @ 2026-05-25 21:05:45.084
+Warning: run_control_step CPU time (0.328125s) exceeded target (0.075000s)
+Step 1: running time = 0.378188s, mpc time = 0.377441s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 7.838910e-04, nfev = 1, success = True, solve time = 0.300144s, residual = 2.366560e-08
+control action = [0.02057608325518187, -0.03408866469714239, 0.013462777100459797, 0.007768108802377762, -0.012897796572311654, 0.005078936887231908]
+Sent @ 2026-05-25 21:05:45.385
+Warning: run_control_step CPU time (0.296875s) exceeded target (0.075000s)
+Step 2: running time = 0.300585s, mpc time = 0.300144s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 8.968403e-04, nfev = 1, success = True, solve time = 0.236862s, residual = 2.664060e-08
+control action = [0.032791772320970365, -0.05443491199036439, 0.02143545523613778, 0.012351739614555914, -0.020621511563797944, 0.008058847988006351]
+Sent @ 2026-05-25 21:05:45.621
+Warning: run_control_step CPU time (0.187500s) exceeded target (0.075000s)
+Step 3: running time = 0.237265s, mpc time = 0.236862s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 9.339472e-04, nfev = 1, success = True, solve time = 0.317825s, residual = 2.748915e-08
+control action = [0.045151167254596135, -0.07515555206168184, 0.029476506019833492, 0.016953164535956113, -0.028516905399281707, 0.01102890589548602]
+Sent @ 2026-05-25 21:05:45.941
+Warning: run_control_step CPU time (0.296875s) exceeded target (0.075000s)
+Step 4: running time = 0.318319s, mpc time = 0.317825s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 9.539018e-04, nfev = 1, success = True, solve time = 0.337866s, residual = 2.770645e-08
+control action = [0.05749409558479324, -0.09602864132187437, 0.03747245513089828, 0.021498986876914122, -0.03650728615437274, 0.013934102805510844]
+Sent @ 2026-05-25 21:05:46.279
+Warning: run_control_step CPU time (0.296875s) exceeded target (0.075000s)
+Step 5: running time = 0.338306s, mpc time = 0.337866s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 9.768991e-04, nfev = 1, success = True, solve time = 0.322167s, residual = 2.774000e-08
+control action = [0.06976383356637147, -0.11700207349012205, 0.04537771292750071, 0.025954622958035148, -0.04457885163513725, 0.016745012609440696]
+Sent @ 2026-05-25 21:05:46.602
+Warning: run_control_step CPU time (0.296875s) exceeded target (0.075000s)
+Step 6: running time = 0.322844s, mpc time = 0.322167s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.011904e-03, nfev = 1, success = True, solve time = 0.251827s, residual = 2.771708e-08
+control action = [0.08193302004930658, -0.1380713618231478, 0.05316603625274433, 0.03029622434253355, -0.05273460194392767, 0.01943936571721533]
+Sent @ 2026-05-25 21:05:46.854
+Warning: run_control_step CPU time (0.281250s) exceeded target (0.075000s)
+Step 7: running time = 0.252230s, mpc time = 0.251827s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.065112e-03, nfev = 1, success = True, solve time = 0.235586s, residual = 2.767356e-08
+control action = [0.09398290910840845, -0.15924542076532755, 0.06081693509327549, 0.0345028238657416, -0.06098146083266919, 0.02199689728706211]
+Sent @ 2026-05-25 21:05:47.090
+Warning: run_control_step CPU time (0.218750s) exceeded target (0.075000s)
+Step 8: running time = 0.236078s, mpc time = 0.235586s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.142357e-03, nfev = 1, success = True, solve time = 0.249589s, residual = 2.762253e-08
+control action = [0.10589756681513507, -0.1805369828265946, 0.06831186806282062, 0.03855415562949892, -0.06932669054395672, 0.02439791914341277]
+Sent @ 2026-05-25 21:05:47.340
+Warning: run_control_step CPU time (0.234375s) exceeded target (0.075000s)
+Step 9: running time = 0.249962s, mpc time = 0.249589s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.249761e-03, nfev = 1, success = True, solve time = 0.240062s, residual = 2.756537e-08
+control action = [0.1176622494660028, -0.2019599070073344, 0.07563318347543672, 0.04243006441638768, -0.07777690790460057, 0.026622936188955774]
+Sent @ 2026-05-25 21:05:47.581
+Warning: run_control_step CPU time (0.218750s) exceeded target (0.075000s)
+Step 10: running time = 0.240471s, mpc time = 0.240062s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.393884e-03, nfev = 1, success = True, solve time = 0.232356s, residual = 2.750554e-08
+control action = [0.1292629539217079, -0.22352841610114346, 0.08276382940124935, 0.04611036128243112, -0.0863378301275618, 0.028652560662433983]
+Sent @ 2026-05-25 21:05:47.813
+Warning: run_control_step CPU time (0.218750s) exceeded target (0.075000s)
+Step 11: running time = 0.232758s, mpc time = 0.232356s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.581738e-03, nfev = 1, success = True, solve time = 0.240677s, residual = 2.744368e-08
+control action = [0.1406862931193359, -0.2452568693838586, 0.0896872722792027, 0.049574805029032026, -0.09501422937929754, 0.030467503626912112]
+Sent @ 2026-05-25 21:05:48.055
+Warning: run_control_step CPU time (0.234375s) exceeded target (0.075000s)
+Step 12: running time = 0.241038s, mpc time = 0.240677s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.820760e-03, nfev = 1, success = True, solve time = 0.255472s, residual = 2.738091e-08
+control action = [0.15191946477295412, -0.26715968586264727, 0.09638747635940949, 0.05280312061220532, -0.10380994113464977, 0.03204859265289964]
+Sent @ 2026-05-25 21:05:48.311
+Warning: run_control_step CPU time (0.250000s) exceeded target (0.075000s)
+Step 13: running time = 0.255837s, mpc time = 0.255472s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.729880e-03, nfev = 1, success = True, solve time = 0.241511s, residual = 2.783710e-08
+control action = [0.16336814228120797, -0.28913652309961213, 0.10322669112345367, 0.056168861415473455, -0.11257341880494846, 0.033738934919737076]
+Sent @ 2026-05-25 21:05:48.552
+Warning: run_control_step CPU time (0.265625s) exceeded target (0.075000s)
+Step 14: running time = 0.241876s, mpc time = 0.241511s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.729292e-03, nfev = 1, success = True, solve time = 0.241381s, residual = 2.782064e-08
+control action = [0.17484067424153327, -0.3110991317384121, 0.11004704369928106, 0.05953298209926997, -0.12130492682635237, 0.03541665422313895]
+Sent @ 2026-05-25 21:05:48.794
+Warning: run_control_step CPU time (0.234375s) exceeded target (0.075000s)
+Step 15: running time = 0.241760s, mpc time = 0.241381s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.678196e-03, nfev = 1, success = True, solve time = 0.249991s, residual = 2.789456e-08
+control action = [0.18640365309161583, -0.33303432783506104, 0.1169049105293897, 0.062957185881691, -0.1299849774236322, 0.03713670141328778]
+Sent @ 2026-05-25 21:05:49.045
+Warning: run_control_step CPU time (0.234375s) exceeded target (0.075000s)
+Step 16: running time = 0.250592s, mpc time = 0.249991s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.622689e-03, nfev = 1, success = True, solve time = 0.248381s, residual = 2.793750e-08
+control action = [0.19805583779875588, -0.35492553886772515, 0.12379822183122494, 0.06644583303744196, -0.13860799337601917, 0.0389024148159596]
+Sent @ 2026-05-25 21:05:49.294
+Warning: run_control_step CPU time (0.234375s) exceeded target (0.075000s)
+Step 17: running time = 0.248817s, mpc time = 0.248381s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.582479e-03, nfev = 1, success = True, solve time = 0.251499s, residual = 2.795041e-08
+control action = [0.20977786956547329, -0.37677492659692174, 0.13070905085635082, 0.06998208401672809, -0.14718078228691625, 0.04069799586770914]
+Sent @ 2026-05-25 21:05:49.546
+Warning: run_control_step CPU time (0.265625s) exceeded target (0.075000s)
+Step 18: running time = 0.251915s, mpc time = 0.251499s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.546791e-03, nfev = 1, success = True, solve time = 0.236274s, residual = 2.796852e-08
+control action = [0.22157244690153546, -0.39858644224264755, 0.13762964902165034, 0.07356547401962815, -0.15570735506801692, 0.04251891755690789]
+Sent @ 2026-05-25 21:05:49.783
+Warning: run_control_step CPU time (0.218750s) exceeded target (0.075000s)
+Step 19: running time = 0.236654s, mpc time = 0.236274s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.487938e-03, nfev = 1, success = True, solve time = 0.245695s, residual = 2.801414e-08
+control action = [0.23346903477826259, -0.42034514083438224, 0.1445895515809955, 0.07722907478798528, -0.16417759675014473, 0.04439594863579424]
+Sent @ 2026-05-25 21:05:50.028
+Warning: run_control_step CPU time (0.218750s) exceeded target (0.075000s)
+Step 20: running time = 0.246079s, mpc time = 0.245695s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.456999e-03, nfev = 1, success = True, solve time = 0.249545s, residual = 2.798680e-08
+control action = [0.24542477695161485, -0.4420526730673487, 0.15154742543567282, 0.08093354100835284, -0.1726011495777461, 0.046292248302706035]
+Sent @ 2026-05-25 21:05:50.279
+Warning: run_control_step CPU time (0.234375s) exceeded target (0.075000s)
+Step 21: running time = 0.249933s, mpc time = 0.249545s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.428274e-03, nfev = 1, success = True, solve time = 0.248340s, residual = 2.795850e-08
+control action = [0.2574391842342249, -0.4637099068729481, 0.15849981997621512, 0.08467815564266024, -0.18098012068584982, 0.04820583672134796]
+Sent @ 2026-05-25 21:05:50.528
+Warning: run_control_step CPU time (0.218750s) exceeded target (0.075000s)
+Step 22: running time = 0.248712s, mpc time = 0.248340s, max mpc step time = 0.377441s
+
+PCS static MPC cost = 1.420834e-03, nfev = 1, success = True, solve time = 0.254067s, residual = 2.786037e-08
+control action = [0.26947406620215997, -0.48531524908251966, 0.16540903805112547, 0.08842731890894523, -0.1893198899947344, 0.05010340855207272]
+Sent @ 2026-05-25 21:05:50.782
+Warning: run_control_step CPU time (0.281250s) exceeded target (0.075000s)
+Step 23: running time = 0.255047s, mpc time = 0.254067s, max mpc step time = 0.377441s
+
