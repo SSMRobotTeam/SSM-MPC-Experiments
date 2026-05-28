@@ -38,28 +38,36 @@ IP_ADDRESS = "127.0.0.1"
 MOTOR_ENDPOINT = "tcp://localhost:5555"
 CONTROL_PERIOD_SECONDS = 0.075
 TRAJECTORY_NAME = "spiral"
-SSM_FACTOR = 1.475
-MOTOR_FACTOR = 1.3
+SSM_FACTOR = 1.5
+MOTOR_FACTOR = 1.31
 horizon = 3
 RUN_STEPS = np.inf
 FEEDBACK_ENABLED = False
 MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
 USE_FAST_SINGLE_STEP_QP = False
-CONTROL_SMOOTH_WEIGHT = 1e4
-Q_WEIGHT = np.diag([1e4, 1e4, 1e4, 0, 0, 0])
-R_WEIGHT = 2e2
+CONTROL_SMOOTH_WEIGHT = 2.5e4
+Q_WEIGHT = 0.1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
+R_WEIGHT = 7.5e1
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 100096 # 100027 
+END_MARKER_ID = 100010 # 100027 
 BASE_RIGID_ID = 0
 MID_RIGID_ID = 1
 FEEDBACK_RIGID_ID = 2
-OBSTACLE_RIGID_IDS = (3,) # (3, 4, 5) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
+OBSTACLE_RIGID_IDS = (3,4,5,) # (3, 4, 5) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
 BASE_Y_OFFSET = -12.0
 POS_END = np.array([0.0, 0.0, 0.4400])
 OBSTACLE_RADIUS = 0.015
 SAFE_DISTANCE_FACTOR = 2.0
 OUTPUT_SUFFIX = "_complex"
+# "node" keeps the existing obstacle-nearest/proximal node avoidance. "endeff"
+# constrains the end-effector against each obstacle instead.
+AVOID_CONSTRAINT_TARGET = "endeff"  # "node" or "endeff"
+# "nearest" selects the closest model node to each obstacle. "proximal" first
+# limits candidates to the base-side of the obstacle, making avoidance happen
+# from a more proximal part of the trunk.
+AVOID_NODE_SELECTION = "nearest"  # "nearest" or "proximal"
+AVOID_PROXIMAL_OFFSET_M = 0.005
 TRAJECTORY_DIRS = {
     "eight": EIGHT_TRAJ_DIR,
     "spiral": SPIRAL_TRAJ_DIR,
@@ -150,19 +158,60 @@ def constrained_node_table(rom_data) -> tuple[np.ndarray, np.ndarray]:
     return np.arange(nodes_coord.shape[1], dtype=int), nodes_coord
 
 
+def endeff_obstacle_info(
+    rom_data,
+    obstacle_positions: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    obstacle_count = np.asarray(obstacle_positions, dtype=float).reshape(-1, 3).shape[0]
+    outdof_endeff = np.asarray(rom_data["outdof_endeff"], dtype=int).reshape(-1)
+    if outdof_endeff.size != 3:
+        raise ValueError(f"Expected outdof_endeff to contain 3 DOFs, got {outdof_endeff.size}.")
+
+    endeff_full_dofs_0based = outdof_endeff - 1
+    endeff_node_indices = np.unique(endeff_full_dofs_0based // 3)
+    node_index_1based = int(endeff_node_indices[0] + 1) if endeff_node_indices.size == 1 else 0
+    return (
+        np.full(obstacle_count, node_index_1based, dtype=int),
+        np.repeat(POS_END.reshape(1, 3), obstacle_count, axis=0),
+        np.tile(endeff_full_dofs_0based, obstacle_count),
+    )
+
+
 def obstacle_node_info(
     rom_data,
     obstacle_positions: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    target_mode = str(AVOID_CONSTRAINT_TARGET).lower()
+    if target_mode == "endeff":
+        return endeff_obstacle_info(rom_data, obstacle_positions)
+    if target_mode != "node":
+        raise ValueError("AVOID_CONSTRAINT_TARGET must be 'node' or 'endeff'.")
+
     valid_node_indices, valid_nodes_coord = constrained_node_table(rom_data)
     positions = np.asarray(obstacle_positions, dtype=float).reshape(-1, 3)
+    selection_mode = str(AVOID_NODE_SELECTION).lower()
+    if selection_mode not in ("nearest", "proximal"):
+        raise ValueError("AVOID_NODE_SELECTION must be 'nearest' or 'proximal'.")
+
+    axial_coordinates = valid_nodes_coord[2, :]
     node_indices = []
     node_positions = []
     full_dofs = []
 
     for obstacle_position in positions:
-        distances = np.linalg.norm(valid_nodes_coord - obstacle_position.reshape(3, 1), axis=0)
-        table_idx = int(np.argmin(distances))
+        candidate_mask = np.ones(valid_nodes_coord.shape[1], dtype=bool)
+        if selection_mode == "proximal":
+            proximal_limit = float(obstacle_position[2]) - float(AVOID_PROXIMAL_OFFSET_M)
+            candidate_mask = axial_coordinates <= proximal_limit
+            if not np.any(candidate_mask):
+                candidate_mask = axial_coordinates <= float(obstacle_position[2])
+            if not np.any(candidate_mask):
+                candidate_mask = np.ones(valid_nodes_coord.shape[1], dtype=bool)
+
+        candidate_indices = np.flatnonzero(candidate_mask)
+        candidate_nodes = valid_nodes_coord[:, candidate_indices]
+        distances = np.linalg.norm(candidate_nodes - obstacle_position.reshape(3, 1), axis=0)
+        table_idx = int(candidate_indices[int(np.argmin(distances))])
         full_node_idx = int(valid_node_indices[table_idx])
         node_indices.append(full_node_idx + 1)
         node_positions.append(valid_nodes_coord[:, table_idx])
@@ -191,6 +240,18 @@ def load_obstacle_information(rom_data):
             obstacle_rigid_ids = np.asarray(data["obstacle_rigid_ids"], dtype=int).reshape(-1)
         else:
             obstacle_rigid_ids = np.empty((0,), dtype=int)
+        if "avoid_constraint_target" in data.files:
+            cached_constraint_target = str(np.asarray(data["avoid_constraint_target"]).reshape(-1)[0]).lower()
+        else:
+            cached_constraint_target = ""
+        if "avoid_node_selection" in data.files:
+            cached_node_selection = str(np.asarray(data["avoid_node_selection"]).reshape(-1)[0]).lower()
+        else:
+            cached_node_selection = ""
+        if "avoid_proximal_offset_m" in data.files:
+            cached_proximal_offset_m = float(np.asarray(data["avoid_proximal_offset_m"]).reshape(-1)[0])
+        else:
+            cached_proximal_offset_m = np.nan
     except Exception as exc:
         print(f"Failed to load cached obstacle information from {OBSTACLE_INFO_PATH}: {exc}")
         return None
@@ -206,6 +267,9 @@ def load_obstacle_information(rom_data):
         or np.max(obstacle_node_full_dofs, initial=-1) >= 3 * expected_node_count
         or obstacle_rigid_ids.size != expected_obstacle_ids.size
         or not np.array_equal(obstacle_rigid_ids, expected_obstacle_ids)
+        or cached_constraint_target != str(AVOID_CONSTRAINT_TARGET).lower()
+        or cached_node_selection != str(AVOID_NODE_SELECTION).lower()
+        or not np.isclose(cached_proximal_offset_m, float(AVOID_PROXIMAL_OFFSET_M))
     ):
         print(f"Cached obstacle information shape mismatch, remeasuring: {OBSTACLE_INFO_PATH}")
         return None
@@ -232,6 +296,9 @@ def save_obstacle_information(
         obstacle_rigid_ids=np.asarray(OBSTACLE_RIGID_IDS, dtype=int).reshape(-1),
         obstacle_radius=float(OBSTACLE_RADIUS),
         safe_distance_factor=float(SAFE_DISTANCE_FACTOR),
+        avoid_constraint_target=str(AVOID_CONSTRAINT_TARGET),
+        avoid_node_selection=str(AVOID_NODE_SELECTION),
+        avoid_proximal_offset_m=float(AVOID_PROXIMAL_OFFSET_M),
     )
     print(f"Saved obstacle information to {OBSTACLE_INFO_PATH}")
 
@@ -474,6 +541,7 @@ def main(trajectory_name=TRAJECTORY_NAME):
             start=1,
         ):
             print(f"  obstacle {obstacle_idx}: nearest node {node_index}, node position (m) {node_position}")
+        print(f"Avoidance constraint target: {AVOID_CONSTRAINT_TARGET}")
         print(f"Safe distance (m): {config.d_safe:.6f}")
 
         controller = SsmMpcController(
