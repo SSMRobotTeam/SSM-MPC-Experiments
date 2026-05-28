@@ -38,8 +38,8 @@ IP_ADDRESS = "127.0.0.1"
 MOTOR_ENDPOINT = "tcp://localhost:5555"
 CONTROL_PERIOD_SECONDS = 0.075
 TRAJECTORY_NAME = "spiral"
-SSM_FACTOR = 1.5
-MOTOR_FACTOR = 1.31
+SSM_FACTOR = 1.475
+MOTOR_FACTOR = 1.225
 horizon = 3
 RUN_STEPS = np.inf
 FEEDBACK_ENABLED = False
@@ -47,14 +47,16 @@ MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
 USE_FAST_SINGLE_STEP_QP = False
 CONTROL_SMOOTH_WEIGHT = 2.5e4
-Q_WEIGHT = 0.1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
-R_WEIGHT = 7.5e1
+# Q_WEIGHT = 0.1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
+Q_WEIGHT = 0.3 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
+# R_WEIGHT = 7.5e1
+R_WEIGHT = 1e1
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 100010 # 100027 
+END_MARKER_ID = 100184 # 100027 
 BASE_RIGID_ID = 0
 MID_RIGID_ID = 1
 FEEDBACK_RIGID_ID = 2
-OBSTACLE_RIGID_IDS = (3,4,5,) # (3, 4, 5) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
+OBSTACLE_RIGID_IDS = (3,4,) # (3, 4, 5) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
 BASE_Y_OFFSET = -12.0
 POS_END = np.array([0.0, 0.0, 0.4400])
 OBSTACLE_RADIUS = 0.015
@@ -62,11 +64,11 @@ SAFE_DISTANCE_FACTOR = 2.0
 OUTPUT_SUFFIX = "_complex"
 # "node" keeps the existing obstacle-nearest/proximal node avoidance. "endeff"
 # constrains the end-effector against each obstacle instead.
-AVOID_CONSTRAINT_TARGET = "endeff"  # "node" or "endeff"
+AVOID_CONSTRAINT_TARGET = "node"  # "node" or "endeff"
 # "nearest" selects the closest model node to each obstacle. "proximal" first
 # limits candidates to the base-side of the obstacle, making avoidance happen
 # from a more proximal part of the trunk.
-AVOID_NODE_SELECTION = "nearest"  # "nearest" or "proximal"
+AVOID_NODE_SELECTION = "proximal"  # "nearest" or "proximal"
 AVOID_PROXIMAL_OFFSET_M = 0.005
 TRAJECTORY_DIRS = {
     "eight": EIGHT_TRAJ_DIR,
@@ -403,6 +405,7 @@ def build_avoid_config(rom_data, avoid_ref: AvoidanceReference) -> SsmExperiment
         pos_obstacle=avoid_ref.obstacle_positions,
         avoid_node_positions=avoid_ref.obstacle_node_positions,
         d_safe=SAFE_DISTANCE_FACTOR * OBSTACLE_RADIUS,
+        # motor_safety_limit=35.0,
         motor_safety_limit=40.0,
     )
 

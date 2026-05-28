@@ -5,6 +5,7 @@ import csv
 from pathlib import Path
 
 import numpy as np
+from scipy.interpolate import CubicSpline
 
 
 def minimum_jerk_scale(tau: np.ndarray) -> np.ndarray:
@@ -159,6 +160,76 @@ def plan_minimum_jerk_waypoint_trajectory(
     return time_s, position_m, velocity_m_s
 
 
+def _waypoint_path_parameter(waypoints: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    segment_lengths = np.linalg.norm(np.diff(waypoints, axis=0), axis=1)
+    total_length = float(np.sum(segment_lengths))
+    if total_length <= 1e-12:
+        return np.linspace(0.0, 1.0, waypoints.shape[0]), waypoints
+
+    path_parameter = np.concatenate([[0.0], np.cumsum(segment_lengths)]) / total_length
+    keep = np.concatenate([[True], np.diff(path_parameter) > 1e-9])
+    return path_parameter[keep], waypoints[keep]
+
+
+def plan_smooth_minimum_jerk_waypoint_trajectory(
+    waypoints_m: np.ndarray,
+    *,
+    dt: float,
+    duration_s: float,
+    hold_s: float = 0.0,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Plan a smooth curve through waypoints with global minimum-jerk timing."""
+    waypoints = np.asarray(waypoints_m, dtype=float).reshape(-1, 3)
+    if waypoints.shape[0] < 2:
+        raise ValueError("At least start and target waypoints are required.")
+    if dt <= 0.0:
+        raise ValueError("dt must be positive.")
+    if duration_s <= 0.0:
+        raise ValueError("duration_s must be positive.")
+    if hold_s < 0.0:
+        raise ValueError("hold_s must be non-negative.")
+
+    path_parameter, waypoints = _waypoint_path_parameter(waypoints)
+    if waypoints.shape[0] < 2 or np.allclose(waypoints[0], waypoints[-1]):
+        time_s, position_m, velocity_m_s = plan_minimum_jerk_trajectory(
+            np.zeros(3),
+            dt=dt,
+            duration_s=duration_s,
+            hold_s=hold_s,
+        )
+        return time_s, position_m + waypoints[0].reshape(3, 1), velocity_m_s
+    if waypoints.shape[0] == 2:
+        displacement = waypoints[-1] - waypoints[0]
+        time_s, position_m, velocity_m_s = plan_minimum_jerk_trajectory(
+            displacement,
+            dt=dt,
+            duration_s=duration_s,
+            hold_s=hold_s,
+        )
+        return time_s, position_m + waypoints[0].reshape(3, 1), velocity_m_s
+
+    sample_count = int(np.ceil((duration_s + hold_s) / dt)) + 1
+    time_s = np.arange(sample_count, dtype=float) * dt
+    tau = np.minimum(time_s / duration_s, 1.0)
+    smooth_path_parameter = minimum_jerk_scale(tau)
+    smooth_path_parameter_dot = minimum_jerk_scale_derivative(tau) / duration_s
+    smooth_path_parameter_dot[time_s > duration_s] = 0.0
+
+    start_tangent = (waypoints[1] - waypoints[0]) / (path_parameter[1] - path_parameter[0])
+    end_tangent = (waypoints[-1] - waypoints[-2]) / (path_parameter[-1] - path_parameter[-2])
+    spline = CubicSpline(
+        path_parameter,
+        waypoints,
+        axis=0,
+        bc_type=((1, start_tangent), (1, end_tangent)),
+    )
+
+    position_m = spline(smooth_path_parameter).T
+    path_derivative = spline(smooth_path_parameter, 1).T
+    velocity_m_s = path_derivative * smooth_path_parameter_dot.reshape(1, -1)
+    return time_s, position_m, velocity_m_s
+
+
 def plan_obstacle_avoidance_trajectory(
     target_displacement_m: np.ndarray,
     obstacle_positions_m: np.ndarray,
@@ -168,17 +239,50 @@ def plan_obstacle_avoidance_trajectory(
     dt: float,
     duration_s: float,
     hold_s: float = 0.0,
+    trajectory_mode: str = "linear",
+    via_displacements_m: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     start = np.asarray(start_position_m, dtype=float).reshape(3)
     target_position = start + np.asarray(target_displacement_m, dtype=float).reshape(3)
-    detour_waypoints = obstacle_avoidance_waypoints(start, target_position, obstacle_positions_m, clearance_m)
-    absolute_waypoints = np.vstack([start, detour_waypoints, target_position])
-    time_s, absolute_position_m, velocity_m_s = plan_minimum_jerk_waypoint_trajectory(
+
+    if via_displacements_m is None:
+        via_positions = np.empty((0, 3))
+        required_waypoints = np.vstack([start, target_position])
+    else:
+        via_displacements = np.asarray(via_displacements_m, dtype=float).reshape(-1, 3)
+        via_positions = start.reshape(1, 3) + via_displacements
+        required_waypoints = np.vstack([start, via_positions, target_position])
+
+    absolute_waypoints = [required_waypoints[0]]
+    for leg_start, leg_target in zip(required_waypoints[:-1], required_waypoints[1:]):
+        detour_waypoints = obstacle_avoidance_waypoints(
+            leg_start,
+            leg_target,
+            obstacle_positions_m,
+            clearance_m,
+        )
+        absolute_waypoints.extend(detour_waypoints)
+        absolute_waypoints.append(leg_target)
+    absolute_waypoints = np.asarray(absolute_waypoints, dtype=float).reshape(-1, 3)
+
+    mode = trajectory_mode.strip().lower()
+    if mode == "linear":
+        planner = plan_minimum_jerk_waypoint_trajectory
+    elif mode == "smooth":
+        planner = plan_smooth_minimum_jerk_waypoint_trajectory
+    else:
+        raise ValueError("trajectory_mode must be 'linear' or 'smooth'.")
+
+    time_s, absolute_position_m, velocity_m_s = planner(
         absolute_waypoints,
         dt=dt,
         duration_s=duration_s,
         hold_s=hold_s,
     )
+    for via_position in via_positions:
+        closest_sample = int(np.argmin(np.linalg.norm(absolute_position_m.T - via_position, axis=1)))
+        absolute_position_m[:, closest_sample] = via_position
+
     displacement_m = absolute_position_m - start.reshape(3, 1)
     return time_s, displacement_m, velocity_m_s, absolute_waypoints
 

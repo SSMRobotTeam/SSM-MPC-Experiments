@@ -45,17 +45,19 @@ from Main_demo_ssm_avoid_complex import (
     run_step,
 )
 
-
+# MOTOR_FACTOR = 1.0
 PLAN_OUTPUT_SUFFIX = "_plan_avoid_complex"
 PLAN_RESULT_DIR = PLOT_DIR / "Plan_And_Avoid"
 
 # Global inputs for this demo. Edit these values before running the script.
-TARGET_DISPLACEMENT_MM = np.array([120.0, -40.0, -60.0])
-RUN_STEPS = 320
-PLAN_DURATION_S = 20.0
-TARGET_HOLD_S = 2.0
-STOP_ON_TARGET = True
-PLANNER_CLEARANCE_FACTOR = 3 # 2.5
+TARGET_DISPLACEMENT_MM   = np.array([110.0, -60.0, -50.0])
+INTERMEDIATE_WAYPOINT_MM = np.array([90.0,  +100.0, -45.0])# None  # Example: np.array([50.0, -50.0, -30.0])
+RUN_STEPS = 640
+PLAN_DURATION_S = 40.0
+TARGET_HOLD_S = 5.0
+STOP_ON_TARGET = False
+PLANNER_CLEARANCE_FACTOR = 3.0 # 2.5
+TRAJECTORY_MODE = "smooth"  # "linear" or "smooth"
 
 TARGET_TOLERANCE_MM = 2.0
 
@@ -88,7 +90,7 @@ def build_plan_avoid_config(rom_data, avoid_ref, td: np.ndarray, zd: np.ndarray)
         pos_obstacle=avoid_ref.obstacle_positions,
         avoid_node_positions=avoid_ref.obstacle_node_positions,
         d_safe=SAFE_DISTANCE_FACTOR * OBSTACLE_RADIUS,
-        motor_safety_limit=40.0,
+        motor_safety_limit=35.0,
     )
 
 
@@ -100,10 +102,12 @@ def target_error_mm(controller: SsmMpcController, target_displacement_m: np.ndar
 
 def main(
     target_displacement_mm: np.ndarray = TARGET_DISPLACEMENT_MM,
+    intermediate_waypoint_mm: np.ndarray | None = INTERMEDIATE_WAYPOINT_MM,
     run_steps: int = RUN_STEPS,
     stop_on_target: bool = STOP_ON_TARGET,
     plan_duration_s: float = PLAN_DURATION_S,
     target_hold_s: float = TARGET_HOLD_S,
+    trajectory_mode: str = TRAJECTORY_MODE,
 ) -> None:
     original_stdout = sys.stdout
     logger = BufferedTeeLogger(original_stdout)
@@ -116,9 +120,18 @@ def main(
     max_mpc_time = 0.0
     completed_steps = 0
     target_displacement_m = np.asarray(target_displacement_mm, dtype=float).reshape(3) / 1000.0
+    if intermediate_waypoint_mm is None:
+        intermediate_waypoint_m = None
+    else:
+        intermediate_waypoint_m = np.asarray(intermediate_waypoint_mm, dtype=float).reshape(3) / 1000.0
+    trajectory_mode = trajectory_mode.strip().lower()
+    if trajectory_mode not in ("linear", "smooth"):
+        raise ValueError("trajectory_mode must be 'linear' or 'smooth'.")
     try:
         print("Using SSM point-to-point planning with complex obstacle avoidance.")
         print(f"Target end-effector displacement (mm): {target_displacement_mm}")
+        if intermediate_waypoint_m is not None:
+            print(f"Intermediate waypoint displacement (mm): {np.asarray(intermediate_waypoint_mm, dtype=float).reshape(3)}")
         rom_data = load_rom_data(MODEL_INFO_DIR, traj_dir=SPIRAL_TRAJ_DIR)
         x_num = np.asarray(get_field(rom_data["auData"], "lamd")).reshape(-1).size
 
@@ -134,13 +147,20 @@ def main(
             dt=CONTROL_PERIOD_SECONDS,
             duration_s=plan_duration_s,
             hold_s=target_hold_s,
+            trajectory_mode=trajectory_mode,
+            via_displacements_m=intermediate_waypoint_m,
         )
         absolute_plan = zd_plan + POS_END.reshape(3, 1)
         obstacle_clearances = trajectory_obstacle_clearance(absolute_plan, avoid_ref.obstacle_positions)
+        planner_description = {
+            "linear": "obstacle-aware waypoint minimum-jerk trajectory",
+            "smooth": "obstacle-aware smooth spline trajectory with minimum-jerk timing",
+        }[trajectory_mode]
         print(
-            "Planner: obstacle-aware waypoint minimum-jerk trajectory, "
+            f"Planner: {planner_description}, "
             f"duration={plan_duration_s:.3f}s, hold={target_hold_s:.3f}s, samples={td_plan.size}."
         )
+        print(f"Trajectory mode: {trajectory_mode}")
         print(f"Planner clearance target (m): {planner_clearance:.6f}")
         print(f"Planner absolute waypoints (m): {planner_waypoints}")
         if obstacle_clearances.size:
@@ -243,6 +263,15 @@ def main(
                 "planner_waypoints_m": planner_waypoints,
                 "planner_clearance_m": planner_clearance,
                 "planned_obstacle_clearance_m": obstacle_clearances,
+                "trajectory_mode": trajectory_mode,
+                "intermediate_waypoint_m": (
+                    np.empty((0, 3)) if intermediate_waypoint_m is None else intermediate_waypoint_m.reshape(1, 3)
+                ),
+                "intermediate_waypoint_mm": (
+                    np.empty((0, 3))
+                    if intermediate_waypoint_mm is None
+                    else np.asarray(intermediate_waypoint_mm, dtype=float).reshape(1, 3)
+                ),
                 "target_displacement_m": target_displacement_m,
                 "target_displacement_mm": np.asarray(target_displacement_mm, dtype=float).reshape(3),
                 "pos_end": POS_END,
@@ -279,6 +308,14 @@ def parse_args():
         help="Optional override for TARGET_DISPLACEMENT_MM, in millimeters.",
     )
     parser.add_argument(
+        "--via-mm",
+        type=float,
+        nargs=3,
+        default=INTERMEDIATE_WAYPOINT_MM,
+        metavar=("DX", "DY", "DZ"),
+        help="Optional intermediate displacement waypoint in millimeters. The planned path must pass through it before the target.",
+    )
+    parser.add_argument(
         "--steps",
         type=int,
         default=RUN_STEPS,
@@ -297,6 +334,12 @@ def parse_args():
         help="Optional override for TARGET_HOLD_S.",
     )
     parser.add_argument(
+        "--trajectory-mode",
+        choices=("linear", "smooth"),
+        default=TRAJECTORY_MODE,
+        help="Trajectory planner mode: 'linear' uses straight waypoint segments, 'smooth' uses a spline curve.",
+    )
+    parser.add_argument(
         "--no-stop-on-target",
         action="store_true",
         default=not STOP_ON_TARGET,
@@ -309,8 +352,10 @@ if __name__ == "__main__":
     args = parse_args()
     main(
         target_displacement_mm=np.asarray(args.target_mm, dtype=float),
+        intermediate_waypoint_mm=None if args.via_mm is None else np.asarray(args.via_mm, dtype=float),
         run_steps=int(args.steps),
         stop_on_target=not args.no_stop_on_target,
         plan_duration_s=float(args.duration),
         target_hold_s=float(args.hold),
+        trajectory_mode=str(args.trajectory_mode),
     )
