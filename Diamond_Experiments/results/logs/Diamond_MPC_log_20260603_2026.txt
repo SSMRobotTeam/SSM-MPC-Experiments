@@ -1,0 +1,14 @@
+Using Diamond model : pod6 (E:\RobotGit\SSM-MPC-Experiments-v1\Diamond_Experiments\POD6model)
+Trajectory          : symbol_s, steps=2, dt=0.075s
+Control mode        : offline simulation
+Initial cable length: [  90.134,   90.134,   90.134,   90.134] mm
+Step 0001/0002 | total   0.0641s | mpc   0.0014s | mpc max   0.0014s | motor [   0.000,    0.000,    0.000,    0.000]
+Step 0002/0002 | total   0.0788s | mpc   0.0010s | mpc max   0.0014s | motor [  -0.294,    0.008,    0.296,    0.009]
+
+Results saved to E:\RobotGit\SSM-MPC-Experiments-v1\Diamond_Experiments\results\pod6\symbol_s
+
+Timing summary
+  completed steps : 2
+  avg total       : 0.071468s
+  avg mpc         : 0.001188s
+  max mpc         : 0.001395s

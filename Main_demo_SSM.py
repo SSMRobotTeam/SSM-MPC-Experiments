@@ -38,7 +38,7 @@ SSM_FACTOR = 1.475
 MOTOR_FACTOR = 1.225
 horizon = 3
 RUN_STEPS = np.inf # determined by desired trajectory
-MEASUREMENT_ENABLED = True
+MEASUREMENT_ENABLED = False
 FEEDBACK_ENABLED = False
 MPC_SOLVER_TYPE = "qp"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"

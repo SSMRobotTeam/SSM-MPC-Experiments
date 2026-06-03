@@ -1,0 +1,11 @@
+﻿metric,value
+endeff_xyz_rms_mm,2.80074633
+endeff_xyz_rmse_norm_mm,4.85103494
+cable_target_vs_delta_rms_mm,1.06365920
+motor_sent_vs_command_rms_mm,19.62152994
+cable_1_ssm_estimate_rmse_mm,1.41731763
+cable_2_ssm_estimate_rmse_mm,0.67531659
+cable_3_ssm_estimate_rmse_mm,1.07911476
+cable_4_ssm_estimate_rmse_mm,0.77075886
+cable_5_ssm_estimate_rmse_mm,1.03376451
+cable_6_ssm_estimate_rmse_mm,1.22317481

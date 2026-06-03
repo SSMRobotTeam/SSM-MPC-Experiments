@@ -1,0 +1,6 @@
+Using Diamond model : ssm6 (E:\RobotGit\SSM-MPC-Experiments-v1\Diamond_Experiments\SSM6model)
+Trajectory          : step, steps=2, dt=0.075s
+Control mode        : offline simulation
+Initial cable length: [  90.134,   90.134,   90.134,   90.134] mm
+
+Timing summary: no completed steps.

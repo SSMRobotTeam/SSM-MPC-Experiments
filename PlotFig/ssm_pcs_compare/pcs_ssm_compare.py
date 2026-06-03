@@ -13,8 +13,8 @@ REFERENCE_TRAJ_FILES = {
     "eight": PLOT_DIR / "reference_zd_eight.npy",
     "spiral": PLOT_DIR / "reference_zd_spiral.npy",
 }
-DEFAULT_TRAJECTORY = "spiral"
-# DEFAULT_TRAJECTORY = "eight"
+# DEFAULT_TRAJECTORY = "spiral"
+DEFAULT_TRAJECTORY = "eight"
 DEFAULT_ERROR_METRIC = "norm"
 # --error-metric norm   # 原来的瞬时误差范数，默认
 # --error-metric ise    # 累积积分平方误差 ISE

@@ -1,0 +1,14 @@
+Using Diamond model : ssm6 (E:\RobotGit\SSM-MPC-Experiments-v1\Diamond_Experiments\SSM6model)
+Trajectory          : symbol_t, steps=2, dt=0.075s
+Control mode        : offline simulation
+Initial cable length: [  90.134,   90.134,   90.134,   90.134] mm
+Step 0001/0002 | total   0.0090s | mpc   0.0090s | mpc max   0.0090s | motor [   1.674,    0.004,   -1.677,   -0.001]
+Step 0002/0002 | total   0.0075s | mpc   0.0075s | mpc max   0.0090s | motor [   1.687,   -0.267,   -1.669,    0.281]
+
+Results saved to E:\RobotGit\SSM-MPC-Experiments-v1\Diamond_Experiments\results\ssm6\symbol_t
+
+Timing summary
+  completed steps : 2
+  avg total       : 0.008250s
+  avg mpc         : 0.008246s
+  max mpc         : 0.009006s

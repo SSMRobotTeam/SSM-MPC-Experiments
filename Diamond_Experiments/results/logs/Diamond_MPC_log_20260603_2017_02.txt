@@ -1,0 +1,14 @@
+Using Diamond model : ssm6 (E:\RobotGit\SSM-MPC-Experiments-v1\Diamond_Experiments\SSM6model)
+Trajectory          : spiral3d, steps=2, dt=0.075s
+Control mode        : offline simulation
+Initial cable length: [  90.134,   90.134,   90.134,   90.134] mm
+Step 0001/0002 | total   0.0084s | mpc   0.0084s | mpc max   0.0084s | motor [   3.172,    3.175,    3.242,    3.160]
+Step 0002/0002 | total   0.0099s | mpc   0.0099s | mpc max   0.0099s | motor [   9.726,    2.517,   -3.191,    4.016]
+
+Results saved to E:\RobotGit\SSM-MPC-Experiments-v1\Diamond_Experiments\results\ssm6\spiral3d
+
+Timing summary
+  completed steps : 2
+  avg total       : 0.009177s
+  avg mpc         : 0.009173s
+  max mpc         : 0.009928s

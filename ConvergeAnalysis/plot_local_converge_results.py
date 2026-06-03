@@ -103,6 +103,11 @@ def _apply_time_axis(ax, use_custom_xlim: bool, time_min: float, time_max: float
         ax.set_xticks(np.arange(time_min, time_max + 0.5 * time_tick, time_tick))
 
 
+def _save_png_and_eps(fig, output_path: Path, *, dpi: int = 220) -> None:
+    fig.savefig(output_path, dpi=dpi)
+    fig.savefig(output_path.with_suffix(".eps"), format="eps")
+
+
 def plot_case(
     case_data: dict,
     output_dir: Path,
@@ -127,11 +132,119 @@ def plot_case(
         ax.set_xlabel("Time [s]")
         ax.set_ylabel(f"{label} [mm]")
         ax.set_title(f"Case {case_index} - {label}")
-        ax.grid(True, alpha=0.3)
+        ax.grid(True, color="#dddddd")
         ax.legend(frameon=False)
         _apply_time_axis(ax, use_custom_xlim, time_min, time_max, time_tick)
 
-    fig.savefig(output_dir / f"case_{case_index:02d}_yz_compare.png", dpi=220)
+    _save_png_and_eps(fig, output_dir / f"case_{case_index:02d}_yz_compare.png")
+    if show:
+        plt.show()
+    else:
+        plt.close(fig)
+
+
+def plot_cases_yz_grid(
+    cases_data: list[dict],
+    rmse_rows: list[dict],
+    output_dir: Path,
+    *,
+    use_custom_xlim: bool,
+    time_min: float,
+    time_max: float,
+    time_tick: float,
+    show: bool,
+) -> None:
+    label_fontsize = 14
+    title_fontsize = 16
+    tick_fontsize = 13
+    legend_fontsize = 16
+    fig = plt.figure(figsize=(18.0, 14.0))
+    fig.subplots_adjust(left=0.055, right=0.99, bottom=0.06, top=0.91)
+    grid = fig.add_gridspec(4, 4, height_ratios=(1.0, 1.0, 1.0, 0.68), wspace=0.34, hspace=0.55)
+    axes = np.asarray([fig.add_subplot(grid[row, col]) for row in range(3) for col in range(4)])
+    table_ax = fig.add_subplot(grid[3, :])
+    legend_handles = []
+    legend_labels = []
+
+    for idx, case_data in enumerate(cases_data):
+        axis_pair = (axes[2 * idx], axes[2 * idx + 1])
+        for ax, axis_idx, axis_label in zip(axis_pair, (1, 2), ("Y", "Z")):
+            comsol_line = ax.plot(
+                case_data["t_comsol"],
+                case_data["xyz_comsol"][:, axis_idx],
+                "b-",
+                linewidth=1.8,
+                label="COMSOL",
+            )[0]
+            ssm_line = ax.plot(
+                case_data["t_ssm"],
+                case_data["xyz_ssm"][:, axis_idx],
+                "r--",
+                linewidth=1.8,
+                label="SSM",
+            )[0]
+            if not legend_handles:
+                legend_handles.extend([comsol_line, ssm_line])
+                legend_labels.extend(["COMSOL", "SSM"])
+            ax.set_title(f"Case {case_data['case']} - {axis_label}", fontsize=title_fontsize)
+            ax.set_xlabel("Time [s]", fontsize=label_fontsize)
+            ax.set_ylabel(f"{axis_label} [mm]", fontsize=label_fontsize)
+            ax.tick_params(axis="both", labelsize=tick_fontsize)
+            ax.grid(True, color="#dddddd")
+            _apply_time_axis(ax, use_custom_xlim, time_min, time_max, time_tick)
+
+    for ax in axes[2 * len(cases_data) :]:
+        ax.set_visible(False)
+
+    fig.legend(
+        legend_handles,
+        legend_labels,
+        frameon=True,
+        ncol=2,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.985),
+        fontsize=legend_fontsize,
+        handlelength=2.8,
+        columnspacing=1.8,
+        facecolor="white",
+        edgecolor="black",
+        framealpha=1.0,
+    )
+
+    cases = ["Metric"] + [f"Case {row['case']}" for row in rmse_rows]
+    rmse_yz = [f"{row['rmse_yz']:.2f}" for row in rmse_rows]
+    initial_displacement = [f"{row['initial_displacement_yz_mm']:.1f}" for row in rmse_rows]
+    table_ax.axis("off")
+    table = table_ax.table(
+        cellText=[
+            ["RMSE YZ [mm]"] + rmse_yz,
+            ["Initial YZ [mm]"] + initial_displacement,
+        ],
+        colLabels=cases,
+        cellLoc="center",
+        loc="center",
+    )
+    table.auto_set_font_size(False)
+    table.set_fontsize(legend_fontsize)
+    table.scale(1.0, 2.0)
+    max_row = 2
+    for (row_idx, col_idx), cell in table.get_celld().items():
+        cell.visible_edges = ""
+        cell.set_edgecolor("black")
+        cell.set_linewidth(1.0)
+        if row_idx == 0 or col_idx == 0:
+            cell.set_facecolor("white")
+            cell.set_text_props(weight="bold")
+        else:
+            cell.set_facecolor("white")
+        if row_idx == 0:
+            cell.visible_edges = "TB"
+            cell.set_linewidth(1.2)
+        elif row_idx == max_row:
+            cell.visible_edges = "B"
+            cell.set_linewidth(1.2)
+
+    _save_png_and_eps(fig, output_dir / "cases_01_to_06_yz_grid.png", dpi=400)
     if show:
         plt.show()
     else:
@@ -161,9 +274,9 @@ def plot_rmse_summary(rmse_rows: list[dict], output_dir: Path, *, show: bool) ->
     ax.set_title("Local Convergence Analysis of the SSM Model")
     ax.set_xticks(cases)
     ax.set_xticklabels(tick_labels)
-    ax.grid(True, alpha=0.3)
+    ax.grid(True, color="#dddddd")
     ax.legend(frameon=False)
-    fig.savefig(output_dir / "rmse_summary.png", dpi=220)
+    _save_png_and_eps(fig, output_dir / "rmse_summary.png")
     if show:
         plt.show()
     else:
@@ -186,9 +299,9 @@ def plot_rmse_summary(rmse_rows: list[dict], output_dir: Path, *, show: bool) ->
     ax.set_title("Local Convergence Analysis of the SSM Model")
     ax.set_xticks(cases)
     ax.set_xticklabels(tick_labels)
-    ax.grid(True, axis="y", alpha=0.3)
+    ax.grid(True, axis="y", color="#dddddd")
     ax.legend(frameon=False)
-    fig.savefig(output_dir / "rmse_summary_bar.png", dpi=220)
+    _save_png_and_eps(fig, output_dir / "rmse_summary_bar.png")
     if show:
         plt.show()
     else:
@@ -219,8 +332,10 @@ def run(args: argparse.Namespace) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     rmse_rows = []
+    cases_data = []
     for case_index in range(1, int(args.num_cases) + 1):
         case_data = load_case(case_index, data_dir)
+        cases_data.append(case_data)
         rmse = compute_case_rmse(case_data)
         rmse_rows.append(rmse)
         plot_case(
@@ -237,6 +352,16 @@ def run(args: argparse.Namespace) -> None:
             f"RMSE_yz={rmse['rmse_yz']:.6f}"
         )
 
+    plot_cases_yz_grid(
+        cases_data,
+        rmse_rows,
+        output_dir,
+        use_custom_xlim=not args.auto_xlim,
+        time_min=float(args.time_min),
+        time_max=float(args.time_max),
+        time_tick=float(args.time_tick),
+        show=bool(args.show),
+    )
     plot_rmse_summary(rmse_rows, output_dir, show=bool(args.show))
     write_rmse_csv(rmse_rows, output_dir / "rmse_summary.csv")
     print(f"Saved figures and RMSE CSV to {output_dir}")
