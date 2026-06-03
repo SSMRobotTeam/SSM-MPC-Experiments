@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from matplotlib.animation import FFMpegWriter
+from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.io as sciIO
@@ -11,6 +13,14 @@ SUFFIX = "_complex"
 AVOID_RESULTS_MAT = f"ssm_avoid_python_results{SUFFIX}.mat"
 END_INITIAL_POSITION_M = np.array([0.0, 0.0, 0.4400])
 DEFAULT_OBSTACLE_RADIUS_M = 0.02
+TRAJECTORY_ANIMATION_DURATION_S = 15.0
+TRAJECTORY_ANIMATION_FPS = 10
+TRAJECTORY_ANIMATION_NAME = "ssm_measured_anypoint_trajectory_animation.mp4"
+TRAJECTORY_ANIMATION_FIGSIZE = (16, 9)
+TRAJECTORY_ANIMATION_DPI = 160
+TRAJECTORY_ANIMATION_LABEL_FONTSIZE = 22
+TRAJECTORY_ANIMATION_TICK_FONTSIZE = 18
+TRAJECTORY_ANIMATION_LEGEND_FONTSIZE = 18
 
 
 def load_ssm_avoid_complex_results(plot_dir: str | Path = PLOT_DIR):
@@ -79,6 +89,33 @@ def _set_axes_equal_3d(ax):
     ax.set_zlim3d([centers[2] - radius, centers[2] + radius])
 
 
+def _set_axes_tight_3d(ax, point_sets, padding_ratio=0.08, invert_z=True):
+    valid_points = []
+    for points in point_sets:
+        points = np.asarray(points, dtype=float).reshape(-1, 3)
+        if points.size:
+            valid_points.append(points[np.all(np.isfinite(points), axis=1)])
+    valid_points = [points for points in valid_points if points.size]
+    if not valid_points:
+        return
+
+    points = np.vstack(valid_points)
+    lower = np.min(points, axis=0)
+    upper = np.max(points, axis=0)
+    span = upper - lower
+    min_span = np.maximum(span, 1.0)
+    padding = padding_ratio * min_span
+    lower = lower - padding
+    upper = upper + padding
+
+    ax.set_xlim3d(lower[0], upper[0])
+    ax.set_ylim3d(lower[1], upper[1])
+    if invert_z:
+        ax.set_zlim3d(upper[2], lower[2])
+    else:
+        ax.set_zlim3d(lower[2], upper[2])
+
+
 def _sphere_mesh(center_mm, radius_mm, theta_count=40, phi_count=20):
     theta = np.linspace(0.0, 2.0 * np.pi, theta_count)
     phi = np.linspace(0.0, np.pi, phi_count)
@@ -88,6 +125,14 @@ def _sphere_mesh(center_mm, radius_mm, theta_count=40, phi_count=20):
     return sphere_x, sphere_y, sphere_z
 
 
+def _avoid_point_trajectory_mm(y, node_positions_m):
+    node_positions_m = np.asarray(node_positions_m, dtype=float).reshape(-1, 3)
+    if y.shape[1] < 9 or node_positions_m.size == 0:
+        return None
+
+    return y[:, 6:9] + node_positions_m[0] * 1000.0
+
+
 def plot_tracking_results(results):
     t = results["t"]
     y = results["y_exprm"]
@@ -95,11 +140,11 @@ def plot_tracking_results(results):
     n = min(t.size, y.shape[0])
 
     fig = plt.figure("SSM complex avoid tracking")
-    labels = ["end x", "end y", "end z", "mid x", "mid y", "mid z"]
+    labels = ["end x", "end y", "end z"]
     for idx, label in enumerate(labels):
-        ax = fig.add_subplot(3, 2, idx + 1)
+        ax = fig.add_subplot(3, 1, idx + 1)
         ax.plot(t[:n], y[:n, idx], label=label)
-        if zd is not None and idx < 3:
+        if zd is not None:
             ref_n = min(n, zd.shape[1])
             ax.plot(t[:ref_n], zd[idx, :ref_n] * 1000.0, "k--", label=f"desired {label}")
         ax.set_ylabel("Position (mm)")
@@ -133,6 +178,7 @@ def plot_obstacle_view(results):
     obstacle_radius_mm = float(results.get("obstacle_radius", DEFAULT_OBSTACLE_RADIUS_M)) * 1000.0
     d_safe = results.get("d_safe")
     measured_end_mm = y[:, :3] + pos_end_mm
+    axis_point_sets = [measured_end_mm]
 
     fig = plt.figure("SSM complex avoid obstacle view")
     ax = fig.add_subplot(1, 1, 1, projection="3d")
@@ -144,20 +190,22 @@ def plot_obstacle_view(results):
         label="measured end",
     )
 
-    if y_ssm is not None:
-        count = min(t.size, y_ssm.shape[0])
-        algorithm_end_mm = y_ssm[:count, :3] + pos_end_mm
-        ax.plot(
-            algorithm_end_mm[:, 0],
-            algorithm_end_mm[:, 1],
-            algorithm_end_mm[:, 2],
-            color="tab:orange",
-            label="SSM calculated end",
-        )
+    # if y_ssm is not None:
+    #     count = min(t.size, y_ssm.shape[0])
+    #     algorithm_end_mm = y_ssm[:count, :3] + pos_end_mm
+    #     axis_point_sets.append(algorithm_end_mm)
+    #     ax.plot(
+    #         algorithm_end_mm[:, 0],
+    #         algorithm_end_mm[:, 1],
+    #         algorithm_end_mm[:, 2],
+    #         color="tab:orange",
+    #         label="SSM calculated end",
+    #     )
 
     if zd is not None:
         ref_n = min(t.size, zd.shape[1])
         desired_end_mm = zd[:3, :ref_n].T * 1000.0 + pos_end_mm
+        axis_point_sets.append(desired_end_mm)
         ax.plot(
             desired_end_mm[:, 0],
             desired_end_mm[:, 1],
@@ -169,6 +217,15 @@ def plot_obstacle_view(results):
     safe_radius_mm = None if d_safe is None else float(d_safe) * 1000.0
     for obstacle_idx, obstacle_m in enumerate(obstacles_m):
         obstacle_mm = obstacle_m * 1000.0
+        axis_radius_mm = max(obstacle_radius_mm, 0.0 if safe_radius_mm is None else safe_radius_mm)
+        axis_point_sets.append(
+            np.vstack(
+                [
+                    obstacle_mm - axis_radius_mm,
+                    obstacle_mm + axis_radius_mm,
+                ]
+            )
+        )
         label_suffix = f" {obstacle_idx + 1}"
         ax.scatter(
             obstacle_mm[0],
@@ -188,6 +245,7 @@ def plot_obstacle_view(results):
 
         if obstacle_idx < node_positions_m.shape[0]:
             node_mm = node_positions_m[obstacle_idx] * 1000.0
+            axis_point_sets.append(node_mm.reshape(1, 3))
             node_label = f"nearest node {node_indices[obstacle_idx]}" if obstacle_idx < node_indices.size else "nearest node"
             ax.scatter(
                 node_mm[0],
@@ -210,9 +268,183 @@ def plot_obstacle_view(results):
     ax.set_xlabel("X (mm)")
     ax.set_ylabel("Y (mm)")
     ax.set_zlabel("Z (mm)")
-    _set_axes_equal_3d(ax)
+    _set_axes_tight_3d(ax, axis_point_sets, invert_z=True)
     ax.legend()
     fig.tight_layout()
+
+
+def plot_obstacle_view_animation(results):
+    t, y = _trim_time_series(results["t"], results["y_exprm"])
+    zd = results.get("zd")
+    pos_end_mm = np.asarray(results.get("pos_end", END_INITIAL_POSITION_M), dtype=float).reshape(3) * 1000.0
+    obstacles_m = np.asarray(results.get("pos_obstacle", np.empty((0, 3))), dtype=float).reshape(-1, 3)
+    node_positions_m = np.asarray(results.get("obstacle_node_positions", np.empty((0, 3))), dtype=float).reshape(-1, 3)
+    node_indices = np.asarray(results.get("obstacle_node_indices_1based", []), dtype=int).reshape(-1)
+    obstacle_radius_mm = float(results.get("obstacle_radius", DEFAULT_OBSTACLE_RADIUS_M)) * 1000.0
+    d_safe = results.get("d_safe")
+    measured_end_mm = y[:, :3] + pos_end_mm
+    avoid_point_mm = _avoid_point_trajectory_mm(y, node_positions_m)
+    if measured_end_mm.size == 0:
+        return None
+
+    axis_point_sets = [measured_end_mm]
+    if avoid_point_mm is not None:
+        axis_point_sets.append(avoid_point_mm)
+    frame_count = max(2, int(TRAJECTORY_ANIMATION_DURATION_S * TRAJECTORY_ANIMATION_FPS))
+    frame_indices = np.unique(np.linspace(0, measured_end_mm.shape[0] - 1, frame_count).astype(int))
+    interval_ms = 1000.0 * TRAJECTORY_ANIMATION_DURATION_S / frame_indices.size
+
+    fig = plt.figure("SSM complex avoid anypoint animation", figsize=TRAJECTORY_ANIMATION_FIGSIZE)
+    ax = fig.add_subplot(1, 1, 1, projection="3d")
+    ax.plot(
+        measured_end_mm[:, 0],
+        measured_end_mm[:, 1],
+        measured_end_mm[:, 2],
+        color="tab:blue",
+        alpha=0.35,
+        label="measured end",
+    )
+    if avoid_point_mm is not None:
+        ax.plot(
+            avoid_point_mm[:, 0],
+            avoid_point_mm[:, 1],
+            avoid_point_mm[:, 2],
+            color="tab:purple",
+            alpha=0.35,
+            label="avoid point",
+        )
+
+    if zd is not None:
+        ref_n = min(t.size, zd.shape[1])
+        desired_end_mm = zd[:3, :ref_n].T * 1000.0 + pos_end_mm
+        axis_point_sets.append(desired_end_mm)
+        ax.plot(
+            desired_end_mm[:, 0],
+            desired_end_mm[:, 1],
+            desired_end_mm[:, 2],
+            "k--",
+            label="desired end",
+        )
+
+    trail_line, = ax.plot([], [], [], color="tab:blue", linewidth=2.0, label="animated path")
+    current_point = ax.scatter(
+        measured_end_mm[0, 0],
+        measured_end_mm[0, 1],
+        measured_end_mm[0, 2],
+        c="k",
+        s=55,
+        label="current end",
+        depthshade=False,
+    )
+    avoid_trail_line = None
+    avoid_current_point = None
+    if avoid_point_mm is not None:
+        avoid_trail_line, = ax.plot([], [], [], color="tab:purple", linewidth=2.0, label="avoid point path")
+        avoid_current_point = ax.scatter(
+            avoid_point_mm[0, 0],
+            avoid_point_mm[0, 1],
+            avoid_point_mm[0, 2],
+            c="tab:purple",
+            s=65,
+            label="current avoid point",
+            depthshade=False,
+        )
+
+    safe_radius_mm = None if d_safe is None else float(d_safe) * 1000.0
+    for obstacle_idx, obstacle_m in enumerate(obstacles_m):
+        obstacle_mm = obstacle_m * 1000.0
+        axis_radius_mm = max(obstacle_radius_mm, 0.0 if safe_radius_mm is None else safe_radius_mm)
+        axis_point_sets.append(
+            np.vstack(
+                [
+                    obstacle_mm - axis_radius_mm,
+                    obstacle_mm + axis_radius_mm,
+                ]
+            )
+        )
+        label_suffix = f" {obstacle_idx + 1}"
+        ax.scatter(
+            obstacle_mm[0],
+            obstacle_mm[1],
+            obstacle_mm[2],
+            c="r",
+            marker="x",
+            s=80,
+            label=f"obstacle{label_suffix}",
+        )
+        obstacle_x, obstacle_y, obstacle_z = _sphere_mesh(obstacle_mm, obstacle_radius_mm)
+        ax.plot_surface(obstacle_x, obstacle_y, obstacle_z, color="tab:red", alpha=0.2, linewidth=0)
+
+        if safe_radius_mm is not None:
+            sphere_x, sphere_y, sphere_z = _sphere_mesh(obstacle_mm, safe_radius_mm, theta_count=32, phi_count=16)
+            ax.plot_wireframe(sphere_x, sphere_y, sphere_z, color="r", linestyle=":", linewidth=0.6)
+
+        if obstacle_idx < node_positions_m.shape[0]:
+            node_mm = node_positions_m[obstacle_idx] * 1000.0
+            axis_point_sets.append(node_mm.reshape(1, 3))
+            node_label = f"nearest node {node_indices[obstacle_idx]}" if obstacle_idx < node_indices.size else "nearest node"
+            ax.scatter(
+                node_mm[0],
+                node_mm[1],
+                node_mm[2],
+                c="tab:green",
+                marker="o",
+                s=45,
+                label=node_label,
+            )
+            ax.plot(
+                [obstacle_mm[0], node_mm[0]],
+                [obstacle_mm[1], node_mm[1]],
+                [obstacle_mm[2], node_mm[2]],
+                color="tab:green",
+                linestyle=":",
+                linewidth=0.8,
+            )
+
+    ax.set_xlabel("X (mm)", fontsize=TRAJECTORY_ANIMATION_LABEL_FONTSIZE, labelpad=16)
+    ax.set_ylabel("Y (mm)", fontsize=TRAJECTORY_ANIMATION_LABEL_FONTSIZE, labelpad=16)
+    ax.set_zlabel("Z (mm)", fontsize=TRAJECTORY_ANIMATION_LABEL_FONTSIZE, labelpad=16)
+    ax.tick_params(axis="both", labelsize=TRAJECTORY_ANIMATION_TICK_FONTSIZE, pad=8)
+    ax.tick_params(axis="z", labelsize=TRAJECTORY_ANIMATION_TICK_FONTSIZE, pad=8)
+    _set_axes_tight_3d(ax, axis_point_sets, invert_z=True)
+    ax.legend(fontsize=TRAJECTORY_ANIMATION_LEGEND_FONTSIZE)
+    fig.tight_layout()
+
+    def update(frame_idx):
+        sample_idx = frame_indices[frame_idx]
+        point = measured_end_mm[sample_idx]
+        trail = measured_end_mm[: sample_idx + 1]
+        trail_line.set_data(trail[:, 0], trail[:, 1])
+        trail_line.set_3d_properties(trail[:, 2])
+        current_point._offsets3d = ([point[0]], [point[1]], [point[2]])
+        artists = [trail_line, current_point]
+        if avoid_point_mm is not None:
+            avoid_point = avoid_point_mm[sample_idx]
+            avoid_trail = avoid_point_mm[: sample_idx + 1]
+            avoid_trail_line.set_data(avoid_trail[:, 0], avoid_trail[:, 1])
+            avoid_trail_line.set_3d_properties(avoid_trail[:, 2])
+            avoid_current_point._offsets3d = ([avoid_point[0]], [avoid_point[1]], [avoid_point[2]])
+            artists.extend([avoid_trail_line, avoid_current_point])
+        return artists
+
+    return FuncAnimation(
+        fig,
+        update,
+        frames=frame_indices.size,
+        interval=interval_ms,
+        blit=False,
+        repeat=True,
+    )
+
+
+def save_trajectory_animation(animation, plot_dir: str | Path = PLOT_DIR):
+    if animation is None:
+        return None
+
+    output_path = Path(plot_dir) / TRAJECTORY_ANIMATION_NAME
+    writer = FFMpegWriter(fps=TRAJECTORY_ANIMATION_FPS, bitrate=1800)
+    animation.save(output_path, writer=writer, dpi=TRAJECTORY_ANIMATION_DPI)
+    return output_path
 
 
 def plot_obstacle_distances(results):
@@ -241,8 +473,11 @@ def main():
     plot_tracking_results(results)
     plot_motor_commands(results)
     plot_obstacle_view(results)
-    plot_obstacle_distances(results)
+    trajectory_animation = plot_obstacle_view_animation(results)
+    save_trajectory_animation(trajectory_animation)
+    # plot_obstacle_distances(results)
     plt.show()
+    return trajectory_animation
 
 
 if __name__ == "__main__":

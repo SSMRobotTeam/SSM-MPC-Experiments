@@ -31,6 +31,9 @@ BASE_DIR = Path(__file__).resolve().parent
 MODEL_INFO_DIR = BASE_DIR / "dynamics" / "modelinfom"
 PLOT_DIR = BASE_DIR / "PlotFig"
 AVOID_COMPLEX_RESULT_DIR = PLOT_DIR / "Avoid_Complex"
+RECORDED_CONTROL_INPUT_PATH = (
+    AVOID_COMPLEX_RESULT_DIR / "05End_ok" / "ut_save_ssm_avoid_complex.npy"
+)
 LOG_DIR = PLOT_DIR / "logs"
 OBSTACLE_INFO_DIR = BASE_DIR / "obstacleInformation"
 OBSTACLE_INFO_PATH = OBSTACLE_INFO_DIR / "obstacle_information_complex.npz"
@@ -43,20 +46,21 @@ MOTOR_FACTOR = 1.225
 horizon = 3
 RUN_STEPS = np.inf
 FEEDBACK_ENABLED = False
+CONTROL_SOURCE = "online"  # choose one: "dataset" or "online"
 MPC_SOLVER_TYPE = "ipopt"  # choose one: "ipopt" or "qp"
 QP_BACKEND = "qpoases"  # used only when MPC_SOLVER_TYPE = "qp"
 USE_FAST_SINGLE_STEP_QP = False
 CONTROL_SMOOTH_WEIGHT = 2.5e4
-# Q_WEIGHT = 0.1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
-Q_WEIGHT = 0.3 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
-# R_WEIGHT = 7.5e1
-R_WEIGHT = 1e1
+Q_WEIGHT = 0.1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
+# Q_WEIGHT = 0.3 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
+R_WEIGHT = 7.5e1
+# R_WEIGHT = 1e1
 SAVE_FEEDBACK_EACH_STEP = False
-END_MARKER_ID = 100184 # 100027 
+END_MARKER_ID = 100697 # 100027 
 BASE_RIGID_ID = 0
 MID_RIGID_ID = 1
 FEEDBACK_RIGID_ID = 2
-OBSTACLE_RIGID_IDS = (3,4,) # (3, 4, 5) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
+OBSTACLE_RIGID_IDS = (4,) # (3, 4, 5) # (3, 4, 5)  # obstacle rigid bodies measured by motion_capture
 BASE_Y_OFFSET = -12.0
 POS_END = np.array([0.0, 0.0, 0.4400])
 OBSTACLE_RADIUS = 0.015
@@ -68,8 +72,8 @@ AVOID_CONSTRAINT_TARGET = "node"  # "node" or "endeff"
 # "nearest" selects the closest model node to each obstacle. "proximal" first
 # limits candidates to the base-side of the obstacle, making avoidance happen
 # from a more proximal part of the trunk.
-AVOID_NODE_SELECTION = "proximal"  # "nearest" or "proximal"
-AVOID_PROXIMAL_OFFSET_M = 0.005
+AVOID_NODE_SELECTION = "nearest"  # "nearest" or "proximal"
+AVOID_PROXIMAL_OFFSET_M = 0.01
 TRAJECTORY_DIRS = {
     "eight": EIGHT_TRAJ_DIR,
     "spiral": SPIRAL_TRAJ_DIR,
@@ -458,8 +462,36 @@ def build_initial_feedback_state(x_num: int, control_num: int, horizon: int) -> 
     )
 
 
+def load_recorded_control_input(control_input_path: str | Path) -> np.ndarray:
+    path = Path(control_input_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Recorded control input not found: {path}")
+
+    control_input = np.asarray(np.load(path), dtype=float)
+    if control_input.ndim != 2 or control_input.shape[1] != 6:
+        raise ValueError(
+            "Recorded control input must have shape (steps, 6), "
+            f"got {control_input.shape} from {path}"
+        )
+    if not np.all(np.isfinite(control_input)):
+        raise ValueError(f"Recorded control input contains NaN or Inf values: {path}")
+    return control_input
+
+
 @fixed_cpu_time(CONTROL_PERIOD_SECONDS)
-def run_step(sdk, socket, controller, reference, step_index, y_expm, y_ssm, u_save, feedback=False):
+def run_step(
+    sdk,
+    socket,
+    controller,
+    reference,
+    step_index,
+    y_expm,
+    y_ssm,
+    u_save,
+    feedback=False,
+    recorded_motor_positions=None,
+    recorded_motor_factor=1.0,
+):
     measure_start = time.perf_counter()
     disp_end, disp_mid, disp_feedback = capture_motion(
         sdk,
@@ -471,16 +503,22 @@ def run_step(sdk, socket, controller, reference, step_index, y_expm, y_ssm, u_sa
     measure_time = time.perf_counter() - measure_start
 
     measurement = np.concatenate([disp_end, disp_mid, disp_feedback])
-    mpc_start = time.perf_counter()
-    motor_positions = controller.compute_next_command(measurement_mm=measurement, feedback=feedback)
-    mpc_time = time.perf_counter() - mpc_start
-    feedback_time = controller.last_feedback_time
+    if recorded_motor_positions is None:
+        mpc_start = time.perf_counter()
+        motor_positions = controller.compute_next_command(measurement_mm=measurement, feedback=feedback)
+        mpc_time = time.perf_counter() - mpc_start
+        feedback_time = controller.last_feedback_time
+        y_ssm[step_index, :6] = controller.yk_ssm
+    else:
+        motor_positions = np.asarray(recorded_motor_positions, dtype=float).reshape(6) * float(recorded_motor_factor)
+        mpc_time = 0.0
+        feedback_time = 0.0
+        y_ssm[step_index, :6] = np.nan
 
     send_motor_command(socket, motor_positions.tolist(), solver_order=False)
 
     y_expm[step_index, :6] = np.concatenate([disp_end, disp_mid])
     y_expm[step_index, 6:] = measurement[6:]
-    y_ssm[step_index, :6] = controller.yk_ssm
     u_save[step_index, :] = motor_positions
     return motor_positions, measure_time, mpc_time, feedback_time
 
@@ -514,7 +552,11 @@ def resolve_trajectory_dir(trajectory_name: str) -> Path:
     return TRAJECTORY_DIRS[key]
 
 
-def main(trajectory_name=TRAJECTORY_NAME):
+def main(
+    trajectory_name=TRAJECTORY_NAME,
+    control_source=CONTROL_SOURCE,
+    control_input_path=RECORDED_CONTROL_INPUT_PATH,
+):
     original_stdout = sys.stdout
     logger = BufferedTeeLogger(original_stdout)
     sys.stdout = logger
@@ -561,7 +603,24 @@ def main(trajectory_name=TRAJECTORY_NAME):
         )
 
         context, socket = create_publisher(MOTOR_ENDPOINT)
+        control_source = str(control_source).lower()
+        if control_source not in ("dataset", "online"):
+            raise ValueError("control_source must be 'dataset' or 'online'.")
+
+        recorded_control_input = None
+        if control_source == "dataset":
+            recorded_control_input = load_recorded_control_input(control_input_path)
+            print(
+                "Using dataset control input: "
+                f"{Path(control_input_path)} ({recorded_control_input.shape[0]} steps)"
+            )
+            print(f"Dataset control input motor factor: {MOTOR_FACTOR:.6g}")
+        else:
+            print("Using online MPC-computed control input.")
+
         step_count = config.zd.shape[1] if np.isinf(RUN_STEPS) else min(int(RUN_STEPS), config.zd.shape[1])
+        if recorded_control_input is not None:
+            step_count = min(step_count, recorded_control_input.shape[0])
         y_expm = np.zeros((step_count, 9))
         y_ssm = np.zeros((step_count, 6))
         u_save = np.zeros((step_count, 6))
@@ -578,6 +637,10 @@ def main(trajectory_name=TRAJECTORY_NAME):
                 y_ssm,
                 u_save,
                 feedback=FEEDBACK_ENABLED,
+                recorded_motor_positions=(
+                    None if recorded_control_input is None else recorded_control_input[step_index]
+                ),
+                recorded_motor_factor=MOTOR_FACTOR,
             )
             total_time = time.perf_counter() - start
             max_mpc_time = max(max_mpc_time, mpc_time)
@@ -633,5 +696,20 @@ def main(trajectory_name=TRAJECTORY_NAME):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run complex SSM obstacle-avoidance MPC.")
     parser.add_argument("--trajectory", choices=sorted(TRAJECTORY_DIRS), default=TRAJECTORY_NAME)
+    parser.add_argument(
+        "--control-source",
+        choices=("dataset", "online"),
+        default=CONTROL_SOURCE,
+        help="Choose dataset replay input or online MPC-computed input.",
+    )
+    parser.add_argument(
+        "--control-input",
+        default=str(RECORDED_CONTROL_INPUT_PATH),
+        help="Path to a recorded (steps, 6) motor control input .npy file when --control-source=dataset.",
+    )
     args = parser.parse_args()
-    main(trajectory_name=args.trajectory)
+    main(
+        trajectory_name=args.trajectory,
+        control_source=args.control_source,
+        control_input_path=args.control_input,
+    )
