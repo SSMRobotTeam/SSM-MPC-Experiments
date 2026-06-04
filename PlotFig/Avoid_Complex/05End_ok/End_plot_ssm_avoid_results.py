@@ -3,6 +3,7 @@ from pathlib import Path
 from matplotlib.animation import FuncAnimation
 from matplotlib.animation import FFMpegWriter
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 import numpy as np
 import scipy.io as sciIO
 
@@ -21,6 +22,17 @@ TRAJECTORY_ANIMATION_DPI = 160
 TRAJECTORY_ANIMATION_LABEL_FONTSIZE = 22
 TRAJECTORY_ANIMATION_TICK_FONTSIZE = 18
 TRAJECTORY_ANIMATION_LEGEND_FONTSIZE = 18
+FIGURE_OUTPUT_DIR = PLOT_DIR / "figures"
+COMBINED_FIGURE_NAME = "ssm_complex_avoid_end_results.png"
+COMBINED_FIGURE_DPI = 300
+COMBINED_FIGURE_FIGSIZE = (22, 10.5)
+COMBINED_TITLE_FONTSIZE = 18
+COMBINED_LABEL_FONTSIZE = 15
+COMBINED_TICK_FONTSIZE = 13
+COMBINED_LEGEND_FONTSIZE = 14
+TOP_RIGHT_IMAGE_NAME = "EndAvoid.png"
+BOTTOM_RIGHT_IMAGE_NAME = "RealPics.jpg"
+COMBINED_PANEL_LABEL_FONTSIZE = 17
 
 
 def load_ssm_avoid_complex_results(plot_dir: str | Path = PLOT_DIR):
@@ -98,41 +110,159 @@ def _sphere_mesh(center_mm, radius_mm, theta_count=40, phi_count=20):
     return sphere_x, sphere_y, sphere_z
 
 
-def plot_tracking_results(results):
+def _style_axis_fonts(ax):
+    ax.title.set_fontsize(COMBINED_TITLE_FONTSIZE)
+    ax.xaxis.label.set_size(COMBINED_LABEL_FONTSIZE)
+    ax.yaxis.label.set_size(COMBINED_LABEL_FONTSIZE)
+    ax.tick_params(axis="both", labelsize=COMBINED_TICK_FONTSIZE)
+    if hasattr(ax, "zaxis"):
+        ax.zaxis.label.set_size(COMBINED_LABEL_FONTSIZE)
+        ax.tick_params(axis="z", labelsize=COMBINED_TICK_FONTSIZE)
+
+
+def _add_image_on_axis(ax, image_path: Path):
+    ax.set_axis_off()
+    if not image_path.exists():
+        ax.text(
+            0.5,
+            0.5,
+            f"Missing image\n{image_path.name}",
+            ha="center",
+            va="center",
+            fontsize=COMBINED_LABEL_FONTSIZE,
+        )
+        return ax
+
+    image = plt.imread(image_path)
+    ax.imshow(image)
+    ax.set_anchor("W")
+    return ax
+
+
+def _adjust_axis_box(ax, *, dx=0.0, dy=0.0, width_scale=1.0, height_scale=1.0, anchor="center"):
+    box = ax.get_position()
+    if anchor == "left":
+        x0 = box.x0 + dx
+        x1 = x0 + box.width * width_scale
+    elif anchor == "right":
+        x1 = box.x1 + dx
+        x0 = x1 - box.width * width_scale
+    else:
+        center_x = 0.5 * (box.x0 + box.x1) + dx
+        new_width = box.width * width_scale
+        x0 = center_x - 0.5 * new_width
+        x1 = center_x + 0.5 * new_width
+
+    if anchor in ("bottom",):
+        y0 = box.y0 + dy
+        y1 = y0 + box.height * height_scale
+    else:
+        center_y = 0.5 * (box.y0 + box.y1) + dy
+        new_height = box.height * height_scale
+        y0 = center_y - 0.5 * new_height
+        y1 = center_y + 0.5 * new_height
+
+    ax.set_position([x0, y0, x1 - x0, y1 - y0])
+
+
+def _axes_group_bbox(axes):
+    boxes = [ax.get_position() for ax in axes]
+    x0 = min(box.x0 for box in boxes)
+    y0 = min(box.y0 for box in boxes)
+    x1 = max(box.x1 for box in boxes)
+    y1 = max(box.y1 for box in boxes)
+    return x0, y0, x1, y1
+
+
+def _add_panel_label(fig, axes, label: str):
+    if not isinstance(axes, (list, tuple)):
+        axes = [axes]
+    x0, _, _, y1 = _axes_group_bbox(axes)
+    fig.text(
+        x0,
+        y1 + 0.01,
+        label,
+        ha="left",
+        va="bottom",
+        fontsize=COMBINED_PANEL_LABEL_FONTSIZE,
+        fontweight="bold",
+    )
+
+
+def _plot_tracking_on_axes(results, axes, show_legend=True, xlabel_all=False):
     t = results["t"]
     y = results["y_exprm"]
     zd = results.get("zd")
     n = min(t.size, y.shape[0])
 
-    fig = plt.figure("SSM complex avoid tracking")
-    labels = ["end x", "end y", "end z"]
-    for idx, label in enumerate(labels):
-        ax = fig.add_subplot(3, 1, idx + 1)
-        ax.plot(t[:n], y[:n, idx], label=label)
+    axis_labels = ["X (mm)", "Y (mm)", "Z (mm)"]
+    legend_handles = []
+    legend_labels = []
+    for idx, (ax, ylabel) in enumerate(zip(axes, axis_labels)):
+        measured_line, = ax.plot(t[:n], y[:n, idx], label="measured")
         if zd is not None:
             ref_n = min(n, zd.shape[1])
-            ax.plot(t[:ref_n], zd[idx, :ref_n] * 1000.0, "k--", label=f"desired {label}")
-        ax.set_ylabel("Position (mm)")
-        ax.legend()
-    fig.axes[-1].set_xlabel("Time (s)")
+            desired_line, = ax.plot(t[:ref_n], zd[idx, :ref_n] * 1000.0, "k--", label="desired")
+            if idx == 0:
+                legend_handles.extend([desired_line, measured_line])
+                legend_labels.extend(["desired", "measured"])
+        elif idx == 0:
+            legend_handles.append(measured_line)
+            legend_labels.append("measured")
+        ax.set_ylabel(ylabel)
+        ax.grid(True, alpha=0.25)
+        if xlabel_all:
+            ax.set_xlabel("Time (s)")
+        _style_axis_fonts(ax)
+    if not xlabel_all:
+        axes[-1].set_xlabel("Time (s)")
+        _style_axis_fonts(axes[-1])
+    if show_legend and legend_handles:
+        axes[0].legend(
+            legend_handles,
+            legend_labels,
+            loc="upper center",
+            bbox_to_anchor=(0.5, 1.24),
+            ncol=len(legend_labels),
+            frameon=False,
+            fontsize=COMBINED_LEGEND_FONTSIZE,
+        )
+    return legend_handles, legend_labels
+
+
+def plot_tracking_results(results):
+    # fig = plt.figure("avoid and tracking")
+    fig = plt.figure()
+    axes = [fig.add_subplot(3, 1, idx + 1) for idx in range(3)]
+    _plot_tracking_on_axes(results, axes)
     fig.tight_layout()
+    return fig
 
 
-def plot_motor_commands(results):
+def _plot_motor_commands_on_axis(results, ax):
     t, u = _trim_time_series(results["t"], results["ut_save"])
 
-    fig = plt.figure("SSM complex avoid motor commands")
-    ax = fig.add_subplot(1, 1, 1)
     styles = ["r-", "g-", "b-", "r--", "g--", "b--"]
     for idx in range(u.shape[1]):
         ax.plot(t, u[:, idx], styles[idx % len(styles)], label=f"u{idx + 1}")
     ax.set_xlabel("Time (s)")
     ax.set_ylabel("Motor command (mm)")
-    ax.legend()
+    ax.grid(True, alpha=0.25)
+    ax.legend(loc="upper left", ncol=3, frameon=False, fontsize=COMBINED_LEGEND_FONTSIZE)
+    _style_axis_fonts(ax)
+    return ax
+
+
+def plot_motor_commands(results):
+    # fig = plt.figure("SSM complex avoid motor commands")
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    _plot_motor_commands_on_axis(results, ax)
     fig.tight_layout()
+    return fig
 
 
-def plot_obstacle_view(results):
+def _plot_obstacle_view_on_axis(results, ax):
     t, y = _trim_time_series(results["t"], results["y_exprm"])
     y_ssm = results.get("y_ssm")
     zd = results.get("zd")
@@ -144,14 +274,12 @@ def plot_obstacle_view(results):
     d_safe = results.get("d_safe")
     measured_end_mm = y[:, :3] + pos_end_mm
 
-    fig = plt.figure("SSM complex avoid obstacle view")
-    ax = fig.add_subplot(1, 1, 1, projection="3d")
     ax.plot(
         measured_end_mm[:, 0],
         measured_end_mm[:, 1],
         measured_end_mm[:, 2],
         color="tab:blue",
-        label="measured end",
+        label="measured",
     )
 
     # if y_ssm is not None:
@@ -173,7 +301,7 @@ def plot_obstacle_view(results):
             desired_end_mm[:, 1],
             desired_end_mm[:, 2],
             "k--",
-            label="desired end",
+            label="desired",
         )
 
     safe_radius_mm = None if d_safe is None else float(d_safe) * 1000.0
@@ -220,11 +348,92 @@ def plot_obstacle_view(results):
     ax.set_xlabel("X (mm)")
     ax.set_ylabel("Y (mm)")
     ax.set_zlabel("Z (mm)")
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=5))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=5))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=5))
     _set_axes_equal_3d(ax)
     z_lower, z_upper = ax.get_zlim3d()
     ax.set_zlim3d(z_upper, z_lower)
-    ax.legend()
+    ax.view_init(elev=27, azim=-69, roll=0)
+    ax.legend(fontsize=COMBINED_LEGEND_FONTSIZE)
+    _style_axis_fonts(ax)
+    return ax
+
+
+def plot_obstacle_view(results):
+    # fig = plt.figure("SSM complex avoid obstacle view")
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1, projection="3d")
+    _plot_obstacle_view_on_axis(results, ax)
     fig.tight_layout()
+    return fig
+
+
+def save_combined_results_figure(fig, output_dir: str | Path = FIGURE_OUTPUT_DIR):
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / COMBINED_FIGURE_NAME
+    fig.savefig(output_path, dpi=COMBINED_FIGURE_DPI, bbox_inches="tight")
+    return output_path
+
+
+def plot_combined_results(results):
+    fig = plt.figure("SSM complex avoid end results", figsize=COMBINED_FIGURE_FIGSIZE, constrained_layout=True)
+    fig.set_constrained_layout_pads(w_pad=0.01, h_pad=0.035, wspace=0.008, hspace=0.08)
+    grid = fig.add_gridspec(2, 8, height_ratios=(1.0, 1.25), width_ratios=(1, 1, 1, 1, 1, 1, 1.18, 1.18))
+
+    tracking_axes = [
+        fig.add_subplot(grid[0, 0:2]),
+        fig.add_subplot(grid[0, 2:4]),
+        fig.add_subplot(grid[0, 4:6]),
+    ]
+    top_image_ax = fig.add_subplot(grid[0, 6:8])
+    motor_ax = fig.add_subplot(grid[1, 0:3])
+    obstacle_ax = fig.add_subplot(grid[1, 3:6], projection="3d")
+    bottom_image_ax = fig.add_subplot(grid[1, 6:8])
+
+    tracking_handles, tracking_labels = _plot_tracking_on_axes(
+        results,
+        tracking_axes,
+        show_legend=False,
+        xlabel_all=True,
+    )
+    _plot_motor_commands_on_axis(results, motor_ax)
+    _plot_obstacle_view_on_axis(results, obstacle_ax)
+    _add_image_on_axis(top_image_ax, FIGURE_OUTPUT_DIR / TOP_RIGHT_IMAGE_NAME)
+    _add_image_on_axis(bottom_image_ax, FIGURE_OUTPUT_DIR / BOTTOM_RIGHT_IMAGE_NAME)
+    obstacle_ax.set_anchor("W")
+
+    # tracking_axes[0].set_title("X tracking", fontsize=COMBINED_TITLE_FONTSIZE)
+    # tracking_axes[1].set_title("Y tracking", fontsize=COMBINED_TITLE_FONTSIZE)
+    # tracking_axes[2].set_title("Z tracking", fontsize=COMBINED_TITLE_FONTSIZE)
+    # obstacle_ax.set_title("SSM complex avoid obstacle view", fontsize=COMBINED_TITLE_FONTSIZE)
+    # motor_ax.set_title("SSM complex avoid motor commands", fontsize=COMBINED_TITLE_FONTSIZE)
+
+    if tracking_handles:
+        by_label = dict(zip(tracking_labels, tracking_handles))
+        tracking_axes[0].legend(
+            by_label.values(),
+            by_label.keys(),
+            loc="upper left",
+            ncol=len(by_label),
+            frameon=False,
+            fontsize=COMBINED_LEGEND_FONTSIZE,
+        )
+
+    fig.canvas.draw()
+    fig.set_constrained_layout(False)
+    _adjust_axis_box(top_image_ax, dx=-0.006, width_scale=1.08, height_scale=1.2, anchor="left")
+    _adjust_axis_box(obstacle_ax, dx=-0.018, width_scale=1.03, height_scale=1.04, anchor="center")
+    _adjust_axis_box(bottom_image_ax, dx=-0.024, width_scale=1.16, height_scale=1.14, anchor="left")
+    fig.canvas.draw()
+    _add_panel_label(fig, tracking_axes, "(a)")
+    _add_panel_label(fig, top_image_ax, "(b)")
+    _add_panel_label(fig, motor_ax, "(c)")
+    _add_panel_label(fig, obstacle_ax, "(d)")
+    _add_panel_label(fig, bottom_image_ax, "(e)")
+
+    return fig
 
 
 def plot_obstacle_view_animation(results):
@@ -250,8 +459,8 @@ def plot_obstacle_view_animation(results):
         measured_end_mm[:, 2],
         color="tab:blue",
         alpha=0.35,
-        label="measured end",
-    )
+        label="measured",
+    ) 
     if zd is not None:
         ref_n = min(t.size, zd.shape[1])
         desired_end_mm = zd[:3, :ref_n].T * 1000.0 + pos_end_mm
@@ -260,7 +469,7 @@ def plot_obstacle_view_animation(results):
             desired_end_mm[:, 1],
             desired_end_mm[:, 2],
             "k--",
-            label="desired end",
+            label="desired",
         )
 
     trail_line, = ax.plot([], [], [], color="tab:blue", linewidth=2.0, label="animated path")
@@ -302,6 +511,7 @@ def plot_obstacle_view_animation(results):
     _set_axes_equal_3d(ax)
     z_lower, z_upper = ax.get_zlim3d()
     ax.set_zlim3d(z_upper, z_lower)
+    ax.view_init(elev=27, azim=-69, roll=0)
     ax.legend(fontsize=TRAJECTORY_ANIMATION_LEGEND_FONTSIZE)
     fig.tight_layout()
 
@@ -358,14 +568,14 @@ def plot_obstacle_distances(results):
 
 def main():
     results = load_ssm_avoid_complex_results()
-    plot_tracking_results(results)
-    plot_motor_commands(results)
-    plot_obstacle_view(results)
-    trajectory_animation = plot_obstacle_view_animation(results)
-    save_trajectory_animation(trajectory_animation)
+    combined_fig = plot_combined_results(results)
+    output_path = save_combined_results_figure(combined_fig)
+    print(f"Saved combined results figure to: {output_path}")
+    # trajectory_animation = plot_obstacle_view_animation(results)
+    # save_trajectory_animation(trajectory_animation)
     # plot_obstacle_distances(results)
     plt.show()
-    return trajectory_animation
+    # return trajectory_animation
 
 
 if __name__ == "__main__":

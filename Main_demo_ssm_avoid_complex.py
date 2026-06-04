@@ -56,6 +56,7 @@ Q_WEIGHT = 0.1 * np.diag([1e5, 1e5, 1e5, 1e3, 1e3, 1e3])
 R_WEIGHT = 7.5e1
 # R_WEIGHT = 1e1
 SAVE_FEEDBACK_EACH_STEP = False
+CAPTURE_MOTION_ENABLED = False
 END_MARKER_ID = 100697 # 100027 
 BASE_RIGID_ID = 0
 MID_RIGID_ID = 1
@@ -68,7 +69,7 @@ SAFE_DISTANCE_FACTOR = 2.0
 OUTPUT_SUFFIX = "_complex"
 # "node" keeps the existing obstacle-nearest/proximal node avoidance. "endeff"
 # constrains the end-effector against each obstacle instead.
-AVOID_CONSTRAINT_TARGET = "node"  # "node" or "endeff"
+AVOID_CONSTRAINT_TARGET = "endeff"  # "node" or "endeff"
 # "nearest" selects the closest model node to each obstacle. "proximal" first
 # limits candidates to the base-side of the obstacle, making avoidance happen
 # from a more proximal part of the trunk.
@@ -284,6 +285,22 @@ def load_obstacle_information(rom_data):
     return obstacle_positions, obstacle_node_indices, obstacle_node_positions, obstacle_node_full_dofs
 
 
+def load_cached_obstacle_positions() -> np.ndarray:
+    if not OBSTACLE_INFO_PATH.exists():
+        raise FileNotFoundError(
+            f"Cached obstacle information not found: {OBSTACLE_INFO_PATH}. "
+            "Enable --capture-motion once to measure and save obstacle information."
+        )
+    try:
+        data = np.load(OBSTACLE_INFO_PATH, allow_pickle=True)
+        obstacle_positions = np.asarray(data["obstacle_positions"], dtype=float).reshape(-1, 3)
+    except Exception as exc:
+        raise ValueError(f"Failed to load cached obstacle positions from {OBSTACLE_INFO_PATH}: {exc}") from exc
+    if obstacle_positions.size == 0 or not np.all(np.isfinite(obstacle_positions)):
+        raise ValueError(f"Cached obstacle positions are empty or invalid: {OBSTACLE_INFO_PATH}")
+    return obstacle_positions
+
+
 def save_obstacle_information(
     obstacle_positions: np.ndarray,
     obstacle_node_indices_1based: np.ndarray,
@@ -357,6 +374,41 @@ def initialize_avoidance_reference(sdk, rom_data, use_cached_obstacles: bool = T
     return AvoidanceReference(
         motion=motion,
         feedback_point=feedback_point,
+        obstacle_positions=obstacle_positions,
+        obstacle_node_indices_1based=obstacle_node_indices,
+        obstacle_node_positions=obstacle_node_positions,
+        obstacle_node_full_dofs_0based=obstacle_node_full_dofs,
+    )
+
+
+def node_index_from_dofs(dofs: np.ndarray) -> int:
+    return int((np.asarray(dofs, dtype=int).reshape(-1)[0] + 2) // 3) - 1
+
+
+def build_default_avoidance_reference(rom_data) -> AvoidanceReference:
+    nodes_xyz = np.asarray(rom_data["nodes_coord"], dtype=float).T
+    mid_index = node_index_from_dofs(np.asarray(rom_data["outdof_half"], dtype=int))
+    mid_offset_mm = (nodes_xyz[mid_index] - POS_END) * 1000.0
+    motion = MotionReference(
+        end_effector=np.zeros(3),
+        mid_effector=mid_offset_mm,
+        checkpoint=mid_offset_mm,
+        base_xyz=np.zeros(3),
+        base_to_global=np.eye(3),
+    )
+
+    obstacle_positions = load_cached_obstacle_positions()
+    motion.obstacles = obstacle_positions
+    obstacle_node_indices, obstacle_node_positions, obstacle_node_full_dofs = obstacle_node_info(
+        rom_data,
+        obstacle_positions,
+    )
+
+    print(f"Loaded cached obstacle positions from {OBSTACLE_INFO_PATH}")
+    print("Motion-capture measurement disabled; using model default reference.")
+    return AvoidanceReference(
+        motion=motion,
+        feedback_point=motion.checkpoint,
         obstacle_positions=obstacle_positions,
         obstacle_node_indices_1based=obstacle_node_indices,
         obstacle_node_positions=obstacle_node_positions,
@@ -491,18 +543,26 @@ def run_step(
     feedback=False,
     recorded_motor_positions=None,
     recorded_motor_factor=1.0,
+    motion_capture_enabled=True,
 ):
-    measure_start = time.perf_counter()
-    disp_end, disp_mid, disp_feedback = capture_motion(
-        sdk,
-        reference.motion,
-        mid_rigid_id=MID_RIGID_ID,
-        checkpoint_rigid_id=FEEDBACK_RIGID_ID,
-        end_marker_id=END_MARKER_ID,
-    )
-    measure_time = time.perf_counter() - measure_start
+    if motion_capture_enabled:
+        measure_start = time.perf_counter()
+        disp_end, disp_mid, disp_feedback = capture_motion(
+            sdk,
+            reference.motion,
+            mid_rigid_id=MID_RIGID_ID,
+            checkpoint_rigid_id=FEEDBACK_RIGID_ID,
+            end_marker_id=END_MARKER_ID,
+        )
+        measure_time = time.perf_counter() - measure_start
+        measurement = np.concatenate([disp_end, disp_mid, disp_feedback])
+    else:
+        measure_time = 0.0
+        disp_end = np.full(3, np.nan)
+        disp_mid = np.full(3, np.nan)
+        disp_feedback = np.full(3, np.nan)
+        measurement = None
 
-    measurement = np.concatenate([disp_end, disp_mid, disp_feedback])
     if recorded_motor_positions is None:
         mpc_start = time.perf_counter()
         motor_positions = controller.compute_next_command(measurement_mm=measurement, feedback=feedback)
@@ -518,7 +578,7 @@ def run_step(
     send_motor_command(socket, motor_positions.tolist(), solver_order=False)
 
     y_expm[step_index, :6] = np.concatenate([disp_end, disp_mid])
-    y_expm[step_index, 6:] = measurement[6:]
+    y_expm[step_index, 6:] = disp_feedback
     u_save[step_index, :] = motor_positions
     return motor_positions, measure_time, mpc_time, feedback_time
 
@@ -556,6 +616,7 @@ def main(
     trajectory_name=TRAJECTORY_NAME,
     control_source=CONTROL_SOURCE,
     control_input_path=RECORDED_CONTROL_INPUT_PATH,
+    motion_capture_enabled=CAPTURE_MOTION_ENABLED,
 ):
     original_stdout = sys.stdout
     logger = BufferedTeeLogger(original_stdout)
@@ -571,9 +632,15 @@ def main(
         print(f"Using SSM avoidance trajectory: {trajectory_name.lower()} ({traj_dir})")
         rom_data = load_rom_data(MODEL_INFO_DIR, traj_dir=traj_dir)
         x_num = np.asarray(get_field(rom_data["auData"], "lamd")).reshape(-1).size
+        motion_capture_enabled = bool(motion_capture_enabled)
+        if FEEDBACK_ENABLED and not motion_capture_enabled:
+            raise ValueError("capture_motion must be enabled when FEEDBACK_ENABLED=True.")
 
-        sdk = connect_sdk()
-        avoid_ref = initialize_avoidance_reference(sdk, rom_data)
+        if motion_capture_enabled:
+            sdk = connect_sdk()
+            avoid_ref = initialize_avoidance_reference(sdk, rom_data)
+        else:
+            avoid_ref = build_default_avoidance_reference(rom_data)
         config = build_avoid_config(rom_data, avoid_ref)
         w0_for_out, w0_for_cables, w0_for_feedback, w0_for_avoid_nodes = build_ssm_maps(
             rom_data,
@@ -617,12 +684,14 @@ def main(
             print(f"Dataset control input motor factor: {MOTOR_FACTOR:.6g}")
         else:
             print("Using online MPC-computed control input.")
+        print(f"Per-step capture_motion enabled: {motion_capture_enabled}")
 
         step_count = config.zd.shape[1] if np.isinf(RUN_STEPS) else min(int(RUN_STEPS), config.zd.shape[1])
         if recorded_control_input is not None:
             step_count = min(step_count, recorded_control_input.shape[0])
         y_expm = np.zeros((step_count, 9))
         y_ssm = np.zeros((step_count, 6))
+        pk_save = np.full((step_count, x_num), np.nan)
         u_save = np.zeros((step_count, 6))
 
         for step_index in range(step_count):
@@ -641,7 +710,10 @@ def main(
                     None if recorded_control_input is None else recorded_control_input[step_index]
                 ),
                 recorded_motor_factor=MOTOR_FACTOR,
+                motion_capture_enabled=motion_capture_enabled,
             )
+            if recorded_control_input is None:
+                pk_save[step_index, :] = controller.feedback_state.pk
             total_time = time.perf_counter() - start
             max_mpc_time = max(max_mpc_time, mpc_time)
             timing_records.append(
@@ -661,6 +733,7 @@ def main(
         t_save = config.td[:step_count]
         np.save(AVOID_COMPLEX_RESULT_DIR / f"y_exprm_ssm_avoid{OUTPUT_SUFFIX}", y_expm)
         np.save(AVOID_COMPLEX_RESULT_DIR / f"y_ssm_avoid{OUTPUT_SUFFIX}", y_ssm)
+        np.save(AVOID_COMPLEX_RESULT_DIR / f"pk_save_ssm_avoid{OUTPUT_SUFFIX}", pk_save)
         np.save(AVOID_COMPLEX_RESULT_DIR / f"ut_save_ssm_avoid{OUTPUT_SUFFIX}", u_save)
         np.save(AVOID_COMPLEX_RESULT_DIR / f"t_ssm_avoid{OUTPUT_SUFFIX}", t_save)
         sciIO.savemat(
@@ -668,6 +741,7 @@ def main(
             {
                 "y_exprm": y_expm,
                 "y_ssm": y_ssm,
+                "pk_save": pk_save,
                 "ut_save": u_save,
                 "t": t_save,
                 "zzd": config.zd,
@@ -707,9 +781,24 @@ if __name__ == "__main__":
         default=str(RECORDED_CONTROL_INPUT_PATH),
         help="Path to a recorded (steps, 6) motor control input .npy file when --control-source=dataset.",
     )
+    motion_capture_group = parser.add_mutually_exclusive_group()
+    motion_capture_group.add_argument(
+        "--capture-motion",
+        dest="motion_capture_enabled",
+        action="store_true",
+        default=CAPTURE_MOTION_ENABLED,
+        help="Enable SDK motion capture for initialization and per-step measurements.",
+    )
+    motion_capture_group.add_argument(
+        "--no-capture-motion",
+        dest="motion_capture_enabled",
+        action="store_false",
+        help="Disable SDK motion capture; use cached obstacle information and save measured outputs as NaN.",
+    )
     args = parser.parse_args()
     main(
         trajectory_name=args.trajectory,
         control_source=args.control_source,
         control_input_path=args.control_input,
+        motion_capture_enabled=args.motion_capture_enabled,
     )

@@ -828,11 +828,11 @@ def main():
     plot_target_error(results)
     plot_control_inputs(results)
     plot_3d_track_plan_obstacles(results)
-    trajectory_animation = plot_3d_track_plan_animation(results)
-    save_trajectory_animation(trajectory_animation)
+    # trajectory_animation = plot_3d_track_plan_animation(results)
+    # save_trajectory_animation(trajectory_animation)
     plot_final_structure_obstacles(results)
     plt.show()
-    return trajectory_animation
+    # return trajectory_animation
 
 
 if __name__ == "__main__":
