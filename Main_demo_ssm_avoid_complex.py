@@ -69,12 +69,12 @@ SAFE_DISTANCE_FACTOR = 2.0
 OUTPUT_SUFFIX = "_complex"
 # "node" keeps the existing obstacle-nearest/proximal node avoidance. "endeff"
 # constrains the end-effector against each obstacle instead.
-AVOID_CONSTRAINT_TARGET = "endeff"  # "node" or "endeff"
+AVOID_CONSTRAINT_TARGET = "node"  # "node" or "endeff"
 # "nearest" selects the closest model node to each obstacle. "proximal" first
 # limits candidates to the base-side of the obstacle, making avoidance happen
 # from a more proximal part of the trunk.
 AVOID_NODE_SELECTION = "nearest"  # "nearest" or "proximal"
-AVOID_PROXIMAL_OFFSET_M = 0.01
+AVOID_PROXIMAL_OFFSET_M = 0.02
 TRAJECTORY_DIRS = {
     "eight": EIGHT_TRAJ_DIR,
     "spiral": SPIRAL_TRAJ_DIR,

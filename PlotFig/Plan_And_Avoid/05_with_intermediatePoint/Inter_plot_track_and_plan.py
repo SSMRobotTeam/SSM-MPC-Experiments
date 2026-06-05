@@ -4,6 +4,7 @@ import sys
 from matplotlib.animation import FFMpegWriter
 from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 import numpy as np
 import scipy.io as sciIO
 
@@ -37,11 +38,34 @@ TRAJECTORY_ANIMATION_LEGEND_FONTSIZE = 18
 VIEW_ELEVATION_DEG = 24
 VIEW_AZIMUTH_DEG = 169
 VIEW_ROLL_DEG = 0
+FIGURE_OUTPUT_DIR = PLOT_DIR / "figures"
+INTERACTIVE_SAVE_DPI = 400
+TRAJECTORY_FIGURE_NAME = "track_and_plan_trajectory.png"
+CONTROL_INPUTS_FIGURE_NAME = "track_and_plan_control_inputs.png"
+OBSTACLE_VIEW_FIGURE_NAME = "track_and_plan_3d_obstacles.png"
+PYVISTA_GEOMETRY_FIGURE_NAME = "track_and_plan_final_geometry.png"
+OBSTACLE_VIEW_TICK_NBINS = 5
 
 
 def _load_optional_npy(plot_dir: Path, name: str):
     path = plot_dir / f"{name}{SUFFIX}.npy"
     return np.load(path) if path.exists() else None
+
+
+def _connect_save_on_s(fig, output_path: str | Path, facecolor=None):
+    output_path = Path(output_path)
+
+    def _on_key_press(event):
+        if event.key not in ("s", "S"):
+            return
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(output_path, dpi=INTERACTIVE_SAVE_DPI, facecolor=facecolor)
+        print(f"Saved {output_path}")
+        plt.close(fig)
+
+    fig.canvas.mpl_connect("key_press_event", _on_key_press)
+    return fig
 
 
 def load_track_and_plan_results(plot_dir: str | Path = PLOT_DIR):
@@ -156,6 +180,14 @@ def _set_3d_view(ax):
         ax.view_init(elev=VIEW_ELEVATION_DEG, azim=VIEW_AZIMUTH_DEG, roll=VIEW_ROLL_DEG)
     except TypeError:
         ax.view_init(elev=VIEW_ELEVATION_DEG, azim=VIEW_AZIMUTH_DEG)
+
+
+def _set_3d_white_background(fig, ax):
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("white")
+    for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
+        axis.pane.set_facecolor((1.0, 1.0, 1.0, 1.0))
+        axis.pane.set_edgecolor((0.0, 0.0, 0.0, 1.0))
 
 
 def _sphere_mesh(center_mm, radius_mm, theta_count=40, phi_count=20):
@@ -321,25 +353,23 @@ def _trim_count(t, *arrays):
 def plot_control_trajectory(results):
     t = results["t"]
     y = results["y_exprm"]
-    y_ssm = results.get("y_ssm")
     planned_zd = results["planned_zd"]
     n = min(t.size, y.shape[0], planned_zd.shape[1])
 
-    fig = plt.figure("Track and plan trajectory")
-    labels = ["end x", "end y", "end z"]
+    fig = plt.figure("Track and plan trajectory", figsize=(10.8, 3.6))
+    labels = ["X (mm)", "Y (mm)", "Z (mm)"]
     for idx, label in enumerate(labels):
-        ax = fig.add_subplot(3, 1, idx + 1)
-        ax.plot(t[:n], y[:n, idx], label=f"measured {label}")
-        if y_ssm is not None:
-            ssm_n = min(n, y_ssm.shape[0])
-            ax.plot(t[:ssm_n], y_ssm[:ssm_n, idx], label=f"SSM {label}")
-        ax.plot(t[:n], planned_zd[idx, :n] * 1000.0, "k--", label=f"planned {label}")
-        ax.set_ylabel("Position (mm)")
+        ax = fig.add_subplot(1, 3, idx + 1)
+        ax.plot(t[:n], y[:n, idx], label="measured")
+        ax.plot(t[:n], planned_zd[idx, :n] * 1000.0, "k--", label="planned")
+        ax.set_xlabel("Time (s)")
+        ax.set_ylabel(label)
         ax.grid(True, alpha=0.3)
-        ax.legend()
-    axes = fig.axes
-    axes[-1].set_xlabel("Time (s)")
-    fig.tight_layout()
+        if idx == 0:
+            ax.legend()
+    fig.subplots_adjust(left=0.065, right=0.985, bottom=0.20, top=0.92, wspace=0.34)
+    _connect_save_on_s(fig, FIGURE_OUTPUT_DIR / TRAJECTORY_FIGURE_NAME)
+    return fig
 
 
 def plot_target_error(results):
@@ -367,7 +397,7 @@ def plot_control_inputs(results):
     fig = plt.figure("Track and plan control inputs")
     ax = fig.add_subplot(1, 1, 1)
     styles = ["r-", "g-", "b-", "r--", "g--", "b--"]
-    labels = ["long 1", "long 2", "long 3", "short 1", "short 2", "short 3"]
+    labels = [f"u{idx + 1}" for idx in range(min(u.shape[1], 6))]
     for idx in range(min(u.shape[1], len(labels))):
         ax.plot(t[:n], u[:n, idx], styles[idx], label=labels[idx])
     ax.set_xlabel("Time (s)")
@@ -375,6 +405,8 @@ def plot_control_inputs(results):
     ax.grid(True, alpha=0.3)
     ax.legend()
     fig.tight_layout()
+    _connect_save_on_s(fig, FIGURE_OUTPUT_DIR / CONTROL_INPUTS_FIGURE_NAME)
+    return fig
 
 
 def plot_3d_track_plan_obstacles(results):
@@ -385,8 +417,6 @@ def plot_3d_track_plan_obstacles(results):
     planner_waypoints = results.get("planner_waypoints_m")
     pos_end_mm = np.asarray(results.get("pos_end", DEFAULT_POS_END_M), dtype=float).reshape(3) * 1000.0
     obstacles_m = np.asarray(results.get("pos_obstacle", np.empty((0, 3))), dtype=float).reshape(-1, 3)
-    node_positions_m = np.asarray(results.get("obstacle_node_positions", np.empty((0, 3))), dtype=float).reshape(-1, 3)
-    node_indices = np.asarray(results.get("obstacle_node_indices_1based", []), dtype=int).reshape(-1)
     obstacle_radius_mm = float(results.get("obstacle_radius", DEFAULT_OBSTACLE_RADIUS_M)) * 1000.0
     d_safe = results.get("d_safe")
     n = min(t.size, y.shape[0], planned_zd.shape[1])
@@ -396,26 +426,39 @@ def plot_3d_track_plan_obstacles(results):
 
     fig = plt.figure("Track and plan 3D obstacles")
     ax = fig.add_subplot(1, 1, 1, projection="3d")
-    ax.plot(measured_end_mm[:, 0], measured_end_mm[:, 1], measured_end_mm[:, 2], label="measured end")
-    ax.plot(planned_end_mm[:, 0], planned_end_mm[:, 1], planned_end_mm[:, 2], "k--", label="planned end")
+    _set_3d_white_background(fig, ax)
+    ax.plot(measured_end_mm[:, 0], measured_end_mm[:, 1], measured_end_mm[:, 2], label="measured")
+    ax.plot(planned_end_mm[:, 0], planned_end_mm[:, 1], planned_end_mm[:, 2], "k--", label="planned")
     if planner_waypoints is not None:
         waypoint_mm = np.asarray(planner_waypoints, dtype=float).reshape(-1, 3) * 1000.0
-        ax.scatter(
-            waypoint_mm[:, 0],
-            waypoint_mm[:, 1],
-            waypoint_mm[:, 2],
-            c="k",
-            marker="^",
-            s=45,
-            label="planner waypoints",
-        )
+        if waypoint_mm.shape[0] > 0:
+            ax.scatter(
+                waypoint_mm[0, 0],
+                waypoint_mm[0, 1],
+                waypoint_mm[0, 2],
+                c="r",
+                marker="o",
+                s=55,
+                label="start point",
+            )
+        if waypoint_mm.shape[0] > 1:
+            ax.scatter(
+                waypoint_mm[1:, 0],
+                waypoint_mm[1:, 1],
+                waypoint_mm[1:, 2],
+                c="k",
+                marker="^",
+                s=45,
+                label="waypoints",
+            )
 
-    if y_ssm is not None:
-        ssm_n = min(n, y_ssm.shape[0])
-        ssm_end_mm = y_ssm[:ssm_n, :3] + pos_end_mm.reshape(1, 3)
-        ax.plot(ssm_end_mm[:, 0], ssm_end_mm[:, 1], ssm_end_mm[:, 2], label="SSM end")
+    # if y_ssm is not None:
+    #     ssm_n = min(n, y_ssm.shape[0])
+    #     ssm_end_mm = y_ssm[:ssm_n, :3] + pos_end_mm.reshape(1, 3)
+    #     ax.plot(ssm_end_mm[:, 0], ssm_end_mm[:, 1], ssm_end_mm[:, 2], label="SSM end")
 
     safe_radius_mm = None if d_safe is None else float(d_safe) * 1000.0
+    obstacle_markers = ("x", "D", "s", "P", "*")
     for obstacle_idx, obstacle_m in enumerate(obstacles_m):
         obstacle_mm = obstacle_m * 1000.0
         ax.scatter(
@@ -423,7 +466,7 @@ def plot_3d_track_plan_obstacles(results):
             obstacle_mm[1],
             obstacle_mm[2],
             c="r",
-            marker="x",
+            marker=obstacle_markers[obstacle_idx % len(obstacle_markers)],
             s=85,
             label=f"obstacle {obstacle_idx + 1}",
         )
@@ -434,28 +477,21 @@ def plot_3d_track_plan_obstacles(results):
             safe_x, safe_y, safe_z = _sphere_mesh(obstacle_mm, safe_radius_mm, theta_count=32, phi_count=16)
             ax.plot_wireframe(safe_x, safe_y, safe_z, color="r", linestyle=":", linewidth=0.6)
 
-        if obstacle_idx < node_positions_m.shape[0]:
-            node_mm = node_positions_m[obstacle_idx] * 1000.0
-            node_label = f"nearest node {node_indices[obstacle_idx]}" if obstacle_idx < node_indices.size else "nearest node"
-            ax.scatter(node_mm[0], node_mm[1], node_mm[2], c="tab:green", marker="o", s=45, label=node_label)
-            ax.plot(
-                [obstacle_mm[0], node_mm[0]],
-                [obstacle_mm[1], node_mm[1]],
-                [obstacle_mm[2], node_mm[2]],
-                color="tab:green",
-                linestyle=":",
-                linewidth=0.8,
-            )
-
     ax.set_xlabel("X (mm)")
     ax.set_ylabel("Y (mm)")
     ax.set_zlabel("Z (mm)")
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=OBSTACLE_VIEW_TICK_NBINS))
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=OBSTACLE_VIEW_TICK_NBINS))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=OBSTACLE_VIEW_TICK_NBINS))
     _set_axes_equal_3d(ax)
     _invert_z_axis(ax)
     _set_box_aspect_equal_3d(ax)
     _set_3d_view(ax)
+    ax.grid(True)
     ax.legend()
     fig.tight_layout()
+    _connect_save_on_s(fig, FIGURE_OUTPUT_DIR / OBSTACLE_VIEW_FIGURE_NAME, facecolor="white")
+    return fig
 
 
 def plot_3d_track_plan_animation(results):
@@ -487,14 +523,14 @@ def plot_3d_track_plan_animation(results):
         measured_end_mm[:, 2],
         color="tab:blue",
         alpha=0.35,
-        label="measured end",
+        label="measured",
     )
     ax.plot(
         planned_end_mm[:, 0],
         planned_end_mm[:, 1],
         planned_end_mm[:, 2],
         "k--",
-        label="planned end",
+        label="planned",
     )
 
     if planner_waypoints is not None:
@@ -722,7 +758,6 @@ def plot_final_ssm_geometry_obstacles(results):
     tet_connect = _load_tet_connect(STATIC_VERIFICATION_DIR / "tet_connect.mat")
     nodes0_xyz = np.asarray(rom_data["nodes_coord"], dtype=float).T
     nodes_xyz = _node_xyz_from_pk(rom_data, pk_save[final_idx])
-    displacement_mm = np.linalg.norm(nodes_xyz - nodes0_xyz, axis=1) * 1000.0
 
     obstacles_m = np.asarray(results.get("pos_obstacle", np.empty((0, 3))), dtype=float).reshape(-1, 3)
     node_positions_m = np.asarray(results.get("obstacle_node_positions", np.empty((0, 3))), dtype=float).reshape(-1, 3)
@@ -760,13 +795,10 @@ def plot_final_ssm_geometry_obstacles(results):
         nodes_plot,
         alpha=0.035,
         tet_connect=tet_connect,
-        scalars=displacement_mm,
         smooth=True,
     )
     plotter.add_mesh(
         surface,
-        scalars=DISPLACEMENT_SCALAR_NAME if DISPLACEMENT_SCALAR_NAME in surface.array_names else None,
-        cmap="viridis",
         color="#7aa6c2",
         opacity=0.55,
         smooth_shading=True,
@@ -775,7 +807,6 @@ def plot_final_ssm_geometry_obstacles(results):
         line_width=0.25,
         specular=0.25,
         specular_power=18,
-        scalar_bar_args={"title": "disp (mm)"},
     )
 
     for obstacle_idx, obstacle in enumerate(obstacles_plot):
@@ -813,13 +844,23 @@ def plot_final_ssm_geometry_obstacles(results):
                 shape_opacity=0.15,
             )
 
-    plotter.add_title(f"Final SSM geometry at t={t[final_idx]:.3f} s", font_size=14)
-    plotter.add_axes()
     plotter.camera_position = _camera_position_for_geometry(nodes0_plot, nodes_plot, extra_points)
     plotter.camera.parallel_projection = True
     plotter.reset_camera()
     plotter.camera.zoom(1.12)
-    plotter.show()
+    output_path = FIGURE_OUTPUT_DIR / PYVISTA_GEOMETRY_FIGURE_NAME
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    def save_current_view_and_close() -> None:
+        plotter.render()
+        plotter.screenshot(str(output_path))
+        print(f"Saved {output_path}")
+        plotter.close()
+
+    print(f"Adjust the PyVista view freely, then press S to save and close: {output_path}")
+    plotter.add_key_event("s", save_current_view_and_close)
+    plotter.add_key_event("S", save_current_view_and_close)
+    plotter.show(auto_close=False, interactive=True)
 
 
 def main():
@@ -831,6 +872,7 @@ def main():
     # trajectory_animation = plot_3d_track_plan_animation(results)
     # save_trajectory_animation(trajectory_animation)
     plot_final_structure_obstacles(results)
+    print(f"Press S in each Matplotlib figure window to save at {INTERACTIVE_SAVE_DPI} dpi and close.")
     plt.show()
     # return trajectory_animation
 

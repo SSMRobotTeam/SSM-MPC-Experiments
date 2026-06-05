@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{ctex}
+
+\title{Main\_demo\_ssm\_PlanAndAvoid\_complex.py 轨迹规划与避障联合实现总结}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{总体思想}
+
+\texttt{Main\_demo\_ssm\_PlanAndAvoid\_complex.py} 采用双层结构实现轨迹规划与避障的联合控制。上层轨迹规划器根据目标点、中间点和障碍物位置生成一条避开障碍物的期望末端轨迹；下层 SSM-NMPC 在实时闭环控制中跟踪该期望轨迹，同时对障碍物附近的机械臂节点施加硬避障约束。因此，避障既体现在规划参考轨迹中，也体现在控制器预测优化约束中。
+
+\section{上层轨迹规划}
+
+程序首先将目标末端位移 \texttt{TARGET\_DISPLACEMENT\_MM} 和可选中间点 \texttt{INTERMEDIATE\_WAYPOINT\_MM} 从毫米转换为米。随后加载 SSM/ROM 模型，并通过 \texttt{initialize\_avoidance\_reference} 获取障碍物位置以及每个障碍物对应的避障节点信息。
+
+轨迹规划由函数
+\[
+\texttt{plan\_obstacle\_avoidance\_trajectory}
+\]
+完成。其输入包括目标位移、起始末端位置 \texttt{POS\_END}、障碍物位置、规划安全间距 \texttt{planner\_clearance}、控制周期、规划时长、保持时间以及可选中间点。
+
+规划器会检查起点、中间点和目标点之间的路径是否接近障碍物。当路径与障碍物之间的距离小于设定 clearance 时，程序会自动插入绕行 waypoint。然后根据 \texttt{TRAJECTORY\_MODE} 选择轨迹生成方式：
+\[
+\begin{cases}
+\texttt{linear}: & \text{分段 minimum-jerk 轨迹},\\
+\texttt{smooth}: & \text{三次样条路径结合 minimum-jerk 时间缩放}.
+\end{cases}
+\]
+
+规划结果包括时间序列 \texttt{td\_plan}、期望末端位移轨迹 \texttt{zd\_plan}、速度轨迹 \texttt{velocity\_plan} 以及绝对坐标下的 \texttt{planner\_waypoints}。
+
+\section{\texttt{trajectory\_planner.py} 的轨迹规划实现}
+
+\texttt{controller/trajectory\_planner.py} 是上层参考轨迹生成模块。它并不直接求解控制输入，而是根据起点、目标点、中间点和障碍物位置生成可供 SSM-NMPC 跟踪的末端期望轨迹。
+
+\subsection{Minimum-jerk 时间缩放}
+
+轨迹规划的基础时间律由 \texttt{minimum\_jerk\_scale} 给出：
+\[
+s(\tau)=10\tau^3-15\tau^4+6\tau^5,\qquad \tau\in[0,1].
+\]
+该函数保证轨迹在起点和终点处具有平滑的速度和加速度边界。对应的导数由 \texttt{minimum\_jerk\_scale\_derivative} 计算，用于生成速度轨迹。对于简单点到点运动，\texttt{plan\_minimum\_jerk\_trajectory} 将目标位移乘以该时间缩放函数，得到
+\[
+p(t)=p_{\mathrm{target}}s(t),
+\]
+并在 \texttt{hold\_s} 阶段保持目标位置不变。
+
+\subsection{障碍物绕行 waypoint 生成}
+
+避障 waypoint 由 \texttt{obstacle\_avoidance\_waypoints} 生成。该函数针对每个障碍物，计算障碍物到当前路径段的最近点。如果障碍物位于路径段内部，并且路径到障碍物的距离小于设定的 \texttt{clearance\_m}，则在路径侧向方向插入一个绕行 waypoint。
+
+对于路径段起点 \(p_s\)、终点 \(p_g\) 和障碍物位置 \(p_o\)，程序先计算障碍物在路径上的投影参数：
+\[
+\alpha=\frac{(p_o-p_s)^T(p_g-p_s)}{\|p_g-p_s\|^2}.
+\]
+当 \(0<\alpha<1\) 时，障碍物位于该路径段附近。若最近距离小于 clearance，程序沿远离障碍物的侧向方向生成绕行点。这样，规划轨迹在几何层面先避开障碍物。
+
+\subsection{分段 linear 模式}
+
+当 \texttt{TRAJECTORY\_MODE="linear"} 时，程序调用 \texttt{plan\_minimum\_jerk\_waypoint\_trajectory}。该方法先计算相邻 waypoints 之间的路径段长度，再按长度比例分配每段运动时间。每一段都使用 minimum-jerk 时间缩放，因此轨迹会依次经过起点、绕行点、中间点和目标点。
+
+该模式的路径几何形状是分段直线，优点是路径点含义清晰，容易检查；缺点是不同路径段之间的几何切向可能不连续。
+
+\subsection{smooth 模式}
+
+当 \texttt{TRAJECTORY\_MODE="smooth"} 时，程序调用 \texttt{plan\_smooth\_minimum\_jerk\_waypoint\_trajectory}。该方法先根据 waypoint 距离构造归一化路径参数，然后使用 \texttt{CubicSpline} 对三维路径进行样条插值。时间方向仍然采用 minimum-jerk 缩放：
+\[
+\sigma(t)=10\tau^3-15\tau^4+6\tau^5.
+\]
+最终位置由样条曲线在 \(\sigma(t)\) 处取值得到，速度则由样条导数和 \(\dot{\sigma}(t)\) 相乘得到。
+
+该模式生成的轨迹更加平滑，适合作为闭环 NMPC 的参考轨迹，因此当前程序默认使用 \texttt{smooth}。
+
+\subsection{总规划接口}
+
+\texttt{plan\_obstacle\_avoidance\_trajectory} 是主程序调用的总接口。它首先将末端起点 \texttt{start\_position\_m}、目标位移 \texttt{target\_displacement\_m} 和可选中间点 \texttt{via\_displacements\_m} 组合成绝对坐标下的必要 waypoints。随后，对每一段相邻 waypoint 调用 \texttt{obstacle\_avoidance\_waypoints}，自动插入避障绕行点。
+
+规划完成后，该函数返回：
+\[
+\texttt{time\_s},\quad
+\texttt{displacement\_m},\quad
+\texttt{velocity\_m\_s},\quad
+\texttt{absolute\_waypoints}.
+\]
+其中 \texttt{displacement\_m} 是相对于起始末端位置的位移轨迹，正好对应 \texttt{Main\_demo\_ssm\_PlanAndAvoid\_complex.py} 中的 \texttt{zd\_plan}。主程序随后将 \texttt{zd\_plan} 放入 SSM-NMPC 配置，使控制器跟踪这条已包含避障意图的参考轨迹。
+
+\subsection{轨迹安全性评估}
+
+函数 \texttt{trajectory\_obstacle\_clearance} 用于计算规划轨迹与各障碍物之间的最小距离。主程序用它评估并打印
+\[
+\texttt{planned\_obstacle\_clearance\_m},
+\]
+从而检查上层规划轨迹是否满足预期的避障 clearance。
+
+\section{下层 SSM-NMPC 避障控制}
+
+程序通过 \texttt{build\_plan\_avoid\_config} 构造 SSM-NMPC 控制器配置。其中，参考轨迹设置为上层规划得到的 \texttt{zd\_plan}，避障 NMPC 求解器设置为
+\[
+\texttt{nmpc\_multi\_shooting\_zoh\_avoid\_complex}.
+\]
+
+控制器同时接收以下避障信息：
+\[
+\texttt{pos\_obstacle}, \qquad
+\texttt{avoid\_node\_positions}, \qquad
+\texttt{d\_safe}.
+\]
+
+其中，\texttt{pos\_obstacle} 为障碍物位置，\texttt{avoid\_node\_positions} 为每个障碍物对应的机械臂避障节点初始位置，\texttt{d\_safe} 为控制层安全距离：
+\[
+d_{\mathrm{safe}} = \texttt{SAFE\_DISTANCE\_FACTOR} \cdot \texttt{OBSTACLE\_RADIUS}.
+\]
+
+在每个预测步中，NMPC 通过 SSM 映射将 reduced state 转换为避障节点的预测位置，并对每个障碍物施加距离约束：
+\[
+\left\|p_{\mathrm{node}} - p_{\mathrm{obs}}\right\|^2 - d_{\mathrm{safe}}^2 \geq 0.
+\]
+
+该约束保证避障节点与障碍物之间的距离不小于安全距离，因此避障在控制层中以硬约束形式实现，而不是仅作为代价函数惩罚项。
+
+\section{SSM 映射与闭环执行}
+
+程序调用 \texttt{build\_ssm\_maps} 生成多组 SSM 映射：
+\[
+\texttt{w0\_for\_out},\quad
+\texttt{w0\_for\_cables},\quad
+\texttt{w0\_for\_feedback},\quad
+\texttt{w0\_for\_avoid\_nodes}.
+\]
+
+其中，\texttt{w0\_for\_avoid\_nodes} 用于在线计算避障节点的位置；\texttt{w0\_for\_out} 用于末端输出；\texttt{w0\_for\_cables} 用于绳长/电机约束；\texttt{w0\_for\_feedback} 用于反馈状态估计。
+
+主循环中，每个控制周期调用 \texttt{run\_step}。该函数完成测量、反馈状态更新、NMPC 求解、电机指令生成与发送。程序记录实测输出 \texttt{y\_exprm}、SSM 预测输出 \texttt{y\_ssm}、reduced state \texttt{pk\_save}、控制输入 \texttt{ut\_save} 以及目标误差 \texttt{target\_error\_save}。
+
+\section{联合实现的数据流}
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+模块 & 作用 \\
+\midrule
+障碍物初始化 & 获取障碍物位置，并确定对应避障节点 \\
+轨迹规划器 & 根据障碍物和目标生成避障参考轨迹 \texttt{zd\_plan} \\
+SSM 映射 & 将 reduced state 映射到末端、绳长和避障节点位置 \\
+SSM-NMPC & 跟踪规划轨迹，同时满足节点--障碍物安全距离约束 \\
+闭环执行 & 每步测量、估计、求解控制量并发送电机指令 \\
+结果保存 & 保存轨迹、控制输入、障碍物、waypoints 和误差信息 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{总结}
+
+该程序的轨迹规划与避障联合实现可以概括为：上层规划器先生成一条远离障碍物的期望末端轨迹，降低控制任务难度；下层 SSM-NMPC 在实时执行中继续施加避障硬约束，保证机械臂关键节点与障碍物之间保持安全距离。两层结构相互配合，使系统既能够完成目标点跟踪，又能够在闭环控制过程中处理复杂障碍物约束。
+
+\end{document}
