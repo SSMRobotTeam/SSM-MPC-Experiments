@@ -60,7 +60,7 @@ MOTOR_ENDPOINT = "tcp://localhost:5555"
 IP_ADDRESS = "127.0.0.1"
 
 MODEL = "ssm6"  # choose one: "pod6", "pod26", or "ssm6"
-TRAJECTORY_NAME = "symbol_s"  # choose one: "symbol_s", "symbol_u", "symbol_t", or "spiral3d"
+TRAJECTORY_NAME = "spiral3d"  # choose one: "symbol_s", "symbol_u", "symbol_t", or "spiral3d"
 MEASUREMENT_ENABLED = False
 BASE_RIGID_ID = 0
 MID_RIGID_ID = 1
@@ -68,20 +68,21 @@ CHECKPOINT_RIGID_ID = 2
 END_MARKER_ID = 100037
 CONTROL_PERIOD_SECONDS = 0.075
 HORIZON = 3
+
 RUN_STEPS = 120
 MOTOR_FACTOR = 1.0
 MOTOR_SAFETY_LIMIT = 40.0
 MPC_SOLVER_TYPE = "qp"
 QP_BACKEND = "qpoases"
-USE_FAST_SINGLE_STEP_QP = True
+USE_FAST_SINGLE_STEP_QP = False
 
 SSM_Q_WEIGHT = 5e3 * np.eye(6)
 SSM_R_WEIGHT = 1e-1
 
-POD_Q_WEIGHT = block_diag(np.diag([1e7, 1e7, 0.0]), np.zeros((3, 3)))
-POD_R_WEIGHT = 1e-4
+POD_Q_WEIGHT = block_diag(np.diag([1e5, 1e5, 1e5]), np.zeros((3, 3)))
+POD_R_WEIGHT = 1e-1
 
-CONTROL_SMOOTH_WEIGHT = 1e2
+CONTROL_SMOOTH_WEIGHT = 1e1
 
 
 class BufferedTeeLogger:
