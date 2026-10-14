@@ -5,7 +5,7 @@ import numpy as np
 import scipy.io as sciIO
 
 
-MODEL_PATH = Path(__file__).resolve().parent / 'DataSSM' / 'datassm_model.mat'
+MODEL_PATH = Path(__file__).resolve().parent / 'dSSM' / 'datassm_model.mat'
 
 
 def polynomial_features(state, exponents):
