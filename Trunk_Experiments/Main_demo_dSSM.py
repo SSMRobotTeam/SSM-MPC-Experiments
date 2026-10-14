@@ -118,7 +118,7 @@ def main(argv=None):
         if (out / name).exists():
             raise FileExistsError('Choose a fresh output directory to preserve earlier results.')
     result = plan_trajectory(model, desired, build_default_config(args.move_weight))
-    result.update(zd=desired[:, 1:].T, t=np.arange(1, desired.shape[1]) * dt, Np=MPC_HORIZON, solver='qpOASES', move_weight=args.move_weight, state_definition='[x,y,dx/dt,dy/dt]; mm and mm/s', run_type='same-model offline simulation')
+    result.update(zd=desired[:, 1:].T, t=np.arange(1, desired.shape[1]) * dt, Np=MPC_HORIZON, solver='qpOASES', move_weight=args.move_weight, state_definition='eta in R^4', run_type='same-model offline simulation')
     sciIO.savemat(out / 'dssm_plan.mat', result)
     summary = {**tracking_errors(result['zd'], result['y_ssm']), 'steps': len(result['t']), 'horizon': MPC_HORIZON, 'solver': 'qpOASES', 'QP_solves_per_sample': 1, 'move_weight': args.move_weight, **control_variation_metrics(result['ut_save']), 'mean_compute_time_s': float(np.mean(result['mpc_time'])), 'max_compute_time_s': float(np.max(result['mpc_time'])), 'model_sha256': hashlib.sha256(MODEL_PATH.read_bytes()).hexdigest(), 'program_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'controller_sha256': hashlib.sha256((REPO_ROOT / 'controller/nmpc_datassm.py').read_bytes()).hexdigest(), 'model_code_sha256': hashlib.sha256((REPO_ROOT / 'dynamics/datassm_model.py').read_bytes()).hexdigest(), 'state_definition': result['state_definition'], 'run_type': result['run_type']}
     (out / 'summary.json').write_text(json.dumps(summary, indent=2), encoding='utf-8')
