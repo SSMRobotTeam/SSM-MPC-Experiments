@@ -30,6 +30,22 @@ class DataSsmModel:
     uMaxR: float
     SSMDim: int
     nu: int
+    chart_basis: np.ndarray
+    W_coeffs: np.ndarray
+    W_exps: np.ndarray
+    embedding_lags: np.ndarray
+    embedding_channels: np.ndarray
+    embedding_dt: float
+
+    def encode_history(self, positions):
+        positions = np.asarray(positions, dtype=float)
+        if positions.shape != (2, 5) or not np.all(np.isfinite(positions)):
+            raise ValueError('Expected five chronological xy samples, shape (2, 5).')
+        return self.chart_basis.T @ positions.T.reshape(-1)
+
+    def reconstruct_history(self, eta):
+        history = self.W_coeffs @ polynomial_features(eta, self.W_exps)
+        return history.reshape(5, 2).T
 
     def dynamics(self, eta):
         return self.R_coeffs @ polynomial_features(eta, self.R_exps)
@@ -54,13 +70,15 @@ class DataSsmModel:
 
 def load_model(path=MODEL_PATH):
     data = sciIO.loadmat(path)
-    arrays = {name: np.asarray(data[name], dtype=float) for name in ('R_coeffs', 'Br', 'V_xy_coeffs', 'Wz_coeffs')}
-    for name in ('R_exps', 'V_exps', 'Wz_exps'):
+    arrays = {name: np.asarray(data[name], dtype=float) for name in ('R_coeffs', 'Br', 'V_xy_coeffs', 'Wz_coeffs', 'chart_basis', 'W_coeffs')}
+    for name in ('R_exps', 'V_exps', 'Wz_exps', 'W_exps', 'embedding_lags', 'embedding_channels'):
         values = np.asarray(data[name], dtype=float)
         if not np.all(np.isfinite(values)) or np.any(values < 0) or np.any(values != np.floor(values)):
             raise ValueError(f'Invalid polynomial exponents: {name}')
         arrays[name] = values.astype(np.int64)
-    scalars = {name: float(np.asarray(data[name]).item()) for name in ('dt', 'factor', 'sentMin', 'sentMax', 'uMinR', 'uMaxR')}
+    arrays['embedding_lags'] = arrays['embedding_lags'].reshape(-1)
+    arrays['embedding_channels'] = arrays['embedding_channels'].reshape(-1)
+    scalars = {name: float(np.asarray(data[name]).item()) for name in ('dt', 'factor', 'sentMin', 'sentMax', 'uMinR', 'uMaxR', 'embedding_dt')}
     integers = {name: int(np.asarray(data[name]).item()) for name in ('Msub', 'SSMDim', 'nu')}
     model = DataSsmModel(**arrays, **scalars, **integers)
     if not all((np.all(np.isfinite(value)) for value in arrays.values())):
@@ -80,29 +98,32 @@ def load_model(path=MODEL_PATH):
 
 
 def verify_coordinate_contract(model):
-    if model.SSMDim != 4 or model.nu != 6:
-        raise ValueError('This entry requires four xy/velocity states and six inputs.')
-    exps = model.R_exps
-    linear = np.eye(4, dtype=int)
-    idx = [np.flatnonzero(np.all(exps == p, axis=1)) for p in linear]
-    if any((len(i) != 1 for i in idx)):
-        raise ValueError('The dynamics must contain one of each linear monomial.')
-    expected = np.zeros_like(model.R_coeffs[:2])
-    expected[0, idx[2][0]] = 1
-    expected[1, idx[3][0]] = 1
-    if not np.array_equal(model.R_coeffs[:2], expected) or np.any(model.Br[:2] != 0):
-        raise ValueError('Position_dot = velocity is not satisfied.')
-    for coeffs, powers in ((model.R_coeffs, model.R_exps), (model.V_xy_coeffs, model.V_exps), (model.Wz_coeffs, model.Wz_exps)):
+    if model.chart_basis.shape != (10, 4):
+        raise ValueError('Expected a four-dimensional chart of five xy samples.')
+    if not np.array_equal(model.embedding_lags, np.arange(4, -1, -1)):
+        raise ValueError('The history must run from k-4 through k.')
+    if not np.array_equal(model.embedding_channels, np.array([0, 1])):
+        raise ValueError('The chart must use the x and y position channels.')
+    if not np.isclose(model.embedding_dt, model.dt, rtol=0, atol=1e-12):
+        raise ValueError('The history and dynamics sampling periods differ.')
+    if not np.allclose(model.chart_basis.T @ model.chart_basis, np.eye(4), rtol=0, atol=1e-10):
+        raise ValueError('The chart basis is not orthonormal.')
+    if model.W_coeffs.shape != (10, len(model.W_exps)):
+        raise ValueError('Invalid history reconstruction dimensions.')
+    if not np.array_equal(model.W_exps, model.V_exps):
+        raise ValueError('The history and output polynomial bases differ.')
+    if not np.array_equal(model.W_coeffs[-2:], model.V_xy_coeffs):
+        raise ValueError('The xy output must extract the current history sample.')
+    expected = np.zeros((4, len(model.W_exps)))
+    for j, monomial in enumerate(np.eye(4, dtype=int)):
+        indices = np.flatnonzero(np.all(model.W_exps == monomial, axis=1))
+        if len(indices) != 1:
+            raise ValueError('Missing or duplicated chart monomial.')
+        expected[j, indices[0]] = 1
+    if not np.allclose(model.chart_basis.T @ model.W_coeffs, expected, rtol=0, atol=1e-10):
+        raise ValueError('The chart and reconstruction maps are inconsistent.')
+    for powers in (model.R_exps, model.V_exps, model.Wz_exps, model.W_exps):
+        if powers.ndim != 2 or powers.shape[1] != 4:
+            raise ValueError('Expected four-dimensional polynomial exponents.')
         if np.any(powers.sum(axis=1) < 1) or np.any(powers.sum(axis=1) > 3):
             raise ValueError('Expected degree one to three without constant terms.')
-    expected_xy = np.zeros_like(model.V_xy_coeffs)
-    for row in range(2):
-        positions = np.flatnonzero(np.all(model.V_exps == linear[row], axis=1))
-        if len(positions) != 1:
-            raise ValueError('Missing position output monomial.')
-        expected_xy[row, positions[0]] = 1
-    if not np.array_equal(model.V_xy_coeffs, expected_xy):
-        raise ValueError('The first two outputs must equal the position states.')
-    velocity_terms = np.any(model.Wz_exps[:, 2:] != 0, axis=1)
-    if np.any(model.Wz_coeffs[:, velocity_terms] != 0):
-        raise ValueError('The supplied height map is not position-only.')
