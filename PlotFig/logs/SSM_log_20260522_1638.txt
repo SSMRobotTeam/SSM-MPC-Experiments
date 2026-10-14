@@ -1,6 +1,0 @@
-Using SSM trajectory: eight (E:\RobotGit\SSM-MPC-Experiments-v1\dynamics\trajinfom\eight)
-Fast trajectory enabled: sample time compressed to 0.050s/step
-Fast trajectory reference enabled: desired x/y axes swapped.
-LuMo SDK connected successfully
-
-Timing summary: no completed steps.

@@ -1,5 +1,0 @@
-Using SSM trajectory: spiral (E:\RobotGit\SSM-MPC-Experiments-v1\dynamics\trajinfom\spiral)
-Fast trajectory enabled: sample time compressed to 0.040s/step
-LuMo SDK connected successfully
-
-Timing summary: no completed steps.

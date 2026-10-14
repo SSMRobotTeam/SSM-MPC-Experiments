@@ -1,0 +1,14 @@
+{
+    "DriverNode": {
+        "linearToAngularFactor": -2.80749319,
+        "motorAngleLimit": 720,
+        "motorCount": 6,
+        "motorCtlCycle_ms": 50,
+        "motorTorqueLimit": 0.2,
+        "motorVelcLimit": 10
+    },
+    "ZeroMQForDriver": {
+        "connectAddress": "tcp://localhost:5555",
+        "topic": "/controller/setActuatorDate"
+    }
+}
