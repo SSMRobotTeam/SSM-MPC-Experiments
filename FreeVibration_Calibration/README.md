@@ -17,7 +17,7 @@ This package contains the experimental input and MATLAB calibration code for the
 | Calibration span | 5.00 s | 0.57 s |
 | Displacement axes used for calibration | x and y | y and z |
 
-Each CSV is a byte-for-byte copy of the input used by its local workflow. The trunk input comes from `V2/free.csv` and matches `V2_Lessmesh/free.csv`. The diamond input comes from `V2/free1.csv`. The upstream acquisition export for the trunk input has not been verified.
+Each CSV is a byte-for-byte copy of the input used by its local workflow. The trunk input comes from `V2/free.csv` and matches `V2_Lessmesh/free.csv`. The diamond input comes from `V2/free1.csv`. 
 
 ## Preprocessing and calibration
 
